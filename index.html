@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MōTIV Rewards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#141210;--ink2:#4a4540;--ink3:#9a9088;
+  --warm:#faf8f4;--s1:#f3efe8;--s2:#ece7de;
+  --gold:#b8975a;--gold2:#d4b47a;--goldp:#f0e6d0;
+  --green:#2a7a4e;--red:#c0392b;
+  --bd:rgba(20,18,16,0.09);--bds:rgba(20,18,16,0.05);
+  --r:16px;--rs:10px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--ink);-webkit-font-smoothing:antialiased;max-width:430px;margin:0 auto;min-height:100vh}
+.screen{display:none}
+.screen.on{display:block}
+
+/* AUTH */
+.auth-page{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:40px 28px 60px}
+.auth-logo{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;letter-spacing:.12em;text-align:center;margin-bottom:4px}
+.auth-logo em{color:var(--gold);font-style:normal}
+.auth-tag{text-align:center;font-size:13px;color:var(--ink3);margin-bottom:36px}
+.tabs{display:flex;background:var(--s1);border-radius:var(--rs);padding:3px;gap:2px;margin-bottom:24px}
+.tab{flex:1;padding:9px;text-align:center;font-size:13px;font-weight:500;border:none;background:none;border-radius:8px;cursor:pointer;color:var(--ink3);transition:all .2s;font-family:'DM Sans',sans-serif}
+.tab.on{background:var(--warm);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+label{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
+input,select{width:100%;padding:12px 15px;border:.5px solid var(--bd);border-radius:var(--rs);font-size:15px;font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--ink);outline:none;transition:border-color .2s;-webkit-appearance:none}
+input:focus,select:focus{border-color:var(--gold)}
+.field{margin-bottom:13px}
+.btn-main{width:100%;background:var(--ink);color:var(--gold2);border:none;border-radius:var(--rs);padding:14px;font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:transform .15s;letter-spacing:.03em;margin-top:6px}
+.btn-main:active{transform:scale(.98)}
+.err{color:var(--red);font-size:12px;text-align:center;margin-top:9px;min-height:16px}
+.auth-foot{text-align:center;margin-top:20px;font-size:12px;color:var(--ink3)}
+.auth-foot a{color:var(--gold);cursor:pointer}
+
+/* APP SHELL */
+.app-hdr{position:sticky;top:0;z-index:100;background:rgba(250,248,244,.93);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:.5px solid var(--bd);height:58px;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.hdr-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.12em}
+.hdr-logo em{color:var(--gold);font-style:normal}
+.hdr-pts{display:flex;align-items:center;gap:7px;background:var(--ink);color:var(--gold2);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:500;cursor:pointer}
+.hdr-dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.btm-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(250,248,244,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:.5px solid var(--bd);display:flex;padding:8px 0 max(10px,env(safe-area-inset-bottom));z-index:100}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 0;cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;color:var(--ink3);transition:color .2s}
+.nb.on{color:var(--ink)}
+.nb-ic{font-size:20px;line-height:1}
+.nb-lb{font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.nb-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0;transition:opacity .2s;margin-top:1px}
+.nb.on .nb-dot{opacity:1}
+.tab-page{display:none;padding-bottom:96px}
+.tab-page.on{display:block}
+
+/* HOME */
+.hero{padding:36px 24px 28px;text-align:center}
+.greet{font-size:11px;color:var(--ink3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:4px}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;line-height:1.1;margin-bottom:6px}
+.hero-name em{color:var(--gold);font-style:italic}
+.streak-badge{display:inline-flex;align-items:center;gap:6px;background:var(--s1);border:.5px solid var(--bd);border-radius:100px;padding:5px 14px;font-size:12px;color:var(--ink2);margin-bottom:24px}
+.streak-fire{font-size:14px}
+.ring-wrap{position:relative;width:186px;height:186px;margin:0 auto 22px}
+.ring-svg{width:186px;height:186px;transform:rotate(-90deg)}
+.ring-track{fill:none;stroke:var(--s2);stroke-width:9}
+.ring-fill{fill:none;stroke:var(--gold);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset 1.3s cubic-bezier(.4,0,.2,1)}
+.ring-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-n{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:300;line-height:1}
+.ring-l{font-size:10px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-top:1px}
+.ring-nx{font-size:11px;color:var(--gold);margin-top:3px;font-weight:500}
+.qstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 20px 24px}
+.qs{background:var(--s1);border-radius:var(--rs);padding:12px 8px;text-align:center;border:.5px solid var(--bds)}
+.qs-n{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;line-height:1}
+.qs-l{font-size:10px;color:var(--ink3);margin-top:2px}
+.sec{padding:0 20px 28px}
+.ey{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;display:flex;align-items:center;gap:9px}
+.ey::after{content:'';flex:1;height:.5px;background:var(--bd)}
+
+/* MOOD */
+.mood-banner{background:var(--s1);border-radius:var(--r);padding:16px 18px;margin-bottom:0;border:.5px solid var(--bd)}
+.mood-q{font-size:14px;font-weight:500;margin-bottom:10px}
+.mood-btns{display:flex;gap:6px}
+.mood-btn{flex:1;background:var(--warm);border:.5px solid var(--bd);border-radius:var(--rs);padding:9px 4px;font-size:18px;cursor:pointer;transition:all .2s;text-align:center}
+.mood-btn:hover,.mood-btn.picked{background:var(--ink);border-color:var(--ink)}
+
+/* ACTIVITY */
+.act-list{display:flex;flex-direction:column}
+.act-row{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:.5px solid var(--bds)}
+.act-row:last-child{border-bottom:none}
+.act-pip{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.act-pip.ref{background:var(--gold2)}
+.act-pip.red{background:var(--ink3)}
+.act-info{flex:1}
+.act-t{font-size:13px}
+.act-m{font-size:11px;color:var(--ink3);margin-top:1px}
+.act-p{font-size:13px;font-weight:500}
+.earn{color:var(--green)}
+.spend{color:var(--ink3)}
+.empty{text-align:center;padding:24px 0;font-size:13px;color:var(--ink3)}
+
+/* MILESTONES */
+.ms-hdr{padding:28px 24px 6px}
+.ms-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;line-height:1.15;margin-bottom:5px}
+.ms-sub{font-size:13px;color:var(--ink3);line-height:1.6;margin-bottom:20px}
+.track{position:relative;padding:6px 0 18px;margin:0 24px}
+.t-line{position:absolute;top:26px;left:18px;right:18px;height:1px;background:var(--s2)}
+.t-fill{position:absolute;top:25px;left:18px;height:3px;background:var(--gold);border-radius:2px;transition:width 1s ease}
+.ms-nodes{display:flex;justify-content:space-between;position:relative}
+.msn{display:flex;flex-direction:column;align-items:center;gap:5px}
+.msn-c{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;border:1.5px solid var(--s2);background:var(--warm);position:relative;z-index:1}
+.msn.earned .msn-c{background:var(--ink);border-color:var(--ink)}
+.msn.next .msn-c{border-color:var(--gold);background:var(--goldp);animation:pls 2s ease-in-out infinite}
+@keyframes pls{0%,100%{box-shadow:0 0 0 0 rgba(184,151,90,.35)}50%{box-shadow:0 0 0 7px rgba(184,151,90,0)}}
+.msn-n{font-size:9px;font-weight:500;color:var(--ink3)}
+.msn.earned .msn-n{color:var(--ink)}
+.msn.next .msn-n{color:var(--gold)}
+.ms-cards{display:flex;flex-direction:column;gap:9px}
+.ms-card{background:var(--warm);border:.5px solid var(--bd);border-radius:var(--r);padding:15px 17px;display:flex;align-items:center;gap:13px}
+.ms-card.earned{background:var(--s1)}
+.ms-card.next{border-color:var(--gold)}
+.ms-card.locked{opacity:.38}
+.ms-ic{font-size:24px;width:40px;text-align:center;flex-shrink:0}
+.ms-body{flex:1}
+.ms-ti{font-size:14px;font-weight:500;margin-bottom:2px}
+.ms-de{font-size:12px;color:var(--ink3);line-height:1.5;margin-bottom:7px}
+.ms-bg{height:3px;background:var(--s2);border-radius:2px;overflow:hidden}
+.ms-bar{height:100%;background:var(--gold);border-radius:2px;transition:width .8s ease}
+.ms-me{font-size:11px;color:var(--ink3);margin-top:4px}
+.done-tag{background:var(--ink);color:var(--gold2);font-size:10px;font-weight:500;padding:4px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0}
+
+/* REWARDS */
+.rw-hdr{padding:28px 24px 8px}
+.rw-ti{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;line-height:1.15;margin-bottom:5px}
+.rw-su{font-size:13px;color:var(--ink3);margin-bottom:22px}
+.rw-list{display:flex;flex-direction:column;gap:9px}
+.rw-card{background:var(--warm);border:.5px solid var(--bd);border-radius:var(--r);padding:15px;display:flex;align-items:center;gap:13px}
+.rw-card.can{border-color:var(--gold)}
+.rw-card.no{opacity:.38}
+.rw-ico{width:48px;height:48px;border-radius:var(--rs);background:var(--s1);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.rw-body{flex:1}
+.rw-name{font-size:14px;font-weight:500;margin-bottom:2px}
+.rw-desc{font-size:12px;color:var(--ink3);margin-bottom:5px}
+.pts-pill{display:inline-block;font-size:11px;font-weight:500;color:var(--gold);background:var(--goldp);padding:3px 10px;border-radius:100px}
+.pts-need{font-size:11px;color:var(--ink3);margin-left:5px}
+.rdm-btn{background:var(--ink);color:var(--gold2);border:none;border-radius:var(--rs);padding:9px 13px;font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;transition:transform .15s;flex-shrink:0}
+.rdm-btn:active{transform:scale(.96)}
+.rdm-btn.dim{background:var(--s2);color:var(--ink3);cursor:default}
+
+/* MOOD JOURNAL */
+.mood-hdr{padding:28px 24px 8px}
+.mood-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;line-height:1.15;margin-bottom:5px}
+.mood-subtitle{font-size:13px;color:var(--ink3);margin-bottom:20px;line-height:1.6}
+.mood-chart{background:var(--warm);border:.5px solid var(--bd);border-radius:var(--r);padding:20px;margin-bottom:9px}
+.mood-chart-title{font-size:13px;font-weight:500;margin-bottom:16px}
+.mood-bars{display:flex;align-items:flex-end;gap:6px;height:80px}
+.mood-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.mood-bar{width:100%;background:var(--gold);border-radius:4px 4px 0 0;transition:height .6s ease;min-height:4px}
+.mood-bar-label{font-size:9px;color:var(--ink3)}
+.mood-entry-list{display:flex;flex-direction:column;gap:8px}
+.mood-entry{background:var(--s1);border-radius:var(--rs);padding:12px 14px;display:flex;align-items:center;gap:12px}
+.mood-emoji{font-size:22px}
+.mood-entry-info{flex:1}
+.mood-entry-score{font-size:13px;font-weight:500}
+.mood-entry-date{font-size:11px;color:var(--ink3);margin-top:1px}
+.mood-entry-note{font-size:12px;color:var(--ink2);margin-top:2px}
+
+/* REFER */
+.ref-sec{padding:24px 20px 0}
+.ref-hero{background:var(--ink);border-radius:var(--r);padding:24px 20px;margin-bottom:12px}
+.ref-ey{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.ref-hl{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#fff;line-height:1.2;margin-bottom:7px}
+.ref-sub{font-size:13px;color:#888;line-height:1.6;margin-bottom:18px}
+.code-box{background:rgba(255,255,255,.05);border:.5px solid rgba(255,255,255,.12);border-radius:var(--rs);padding:12px 15px;display:flex;align-items:center;justify-content:space-between}
+.code-txt{font-size:19px;font-weight:500;color:var(--gold2);letter-spacing:.12em}
+.copy-btn{background:var(--gold);color:var(--ink);border:none;border-radius:8px;padding:8px 15px;font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:transform .15s}
+.copy-btn:active{transform:scale(.96)}
+.ref-bonus{background:var(--goldp);border-radius:var(--r);padding:13px 15px;margin-bottom:12px;display:flex;align-items:center;gap:11px}
+.ref-bonus-t{font-size:13px;font-weight:500;margin-bottom:2px}
+.ref-bonus-s{font-size:12px;color:var(--ink2)}
+.ref-list{background:var(--warm);border:.5px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
+.ref-item{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:.5px solid var(--bds)}
+.ref-item:last-child{border-bottom:none}
+.av{width:36px;height:36px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--ink2);flex-shrink:0}
+.ref-name{font-size:13px;font-weight:400}
+.ref-meta{font-size:11px;color:var(--ink3)}
+.ref-pts{font-size:13px;color:var(--gold);font-weight:500}
+.ref-empty{text-align:center;padding:20px;font-size:13px;color:var(--ink3)}
+.hiw{background:var(--s1);border-radius:var(--r);padding:16px 18px}
+.hiw-title{font-size:12px;font-weight:500;margin-bottom:11px}
+.hiw-step{display:flex;align-items:flex-start;gap:9px;margin-bottom:9px}
+.hiw-step:last-child{margin-bottom:0}
+.hiw-num{width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--gold2);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.hiw-txt{font-size:13px;color:var(--ink2);line-height:1.5}
+
+/* LEADERBOARD */
+.lb-card{background:var(--warm);border:.5px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:9px}
+.lb-row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:.5px solid var(--bds)}
+.lb-row:last-child{border-bottom:none}
+.lb-row.me{background:var(--goldp)}
+.lb-rank{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;width:28px;text-align:center;color:var(--ink3);flex-shrink:0}
+.lb-rank.top{color:var(--gold)}
+.lb-av{width:34px;height:34px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--ink2);flex-shrink:0}
+.lb-info{flex:1}
+.lb-name{font-size:13px;font-weight:500}
+.lb-meta{font-size:11px;color:var(--ink3)}
+.lb-pts{font-size:13px;font-weight:500;color:var(--gold)}
+
+/* TOAST */
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--ink);color:#fff;font-size:13px;padding:11px 22px;border-radius:100px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap;z-index:999;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* CELEBRATION */
+.cel-bg{display:none;position:fixed;inset:0;background:rgba(20,18,16,.72);z-index:500;align-items:center;justify-content:center;padding:28px}
+.cel-bg.on{display:flex}
+.cel-box{background:var(--warm);border-radius:24px;padding:36px 28px;text-align:center;max-width:320px;width:100%}
+.cel-emoji{font-size:58px;margin-bottom:14px}
+.cel-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;margin-bottom:8px;line-height:1.2}
+.cel-title em{color:var(--gold);font-style:italic}
+.cel-sub{font-size:14px;color:var(--ink3);line-height:1.65;margin-bottom:22px}
+.cel-btn{background:var(--ink);color:var(--gold2);border:none;border-radius:var(--rs);padding:13px 36px;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer}
+
+/* MOOD MODAL */
+.mood-modal-bg{display:none;position:fixed;inset:0;background:rgba(20,18,16,.6);z-index:400;align-items:flex-end;justify-content:center}
+.mood-modal-bg.on{display:flex}
+.mood-modal{background:var(--warm);border-radius:24px 24px 0 0;padding:24px 24px 40px;width:100%;max-width:430px}
+.mood-handle{width:36px;height:4px;background:var(--s2);border-radius:2px;margin:0 auto 20px}
+.mood-m-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:6px}
+.mood-m-sub{font-size:13px;color:var(--ink3);margin-bottom:20px}
+.mood-scale{display:flex;gap:8px;margin-bottom:18px}
+.mood-opt{flex:1;background:var(--s1);border:.5px solid var(--bd);border-radius:var(--rs);padding:12px 4px;text-align:center;cursor:pointer;transition:all .2s}
+.mood-opt.sel{background:var(--ink);border-color:var(--ink)}
+.mood-opt-em{font-size:22px;display:block;margin-bottom:4px}
+.mood-opt-lb{font-size:10px;color:var(--ink3)}
+.mood-opt.sel .mood-opt-lb{color:var(--gold2)}
+.mood-note{width:100%;padding:11px 14px;border:.5px solid var(--bd);border-radius:var(--rs);font-size:14px;font-family:'DM Sans',sans-serif;resize:none;background:var(--warm);color:var(--ink);outline:none;margin-bottom:14px;min-height:72px}
+.mood-note:focus{border-color:var(--gold)}
+.pb{padding-bottom:96px}
+</style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div class="screen on" id="s-auth">
+<div class="auth-page">
+  <div class="auth-logo">MōTIV <em>rewards</em></div>
+  <div class="auth-tag">842 Danforth Ave · Toronto</div>
+  <div class="tabs">
+    <button class="tab on" onclick="authTab('login')">Sign in</button>
+    <button class="tab" onclick="authTab('signup')">Join free</button>
+  </div>
+  <div id="f-login">
+    <div class="field"><label>Email</label><input type="email" id="li-e" placeholder="you@email.com" autocomplete="email"></div>
+    <div class="field"><label>Password</label><input type="password" id="li-p" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn-main" onclick="doLogin()">Sign in</button>
+    <div class="err" id="li-err"></div>
+  </div>
+  <div id="f-signup" style="display:none">
+    <div class="field"><label>Full name</label><input type="text" id="su-n" placeholder="Sarah Johnson" autocomplete="name"></div>
+    <div class="field"><label>Email</label><input type="email" id="su-e" placeholder="you@email.com" autocomplete="email"></div>
+    <div class="field"><label>Phone (optional)</label><input type="tel" id="su-ph" placeholder="416 555 0100"></div>
+    <div class="field"><label>Birthday (optional — for birthday rewards 🎂)</label><input type="date" id="su-bd"></div>
+    <div class="field"><label>Password</label><input type="password" id="su-p" placeholder="Create a password" autocomplete="new-password"></div>
+    <button class="btn-main" onclick="doSignup()">Create my account</button>
+    <div class="err" id="su-err"></div>
+  </div>
+  <div class="auth-foot">Staff? <a onclick="window.location='/admin.html'">Admin panel →</a></div>
+</div>
+</div>
+
+<!-- APP -->
+<div class="screen" id="s-app">
+  <div class="app-hdr">
+    <div class="hdr-logo">MōTIV <em>rewards</em></div>
+    <div class="hdr-pts" onclick="switchTab('rewards',document.querySelector('.nb[data-t=rewards]'))">
+      <div class="hdr-dot"></div><span id="h-pts">0 pts</span>
+    </div>
+  </div>
+
+  <!-- HOME TAB -->
+  <div class="tab-page on pb" id="tp-home">
+    <div class="hero">
+      <div class="greet">Welcome back</div>
+      <div class="hero-name" id="hero-name">Loading…</div>
+      <div class="streak-badge"><span class="streak-fire">🔥</span><span id="streak-txt">0 week streak</span></div>
+      <div class="ring-wrap">
+        <svg class="ring-svg" viewBox="0 0 186 186" aria-hidden="true">
+          <circle class="ring-track" cx="93" cy="93" r="74"/>
+          <circle class="ring-fill" id="ring-arc" cx="93" cy="93" r="74"/>
+        </svg>
+        <div class="ring-in">
+          <div class="ring-n" id="ring-n">0</div>
+          <div class="ring-l">points</div>
+          <div class="ring-nx" id="ring-nx">500 to free class</div>
+        </div>
+      </div>
+    </div>
+    <div class="qstats">
+      <div class="qs"><div class="qs-n" id="qs-cls">0</div><div class="qs-l">classes</div></div>
+      <div class="qs"><div class="qs-n" id="qs-ref">0</div><div class="qs-l">referrals</div></div>
+      <div class="qs"><div class="qs-n" id="qs-str">0</div><div class="qs-l">wk streak</div></div>
+    </div>
+    <div class="sec">
+      <div class="ey">How do you feel today?</div>
+      <div class="mood-banner">
+        <div class="mood-q">After your last class —</div>
+        <div class="mood-btns">
+          <button class="mood-btn" onclick="openMoodModal(1)">😴</button>
+          <button class="mood-btn" onclick="openMoodModal(2)">😐</button>
+          <button class="mood-btn" onclick="openMoodModal(3)">🙂</button>
+          <button class="mood-btn" onclick="openMoodModal(4)">😄</button>
+          <button class="mood-btn" onclick="openMoodModal(5)">🤩</button>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="ey">Recent activity</div>
+      <div class="act-list" id="act-list"><div class="empty">Attend your first class to start earning.</div></div>
+    </div>
+  </div>
+
+  <!-- MILESTONES TAB -->
+  <div class="tab-page pb" id="tp-milestones">
+    <div class="ms-hdr">
+      <div class="ms-title">Every class<br><em style="color:var(--gold);font-style:italic">counts.</em></div>
+      <div class="ms-sub" id="ms-sub">Here's what you're working toward.</div>
+      <div class="track">
+        <div class="t-line"></div>
+        <div class="t-fill" id="t-fill" style="width:0%"></div>
+        <div class="ms-nodes">
+          <div class="msn" id="mn-1"><div class="msn-c">🌱</div><div class="msn-n">1</div></div>
+          <div class="msn" id="mn-5"><div class="msn-c">🔥</div><div class="msn-n">5</div></div>
+          <div class="msn" id="mn-10"><div class="msn-c">⭐</div><div class="msn-n">10</div></div>
+          <div class="msn" id="mn-25"><div class="msn-c">💪</div><div class="msn-n">25</div></div>
+          <div class="msn" id="mn-50"><div class="msn-c">🏆</div><div class="msn-n">50</div></div>
+          <div class="msn" id="mn-100"><div class="msn-c">✨</div><div class="msn-n">100</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sec"><div class="ms-cards" id="ms-cards"></div></div>
+  </div>
+
+  <!-- REWARDS TAB -->
+  <div class="tab-page pb" id="tp-rewards">
+    <div class="rw-hdr">
+      <div class="rw-ti">Your<br><em style="color:var(--gold);font-style:italic">rewards.</em></div>
+      <div class="rw-su">You have <strong id="rw-pts">0 points</strong> to spend.</div>
+    </div>
+    <div class="sec"><div class="rw-list" id="rw-list"></div></div>
+  </div>
+
+  <!-- JOURNAL TAB -->
+  <div class="tab-page pb" id="tp-journal">
+    <div class="mood-hdr">
+      <div class="mood-title">Your<br><em style="color:var(--gold);font-style:italic">journey.</em></div>
+      <div class="mood-subtitle">Every class, tracked. See how Motiv is changing how you feel over time.</div>
+    </div>
+    <div class="sec">
+      <div class="ey">Mood over time</div>
+      <div class="mood-chart">
+        <div class="mood-chart-title">Last 7 entries</div>
+        <div class="mood-bars" id="mood-bars"><div style="font-size:13px;color:var(--ink3);align-self:center;width:100%;text-align:center">No entries yet</div></div>
+      </div>
+      <div class="ey">All entries</div>
+      <div class="mood-entry-list" id="mood-entries"><div class="empty">Log your mood after class to start your journal.</div></div>
+    </div>
+  </div>
+
+  <!-- REFER TAB -->
+  <div class="tab-page pb" id="tp-refer">
+    <div class="ref-sec">
+      <div class="ref-hero">
+        <div class="ref-ey">Referral program</div>
+        <div class="ref-hl">Bring a friend.<br>Both of you win.</div>
+        <div class="ref-sub">Share your code. When your friend completes their first class at Motiv, you each get 100 points — no limit.</div>
+        <div class="code-box">
+          <div class="code-txt" id="ref-code">—</div>
+          <button class="copy-btn" onclick="copyCode()">Copy</button>
+        </div>
+      </div>
+      <div class="ref-bonus">
+        <div style="font-size:22px">🎁</div>
+        <div>
+          <div class="ref-bonus-t">Refer 10 friends = free class</div>
+          <div class="ref-bonus-s">No limit. Every referral earns you both 100 points.</div>
+        </div>
+      </div>
+      <div class="ey" style="margin:0 0 10px">Your referrals</div>
+      <div class="ref-list" id="ref-list"><div class="ref-empty">No referrals yet.</div></div>
+      <div class="hiw" style="margin-top:12px;margin-bottom:12px">
+        <div class="hiw-title">How it works</div>
+        <div class="hiw-step"><div class="hiw-num">1</div><div class="hiw-txt">Share your personal code with a friend.</div></div>
+        <div class="hiw-step"><div class="hiw-num">2</div><div class="hiw-txt">They mention it when they book or at the front desk.</div></div>
+        <div class="hiw-step"><div class="hiw-num">3</div><div class="hiw-txt">After their first class, you both get 100 points instantly.</div></div>
+      </div>
+
+      <div class="ey" style="margin-top:8px;margin-bottom:10px">Top members this month</div>
+      <div class="lb-card" id="lb-card"><div class="empty">Loading…</div></div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="btm-nav">
+    <button class="nb on" data-t="home" onclick="switchTab('home',this)"><div class="nb-ic">🏠</div><div class="nb-lb">Home</div><div class="nb-dot"></div></button>
+    <button class="nb" data-t="milestones" onclick="switchTab('milestones',this)"><div class="nb-ic">🏆</div><div class="nb-lb">Milestones</div><div class="nb-dot"></div></button>
+    <button class="nb" data-t="rewards" onclick="switchTab('rewards',this)"><div class="nb-ic">🎁</div><div class="nb-lb">Rewards</div><div class="nb-dot"></div></button>
+    <button class="nb" data-t="journal" onclick="switchTab('journal',this)"><div class="nb-ic">📓</div><div class="nb-lb">Journal</div><div class="nb-dot"></div></button>
+    <button class="nb" data-t="refer" onclick="switchTab('refer',this)"><div class="nb-ic">👥</div><div class="nb-lb">Refer</div><div class="nb-dot"></div></button>
+  </nav>
+</div>
+
+<!-- CELEBRATION MODAL -->
+<div class="cel-bg" id="cel-bg">
+  <div class="cel-box">
+    <div class="cel-emoji" id="cel-em">🎉</div>
+    <div class="cel-title" id="cel-ti">You did it!</div>
+    <div class="cel-sub" id="cel-su"></div>
+    <button class="cel-btn" onclick="closeCel()">Amazing ✦</button>
+  </div>
+</div>
+
+<!-- MOOD MODAL -->
+<div class="mood-modal-bg" id="mood-bg" onclick="closeMoodBg(event)">
+  <div class="mood-modal">
+    <div class="mood-handle"></div>
+    <div class="mood-m-title">How did that feel?</div>
+    <div class="mood-m-sub">One tap, no pressure. Your journey over time.</div>
+    <div class="mood-scale" id="mood-scale">
+      <div class="mood-opt" data-v="1" onclick="pickMood(1)"><span class="mood-opt-em">😴</span><span class="mood-opt-lb">Tired</span></div>
+      <div class="mood-opt" data-v="2" onclick="pickMood(2)"><span class="mood-opt-em">😐</span><span class="mood-opt-lb">Okay</span></div>
+      <div class="mood-opt" data-v="3" onclick="pickMood(3)"><span class="mood-opt-em">🙂</span><span class="mood-opt-lb">Good</span></div>
+      <div class="mood-opt" data-v="4" onclick="pickMood(4)"><span class="mood-opt-em">😄</span><span class="mood-opt-lb">Great</span></div>
+      <div class="mood-opt" data-v="5" onclick="pickMood(5)"><span class="mood-opt-em">🤩</span><span class="mood-opt-lb">Amazing</span></div>
+    </div>
+    <textarea class="mood-note" id="mood-note" placeholder="Any notes? (optional) — 'My back felt amazing' or 'Tough class but worth it'"></textarea>
+    <button class="btn-main" onclick="submitMood()">Save to journal</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = location.origin
+let tok = localStorage.getItem('motiv_tok')
+let me = null, acts = [], selMood = 0
+
+const REWARDS = [
+  {n:'Free smoothie',d:'At the Danforth studio juice bar.',pts:150,ic:'🥤'},
+  {n:'10% off a class pack',d:'Applied to your next 5 or 10-class pack.',pts:300,ic:'🏷️'},
+  {n:'Free class',d:'Any guided class, any time.',pts:500,ic:'🧘'},
+  {n:'Motiv tote bag',d:'Studio-exclusive — not available to buy.',pts:800,ic:'👜'},
+  {n:'Motiv grip socks',d:'The good ones.',pts:1000,ic:'🎽'},
+  {n:'Private session',d:'One-on-one with your favourite instructor.',pts:2000,ic:'⭐'},
+]
+
+const MILESTONES = [
+  {n:1,ic:'🌱',ti:'First class',de:"You showed up. That's everything.",reward:'Welcome to Motiv ✦'},
+  {n:5,ic:'🔥',ti:'On a roll',de:"It's becoming a habit. +50 bonus points.",reward:'+50 bonus points'},
+  {n:10,ic:'⭐',ti:'10 classes — free class',de:'Any guided class, on Motiv.',reward:'Free class'},
+  {n:25,ic:'💪',ti:'25 classes — Motiv merch',de:'Exclusive branded gift. Yours to wear.',reward:'Merch gift'},
+  {n:50,ic:'🏆',ti:'50 classes — Legend status',de:'Free month + your name on the studio wall.',reward:'Free month membership'},
+  {n:100,ic:'✨',ti:'100 classes — Icon',de:'A private session with your favourite instructor.',reward:'Private session'},
+]
+
+const MOODS = ['','😴','😐','🙂','😄','🤩']
+const MOOD_LABELS = ['','Tired','Okay','Good','Great','Amazing']
+
+async function api(m,p,b){
+  const o={method:m,headers:{'Content-Type':'application/json'}}
+  if(tok)o.headers['Authorization']='Bearer '+tok
+  if(b)o.body=JSON.stringify(b)
+  return (await fetch(API+p,o)).json()
+}
+
+async function init(){
+  if(!tok)return
+  const d=await api('GET','/api/me')
+  if(d.error){localStorage.removeItem('motiv_tok');return}
+  me=d.user;acts=d.activity||[]
+  show('s-app');renderAll()
+}
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'))
+  document.getElementById(id).classList.add('on')
+}
+
+function renderAll(){
+  if(!me)return
+  const pts=me.points,cls=me.totalClasses,str=me.currentStreak||0
+  // header
+  document.getElementById('h-pts').textContent=pts+' pts'
+  // hero
+  const fn=me.name.split(' ')[0]
+  document.getElementById('hero-name').innerHTML=fn+'<br><em>keep moving.</em>'
+  document.getElementById('streak-txt').textContent=str+' week streak'+(str>=3?' 🔥':'')
+  // ring
+  const circ=2*Math.PI*74
+  const arc=document.getElementById('ring-arc')
+  arc.style.strokeDasharray=circ
+  arc.style.strokeDashoffset=circ*(1-Math.min(pts/500,1))
+  document.getElementById('ring-n').textContent=pts
+  const need=Math.max(0,500-pts)
+  document.getElementById('ring-nx').textContent=need>0?need+' to free class':'🎉 Free class ready!'
+  // stats
+  document.getElementById('qs-cls').textContent=cls
+  document.getElementById('qs-ref').textContent=me.totalReferrals
+  document.getElementById('qs-str').textContent=str
+  // activity
+  renderActivity()
+  // milestones
+  renderMilestones(cls)
+  // rewards
+  renderRewards(pts)
+  // journal
+  renderJournal()
+  // refer
+  document.getElementById('ref-code').textContent=me.referralCode
+  renderReferrals()
+  renderLeaderboard()
+}
+
+function renderActivity(){
+  const el=document.getElementById('act-list')
+  if(!acts.length){el.innerHTML='<div class="empty">Attend your first class to start earning.</div>';return}
+  el.innerHTML=acts.slice(0,10).map(a=>{
+    const earn=a.points>0
+    const pip=a.type==='referral'?'ref':a.type==='redeem'?'red':''
+    const d=new Date(a.createdAt).toLocaleDateString('en-CA',{month:'short',day:'numeric'})
+    return`<div class="act-row"><div class="act-pip ${pip}"></div><div class="act-info"><div class="act-t">${a.label}</div><div class="act-m">${d}</div></div><div class="act-p ${earn?'earn':'spend'}">${earn?'+':''}${a.points}</div></div>`
+  }).join('')
+}
+
+function renderMilestones(cls){
+  document.getElementById('t-fill').style.width=Math.min(cls/100*100,100)+'%'
+  document.getElementById('ms-sub').textContent=`You've taken ${cls} class${cls!==1?'es':''}. Here's what you're working toward.`
+  const thresh=[1,5,10,25,50,100]
+  thresh.forEach((n,i)=>{
+    const el=document.getElementById('mn-'+n)
+    if(!el)return
+    el.className='msn'+(cls>=n?' earned':i>0&&cls>=thresh[i-1]&&cls<n?' next':'')
+  })
+  document.getElementById('ms-cards').innerHTML=MILESTONES.map((m,i)=>{
+    const done=cls>=m.n
+    const isNext=!done&&cls>=(MILESTONES[i-1]?.n||0)
+    const pct=Math.min(cls/m.n*100,100)
+    const cls2=done?'earned':isNext?'next':'locked'
+    return`<div class="ms-card ${cls2}">
+      <div class="ms-ic">${m.ic}</div>
+      <div class="ms-body">
+        <div class="ms-ti">${m.ti}</div>
+        <div class="ms-de">${m.de}</div>
+        <div class="ms-bg"><div class="ms-bar" style="width:${pct}%"></div></div>
+        <div class="ms-me">${Math.min(cls,m.n)} of ${m.n}${done?' ✦ complete':' — '+(m.n-cls)+' to go'}</div>
+      </div>
+      ${done?'<div class="done-tag">Done ✦</div>':''}
+    </div>`
+  }).join('')
+}
+
+function renderRewards(pts){
+  document.getElementById('rw-pts').textContent=pts+' points'
+  document.getElementById('rw-list').innerHTML=REWARDS.map(r=>{
+    const can=pts>=r.pts
+    return`<div class="rw-card ${can?'can':'no'}">
+      <div class="rw-ico">${r.ic}</div>
+      <div class="rw-body">
+        <div class="rw-name">${r.n}</div>
+        <div class="rw-desc">${r.d}</div>
+        <div><span class="pts-pill">${r.pts} pts</span>${!can?`<span class="pts-need">${r.pts-pts} more</span>`:''}</div>
+      </div>
+      ${can?`<button class="rdm-btn" onclick="redeemReward('${r.n}',${r.pts})">Redeem</button>`:`<button class="rdm-btn dim">Soon</button>`}
+    </div>`
+  }).join('')
+}
+
+function renderJournal(){
+  const moods=(me.moodHistory||[]).slice().reverse()
+  // chart
+  const last7=moods.slice(0,7).reverse()
+  const barsEl=document.getElementById('mood-bars')
+  if(!last7.length){barsEl.innerHTML='<div style="font-size:13px;color:var(--ink3);align-self:center;width:100%;text-align:center">No entries yet</div>';return}
+  barsEl.innerHTML=last7.map(m=>{
+    const h=Math.round((m.score/5)*80)
+    const d=new Date(m.date).toLocaleDateString('en-CA',{month:'short',day:'numeric'})
+    return`<div class="mood-bar-wrap"><div class="mood-bar" style="height:${h}px"></div><div class="mood-bar-label">${MOODS[m.score]}</div></div>`
+  }).join('')
+  // list
+  document.getElementById('mood-entries').innerHTML=moods.slice(0,12).map(m=>{
+    const d=new Date(m.date).toLocaleDateString('en-CA',{month:'short',day:'numeric'})
+    return`<div class="mood-entry">
+      <div class="mood-emoji">${MOODS[m.score]}</div>
+      <div class="mood-entry-info">
+        <div class="mood-entry-score">${MOOD_LABELS[m.score]}</div>
+        <div class="mood-entry-date">${d}</div>
+        ${m.note?`<div class="mood-entry-note">"${m.note}"</div>`:''}
+      </div>
+    </div>`
+  }).join('')
+}
+
+function renderReferrals(){
+  const refs=acts.filter(a=>a.type==='referral')
+  const el=document.getElementById('ref-list')
+  if(!refs.length){el.innerHTML='<div class="ref-empty">No referrals yet — share your code.</div>';return}
+  el.innerHTML=refs.map(r=>{
+    const name=r.label.replace('Referral bonus — ','')
+    const init=name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)
+    const d=new Date(r.createdAt).toLocaleDateString('en-CA',{month:'short',day:'numeric'})
+    return`<div class="ref-item"><div class="av">${init}</div><div style="flex:1"><div class="ref-name">${name}</div><div class="ref-meta">Joined ${d}</div></div><div class="ref-pts">+100</div></div>`
+  }).join('')
+}
+
+async function renderLeaderboard(){
+  const data=await api('GET','/api/admin/members').catch(()=>null)
+  if(!data||data.error)return
+  const top=data.slice(0,5)
+  if(!top.length){document.getElementById('lb-card').innerHTML='<div class="empty">No members yet.</div>';return}
+  document.getElementById('lb-card').innerHTML=top.map((m,i)=>{
+    const init=m.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)
+    const isMe=me&&m.id===me.id
+    return`<div class="lb-row ${isMe?'me':''}">
+      <div class="lb-rank ${i<3?'top':''}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</div>
+      <div class="lb-av">${init}</div>
+      <div class="lb-info"><div class="lb-name">${m.name}${isMe?' (you)':''}</div><div class="lb-meta">${m.totalClasses} classes</div></div>
+      <div class="lb-pts">${m.points} pts</div>
+    </div>`
+  }).join('')
+}
+
+async function redeemReward(name,pts){
+  showToast('Show this to Motiv staff to redeem: '+name)
+}
+
+function authTab(t){
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('on',(i===0)===(t==='login')))
+  document.getElementById('f-login').style.display=t==='login'?'block':'none'
+  document.getElementById('f-signup').style.display=t==='signup'?'block':'none'
+}
+
+async function doLogin(){
+  const e=document.getElementById('li-e').value.trim(),p=document.getElementById('li-p').value
+  const err=document.getElementById('li-err')
+  err.textContent=''
+  if(!e||!p){err.textContent='Please fill in all fields';return}
+  const d=await api('POST','/api/login',{email:e,password:p})
+  if(d.error){err.textContent=d.error;return}
+  tok=d.token;localStorage.setItem('motiv_tok',tok)
+  const full=await api('GET','/api/me')
+  me=full.user;acts=full.activity||[]
+  show('s-app');renderAll()
+}
+
+async function doSignup(){
+  const n=document.getElementById('su-n').value.trim()
+  const e=document.getElementById('su-e').value.trim()
+  const ph=document.getElementById('su-ph').value.trim()
+  const bd=document.getElementById('su-bd').value
+  const p=document.getElementById('su-p').value
+  const err=document.getElementById('su-err')
+  err.textContent=''
+  if(!n||!e||!p){err.textContent='Please fill in all fields';return}
+  if(p.length<6){err.textContent='Password must be at least 6 characters';return}
+  const d=await api('POST','/api/signup',{name:n,email:e,phone:ph,birthday:bd,password:p})
+  if(d.error){err.textContent=d.error;return}
+  tok=d.token;localStorage.setItem('motiv_tok',tok)
+  me=d.user;acts=[]
+  show('s-app');renderAll()
+  celebrate('🌱','Welcome to Motiv, '+n.split(' ')[0]+'!','Your journey starts now. Attend your first class and ask staff to add your points. Every class brings you closer.')
+}
+
+function switchTab(name,btn){
+  document.querySelectorAll('.tab-page').forEach(t=>t.classList.remove('on'))
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'))
+  document.getElementById('tp-'+name).classList.add('on')
+  btn.classList.add('on')
+  window.scrollTo(0,0)
+}
+
+function openMoodModal(v){
+  selMood=v
+  document.querySelectorAll('.mood-opt').forEach(o=>o.classList.toggle('sel',parseInt(o.dataset.v)===v))
+  document.getElementById('mood-bg').classList.add('on')
+}
+function pickMood(v){
+  selMood=v
+  document.querySelectorAll('.mood-opt').forEach(o=>o.classList.toggle('sel',parseInt(o.dataset.v)===v))
+}
+function closeMoodBg(e){if(e.target===document.getElementById('mood-bg'))document.getElementById('mood-bg').classList.remove('on')}
+async function submitMood(){
+  if(!selMood)return
+  const note=document.getElementById('mood-note').value.trim()
+  await api('POST','/api/mood',{score:selMood,note})
+  document.getElementById('mood-bg').classList.remove('on')
+  document.getElementById('mood-note').value=''
+  // refresh
+  const full=await api('GET','/api/me')
+  me=full.user;acts=full.activity||[]
+  renderJournal()
+  showToast('Mood logged '+MOODS[selMood])
+}
+
+function copyCode(){
+  navigator.clipboard.writeText(me?.referralCode||'').catch(()=>{})
+  showToast('Code copied — share with a friend ✦')
+}
+
+function celebrate(em,ti,su){
+  document.getElementById('cel-em').textContent=em
+  document.getElementById('cel-ti').innerHTML=ti
+  document.getElementById('cel-su').textContent=su
+  document.getElementById('cel-bg').classList.add('on')
+}
+function closeCel(){document.getElementById('cel-bg').classList.remove('on')}
+
+function showToast(msg){
+  const t=document.getElementById('toast')
+  t.textContent=msg;t.classList.add('on')
+  setTimeout(()=>t.classList.remove('on'),3200)
+}
+
+init()
+</script>
+</body>
+</html>
