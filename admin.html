@@ -3,68 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MōTIV — Staff Panel</title>
+<title>MōTIV — Staff</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#141210;--ink2:#4a4540;--ink3:#9a9088;
-  --warm:#faf8f4;--s1:#f3efe8;--s2:#ece7de;
-  --gold:#b8975a;--gold2:#d4b47a;--goldp:#f0e6d0;
-  --green:#2a7a4e;--greenl:#d4edda;--red:#c0392b;--redl:#fdecea;
-  --bd:rgba(20,18,16,0.09);--bds:rgba(20,18,16,0.05);
-  --r:14px;--rs:10px;
+  --ink:#0f0e0c;--ink2:#3d3830;--ink3:#8a8278;
+  --cream:#faf7f2;--s1:#f4f0e8;--s2:#ebe5d8;--s3:#dfd8c8;
+  --gold:#c4a265;--gold2:#e0c08a;--goldp:#f7edda;
+  --green:#2a7a4e;--greenl:#d4edda;
+  --red:#c0392b;--redl:#fdecea;
+  --amber:#d4820a;--amberl:#fef3d0;
+  --bd:rgba(15,14,12,0.09);--bds:rgba(15,14,12,0.05);
+  --r:14px;--rs:10px;--sh:0 2px 16px rgba(15,14,12,0.06);
 }
 html{background:#ede9e0}
-body{font-family:'DM Sans',sans-serif;background:#ede9e0;color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',sans-serif;background:#ede9e0;color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
 .screen{display:none}.screen.on{display:block}
-label{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
-input,select{width:100%;padding:11px 14px;border:.5px solid var(--bd);border-radius:var(--rs);font-size:14px;font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--ink);outline:none;transition:border-color .2s;-webkit-appearance:none}
-input:focus,select:focus{border-color:var(--gold)}
+label{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px;font-weight:600}
+input,select,textarea{width:100%;padding:11px 14px;border:.5px solid var(--bd);border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);outline:none;transition:border-color .2s;-webkit-appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
 .field{margin-bottom:13px}
-.btn{background:var(--ink);color:var(--gold2);border:none;border-radius:var(--rs);padding:11px 20px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:transform .15s;letter-spacing:.02em}
+.btn{background:var(--ink);color:var(--gold2);border:none;border-radius:var(--rs);padding:11px 20px;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:transform .15s;letter-spacing:.02em}
 .btn:active{transform:scale(.98)}
 .btn-sm{padding:8px 14px;font-size:12px}
 .btn-green{background:var(--green);color:#fff}
 .btn-red{background:var(--red);color:#fff}
+.btn-amber{background:var(--amber);color:#fff}
 .btn-ghost{background:none;border:.5px solid var(--bd);color:var(--ink)}
 .btn-full{width:100%}
 .err{color:var(--red);font-size:12px;margin-top:8px;min-height:14px}
 
 /* LOGIN */
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-.login-box{background:var(--warm);border-radius:20px;padding:40px 32px;width:100%;max-width:380px;border:.5px solid var(--bd)}
-.login-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;letter-spacing:.12em;margin-bottom:3px}
+.login-box{background:var(--cream);border-radius:20px;padding:40px 32px;width:100%;max-width:380px;border:.5px solid var(--bd);box-shadow:var(--sh)}
+.login-logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:300;letter-spacing:.12em;margin-bottom:3px}
 .login-logo em{color:var(--gold);font-style:normal}
 .login-sub{font-size:13px;color:var(--ink3);margin-bottom:28px}
 
-/* TOPBAR */
-.topbar{background:var(--warm);border-bottom:.5px solid var(--bd);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-.top-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.1em}
+/* TOP BAR */
+.topbar{background:var(--cream);border-bottom:.5px solid var(--bd);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--sh)}
+.top-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:300;letter-spacing:.1em}
 .top-logo em{color:var(--gold);font-style:normal}
-.staff-tag{font-size:11px;background:var(--ink);color:var(--gold2);padding:3px 10px;border-radius:100px;margin-left:10px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:.04em;vertical-align:middle}
-.top-out{font-size:13px;color:var(--ink3);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif}
+.staff-tag{font-size:11px;background:var(--ink);color:var(--gold2);padding:3px 10px;border-radius:100px;margin-left:10px;font-family:'Inter',sans-serif;font-weight:600;letter-spacing:.04em;vertical-align:middle}
+.top-out{font-size:13px;color:var(--ink3);cursor:pointer;border:none;background:none;font-family:'Inter',sans-serif}
 
 /* MAIN */
-.main{max-width:760px;margin:0 auto;padding:24px 20px 60px}
+.main{max-width:800px;margin:0 auto;padding:24px 20px 60px}
 
 /* STAT CARDS */
-.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
-@media(max-width:600px){.stat-row{grid-template-columns:repeat(2,1fr)}}
-.stat-card{background:var(--warm);border:.5px solid var(--bd);border-radius:var(--r);padding:16px;text-align:center}
-.stat-n{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;line-height:1}
-.stat-l{font-size:11px;color:var(--ink3);margin-top:3px}
+.stat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+@media(max-width:650px){.stat-row{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.stat-row{grid-template-columns:repeat(2,1fr)}}
+.stat-card{background:var(--cream);border:.5px solid var(--bd);border-radius:var(--r);padding:14px;text-align:center;box-shadow:var(--sh)}
+.stat-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:300;line-height:1}
+.stat-l{font-size:10px;color:var(--ink3);margin-top:3px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+
+/* WIN-BACK */
+.winback-card{background:var(--amberl);border:.5px solid var(--amber);border-radius:var(--r);padding:16px 20px;margin-bottom:16px}
+.wb-title{font-size:14px;font-weight:600;color:var(--amber);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.wb-sub{font-size:12px;color:var(--ink2);margin-bottom:12px}
+.wb-list{display:flex;flex-direction:column;gap:8px}
+.wb-item{background:#fff;border-radius:var(--rs);padding:10px 14px;display:flex;align-items:center;gap:12px}
+.wb-av{width:32px;height:32px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--ink2);flex-shrink:0}
+.wb-info{flex:1}
+.wb-name{font-size:13px;font-weight:500}
+.wb-meta{font-size:11px;color:var(--ink3)}
+.wb-days{font-size:12px;font-weight:600;color:var(--amber)}
 
 /* CARD */
-.card{background:var(--warm);border:.5px solid var(--bd);border-radius:var(--r);padding:22px;margin-bottom:14px}
-.card-title{font-size:15px;font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.card{background:var(--cream);border:.5px solid var(--bd);border-radius:var(--r);padding:22px;margin-bottom:14px;box-shadow:var(--sh)}
+.card-title{font-size:15px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .badge{font-size:11px;background:var(--s2);color:var(--ink3);padding:2px 8px;border-radius:100px;font-weight:400}
 
 /* SEARCH */
 .search-wrap{display:flex;gap:10px;margin-bottom:18px}
-.search-inp{flex:1;padding:11px 16px;border:.5px solid var(--bd);border-radius:var(--rs);font-size:14px;font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--ink);outline:none}
+.search-inp{flex:1;padding:11px 16px;border:.5px solid var(--bd);border-radius:var(--rs);font-size:14px;font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);outline:none}
 .search-inp:focus{border-color:var(--gold)}
 
 /* MEMBER LIST */
@@ -72,29 +88,34 @@ input:focus,select:focus{border-color:var(--gold)}
 .m-row{display:flex;align-items:center;gap:13px;padding:13px 8px;border-bottom:.5px solid var(--bds);cursor:pointer;border-radius:8px;transition:background .15s}
 .m-row:last-child{border-bottom:none}
 .m-row:hover{background:var(--s1)}
-.av{width:38px;height:38px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--ink2);flex-shrink:0}
-.m-name{font-size:14px;font-weight:500}
+.av{width:38px;height:38px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--ink2);flex-shrink:0}
+.m-name{font-size:14px;font-weight:600}
 .m-meta{font-size:12px;color:var(--ink3)}
-.m-pts{font-size:14px;font-weight:500;color:var(--gold);text-align:right}
+.m-pts{font-size:14px;font-weight:600;color:var(--gold);text-align:right}
 .m-cls{font-size:12px;color:var(--ink3);text-align:right}
 .no-m{text-align:center;padding:32px;font-size:14px;color:var(--ink3)}
+.dormant-tag{font-size:10px;background:var(--amberl);color:var(--amber);padding:2px 7px;border-radius:100px;font-weight:600;margin-left:6px}
 
 /* DETAIL */
-.back-btn{background:none;border:none;cursor:pointer;font-size:13px;color:var(--ink3);font-family:'DM Sans',sans-serif;padding:6px 0;margin-bottom:16px;display:flex;align-items:center;gap:4px}
+.back-btn{background:none;border:none;cursor:pointer;font-size:13px;color:var(--ink3);font-family:'Inter',sans-serif;padding:6px 0;margin-bottom:16px;display:flex;align-items:center;gap:4px}
 .back-btn:hover{color:var(--ink)}
 .d-hero{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-.big-av{width:56px;height:56px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:500;color:var(--ink2);flex-shrink:0}
-.d-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300}
+.big-av{width:56px;height:56px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;color:var(--ink2);flex-shrink:0}
+.d-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:300}
 .d-email{font-size:13px;color:var(--ink3)}
-.d-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.d-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
 .ds{background:var(--s1);border-radius:var(--rs);padding:13px;text-align:center}
-.ds-n{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300}
-.ds-l{font-size:11px;color:var(--ink3);margin-top:2px}
+.ds-n{font-family:'Playfair Display',serif;font-size:26px;font-weight:300}
+.ds-l{font-size:10px;color:var(--ink3);margin-top:2px;font-weight:600;letter-spacing:.04em}
+.bday-badge{display:inline-flex;align-items:center;gap:5px;background:var(--goldp);border-radius:100px;padding:4px 12px;font-size:12px;color:var(--ink2);margin-top:6px}
 
-/* AWARD */
+/* ACTION GRID */
 .form-row{display:flex;gap:10px}
 .form-row .field{flex:1;margin-bottom:0}
 .act-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* MSG BOX */
+.msg-textarea{min-height:80px;resize:none}
 
 /* ACTIVITY */
 .a-list{display:flex;flex-direction:column}
@@ -104,25 +125,24 @@ input:focus,select:focus{border-color:var(--gold)}
 .a-pip.r{background:var(--ink3)}.a-pip.ref{background:var(--gold2)}
 .a-lbl{flex:1;font-size:13px}
 .a-date{font-size:11px;color:var(--ink3);white-space:nowrap}
-.a-pts{font-size:13px;font-weight:500;white-space:nowrap}
+.a-pts{font-size:13px;font-weight:600;white-space:nowrap}
 .a-earn{color:var(--green)}.a-spend{color:var(--red)}
 .a-empty{text-align:center;padding:20px;font-size:13px;color:var(--ink3)}
 
-/* CELEBRATE */
-.cel-bg{display:none;position:fixed;inset:0;background:rgba(20,18,16,.7);z-index:500;align-items:center;justify-content:center;padding:28px}
+/* CELEBRATION */
+.cel-bg{display:none;position:fixed;inset:0;background:rgba(15,14,12,.7);z-index:500;align-items:center;justify-content:center;padding:28px}
 .cel-bg.on{display:flex}
-.cel-box{background:var(--warm);border-radius:24px;padding:36px 28px;text-align:center;max-width:320px;width:100%}
+.cel-box{background:var(--cream);border-radius:24px;padding:36px 28px;text-align:center;max-width:320px;width:100%;box-shadow:0 20px 60px rgba(15,14,12,.2)}
 .cel-em{font-size:56px;margin-bottom:14px}
-.cel-ti{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:8px;line-height:1.3}
+.cel-ti{font-family:'Playfair Display',serif;font-size:24px;font-weight:300;margin-bottom:8px;line-height:1.3}
 .cel-ti em{color:var(--gold);font-style:italic}
 .cel-su{font-size:14px;color:var(--ink3);line-height:1.65;margin-bottom:20px}
-.cel-btn{background:var(--ink);color:var(--gold2);border:none;border-radius:var(--rs);padding:12px 32px;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer}
+.cel-btn{background:var(--ink);color:var(--gold2);border:none;border-radius:var(--rs);padding:12px 32px;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer}
 
 /* TOAST */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--ink);color:#fff;font-size:13px;padding:11px 24px;border-radius:100px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap;z-index:999;max-width:90vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-
-.birthday-badge{display:inline-flex;align-items:center;gap:5px;background:var(--goldp);border-radius:100px;padding:4px 12px;font-size:12px;color:var(--ink2);margin-top:6px}
+.s-screen{display:none}.s-screen.on{display:block}
 </style>
 </head>
 <body>
@@ -131,7 +151,7 @@ input:focus,select:focus{border-color:var(--gold)}
 <div class="screen on" id="s-login">
 <div class="login-wrap">
   <div class="login-box">
-    <div class="login-logo">MōTIV <em>rewards</em></div>
+    <div class="login-logo">MōTIV <em>·</em></div>
     <div class="login-sub">Staff access only</div>
     <div class="field"><label>Staff password</label><input type="password" id="admin-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doAdminLogin()"></div>
     <button class="btn btn-full" onclick="doAdminLogin()">Sign in to staff panel</button>
@@ -144,23 +164,34 @@ input:focus,select:focus{border-color:var(--gold)}
 <!-- ADMIN APP -->
 <div class="screen" id="s-admin">
   <div class="topbar">
-    <div class="top-logo">MōTIV <em>rewards</em><span class="staff-tag">Staff</span></div>
+    <div class="top-logo">MōTIV <em>·</em><span class="staff-tag">Staff</span></div>
     <button class="top-out" onclick="doLogout()">Sign out</button>
   </div>
   <div class="main">
 
-    <!-- MEMBERS SCREEN -->
-    <div class="screen on" id="s-members">
+    <!-- MEMBERS LIST -->
+    <div class="s-screen on" id="sc-members">
       <div style="margin-bottom:18px">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:3px">Members</div>
-        <div style="font-size:13px;color:var(--ink3)">Search to award points, redeem a reward, or add a referral bonus.</div>
+        <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:300;margin-bottom:3px">Members</div>
+        <div style="font-size:13px;color:var(--ink3)">Search to award points, redeem rewards, or send a message.</div>
       </div>
+
+      <!-- STATS -->
       <div class="stat-row" id="studio-stats">
-        <div class="stat-card"><div class="stat-n" id="st-members">—</div><div class="stat-l">members</div></div>
-        <div class="stat-card"><div class="stat-n" id="st-classes">—</div><div class="stat-l">classes logged</div></div>
-        <div class="stat-card"><div class="stat-n" id="st-refs">—</div><div class="stat-l">referrals</div></div>
-        <div class="stat-card"><div class="stat-n" id="st-active">—</div><div class="stat-l">active this week</div></div>
+        <div class="stat-card"><div class="stat-n" id="st-m">—</div><div class="stat-l">Members</div></div>
+        <div class="stat-card"><div class="stat-n" id="st-c">—</div><div class="stat-l">Classes</div></div>
+        <div class="stat-card"><div class="stat-n" id="st-r">—</div><div class="stat-l">Referrals</div></div>
+        <div class="stat-card"><div class="stat-n" id="st-a">—</div><div class="stat-l">Active wk</div></div>
+        <div class="stat-card"><div class="stat-n" id="st-p">—</div><div class="stat-l">Posts</div></div>
       </div>
+
+      <!-- WIN-BACK -->
+      <div class="winback-card" id="winback-section" style="display:none">
+        <div class="wb-title">⚠️ Win-back needed</div>
+        <div class="wb-sub">These members haven't been in for 2+ weeks. Consider sending them a message.</div>
+        <div class="wb-list" id="winback-list"></div>
+      </div>
+
       <div class="search-wrap">
         <input class="search-inp" id="search" placeholder="Search by name, email, or phone…" oninput="doSearch()" autocomplete="off">
       </div>
@@ -169,15 +200,15 @@ input:focus,select:focus{border-color:var(--gold)}
       </div>
     </div>
 
-    <!-- DETAIL SCREEN -->
-    <div class="screen" id="s-detail">
+    <!-- MEMBER DETAIL -->
+    <div class="s-screen" id="sc-detail">
       <button class="back-btn" onclick="goBack()">← All members</button>
       <div class="d-hero" id="d-hero"></div>
       <div class="d-stats" id="d-stats"></div>
 
       <!-- AWARD CLASS -->
       <div class="card">
-        <div class="card-title">Award a class <span class="badge">50 pts each</span></div>
+        <div class="card-title">Award a class <span class="badge">50 pts</span></div>
         <div class="form-row">
           <div class="field"><label>Class type</label>
             <select id="cls-type">
@@ -190,8 +221,8 @@ input:focus,select:focus{border-color:var(--gold)}
               <option>Instructorless Reformer</option>
             </select>
           </div>
-          <div class="field"><label>Instructor (optional)</label>
-            <select id="cls-instructor">
+          <div class="field"><label>Instructor</label>
+            <select id="cls-inst">
               <option value="">— none —</option>
               <option>Lisa W.</option>
               <option>Hayley C.</option>
@@ -230,6 +261,13 @@ input:focus,select:focus{border-color:var(--gold)}
         <button class="btn btn-sm" onclick="doReferral()">Award referral (+100 pts)</button>
       </div>
 
+      <!-- MESSAGE MEMBER -->
+      <div class="card">
+        <div class="card-title">Send a message <span class="badge">goes to their notifications</span></div>
+        <div class="field"><label>Message</label><textarea id="msg-text" class="msg-textarea" placeholder="e.g. We miss you at Motiv! Come back this week for a special offer 💛"></textarea></div>
+        <button class="btn btn-amber btn-sm" onclick="sendMsg()">Send message</button>
+      </div>
+
       <!-- ACTIVITY -->
       <div class="card">
         <div class="card-title">Activity history</div>
@@ -253,9 +291,9 @@ input:focus,select:focus{border-color:var(--gold)}
 <div class="toast" id="toast"></div>
 
 <script>
-const API=location.origin
-let atok=sessionStorage.getItem('motiv_atok')
-let curMember=null
+const API = location.origin
+let atok = sessionStorage.getItem('motiv_atok')
+let curMember = null
 
 async function api(m,p,b){
   const o={method:m,headers:{'Content-Type':'application/json'}}
@@ -265,25 +303,28 @@ async function api(m,p,b){
 }
 
 function show(id){
-  document.querySelectorAll('#s-admin .screen').forEach(s=>s.classList.remove('on'))
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'))
   document.getElementById(id).classList.add('on')
+}
+function showSub(id){
+  document.querySelectorAll('.s-screen').forEach(s=>s.classList.remove('on'))
+  document.getElementById(id).classList.add('on')
+  window.scrollTo(0,0)
 }
 
 async function doAdminLogin(){
   const pw=document.getElementById('admin-pw').value
-  const err=document.getElementById('admin-err')
-  err.textContent=''
+  const err=document.getElementById('admin-err');err.textContent=''
   const d=await api('POST','/api/admin/login',{password:pw})
   if(d.error){err.textContent='Wrong password — try motiv2024';return}
   atok=d.token;sessionStorage.setItem('motiv_atok',atok)
   startAdmin()
 }
 
-function doLogout(){sessionStorage.removeItem('motiv_atok');atok=null;document.getElementById('s-login').classList.add('on');document.getElementById('s-admin').classList.remove('on')}
+function doLogout(){sessionStorage.removeItem('motiv_atok');atok=null;show('s-login')}
 
 async function startAdmin(){
-  document.getElementById('s-login').classList.remove('on')
-  document.getElementById('s-admin').classList.add('on')
+  show('s-admin')
   loadStats()
   loadMembers()
 }
@@ -291,10 +332,25 @@ async function startAdmin(){
 async function loadStats(){
   const d=await api('GET','/api/admin/stats')
   if(d.error)return
-  document.getElementById('st-members').textContent=d.totalMembers
-  document.getElementById('st-classes').textContent=d.totalClasses
-  document.getElementById('st-refs').textContent=d.totalReferrals
-  document.getElementById('st-active').textContent=d.activeThisWeek
+  document.getElementById('st-m').textContent=d.totalMembers
+  document.getElementById('st-c').textContent=d.totalClasses
+  document.getElementById('st-r').textContent=d.totalReferrals
+  document.getElementById('st-a').textContent=d.activeThisWeek
+  document.getElementById('st-p').textContent=d.totalPosts||0
+  // win-back
+  if(d.winBack&&d.winBack.length>0){
+    document.getElementById('winback-section').style.display='block'
+    document.getElementById('winback-list').innerHTML=d.winBack.map(m=>{
+      const init=m.name[0].toUpperCase()
+      const days=m.lastClassDate?Math.floor((Date.now()-new Date(m.lastClassDate))/(1000*60*60*24)):'never'
+      return`<div class="wb-item">
+        <div class="wb-av">${init}</div>
+        <div class="wb-info"><div class="wb-name">${m.name}</div><div class="wb-meta">${m.email} · ${m.totalClasses} classes</div></div>
+        <div class="wb-days">${days==='never'?'never been':''+days+'d ago'}</div>
+        <button class="btn btn-sm btn-amber" onclick="openMember('${m.id}')">Message</button>
+      </div>`
+    }).join('')
+  }
 }
 
 async function loadMembers(q=''){
@@ -302,17 +358,20 @@ async function loadMembers(q=''){
   if(d.error)return
   const el=document.getElementById('m-list')
   if(!d.length){el.innerHTML='<div class="no-m">No members found.</div>';return}
+  const now=Date.now()
   el.innerHTML=d.map(m=>{
-    const init=m.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)
+    const init=m.name[0].toUpperCase()
     const joined=new Date(m.joinedAt).toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'})
     const isBday=m.birthday&&new Date(m.birthday).getMonth()===new Date().getMonth()
+    const daysSince=m.lastClassDate?Math.floor((now-new Date(m.lastClassDate))/(1000*60*60*24)):null
+    const isDormant=m.totalClasses>0&&daysSince!==null&&daysSince>14
     return`<div class="m-row" onclick="openMember('${m.id}')">
       <div class="av">${init}</div>
       <div style="flex:1">
-        <div class="m-name">${m.name}${isBday?' 🎂':''}</div>
+        <div class="m-name">${m.name}${isBday?' 🎂':''}${isDormant?`<span class="dormant-tag">${daysSince}d ago</span>`:''}</div>
         <div class="m-meta">${m.email} · joined ${joined}</div>
       </div>
-      <div><div class="m-pts">${m.points} pts</div><div class="m-cls">${m.totalClasses} classes</div></div>
+      <div style="text-align:right"><div class="m-pts">${m.points} pts</div><div class="m-cls">${m.totalClasses} classes · ${m.currentStreak||0}wk streak</div></div>
     </div>`
   }).join('')
 }
@@ -327,26 +386,27 @@ async function openMember(id){
   if(d.error)return
   curMember=d.user
   renderDetail(d.user,d.activity)
-  show('s-detail')
-  window.scrollTo(0,0)
+  showSub('sc-detail')
 }
 
 function renderDetail(u,acts){
-  const init=u.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)
+  const init=u.name[0].toUpperCase()
   const isBday=u.birthday&&new Date(u.birthday).getMonth()===new Date().getMonth()
+  const daysSince=u.lastClassDate?Math.floor((Date.now()-new Date(u.lastClassDate))/(1000*60*60*24)):null
   document.getElementById('d-hero').innerHTML=`
     <div class="big-av">${init}</div>
     <div>
       <div class="d-name">${u.name}</div>
       <div class="d-email">${u.email}${u.phone?' · '+u.phone:''}</div>
-      ${isBday?'<div class="birthday-badge">🎂 Birthday month — double points active!</div>':''}
+      ${isBday?'<div class="bday-badge">🎂 Birthday month — double points active!</div>':''}
+      ${daysSince!==null&&daysSince>14?`<div style="font-size:11px;color:#d4820a;margin-top:4px">⚠️ Last class ${daysSince} days ago</div>`:''}
     </div>`
   document.getElementById('d-stats').innerHTML=`
-    <div class="ds"><div class="ds-n">${u.points}</div><div class="ds-l">points</div></div>
-    <div class="ds"><div class="ds-n">${u.totalClasses}</div><div class="ds-l">classes</div></div>
-    <div class="ds"><div class="ds-n">${u.currentStreak||0}</div><div class="ds-l">wk streak</div></div>`
-  const list=acts.slice(0,15)
-  document.getElementById('d-acts').innerHTML=list.length?list.map(a=>{
+    <div class="ds"><div class="ds-n">${u.points}</div><div class="ds-l">Points</div></div>
+    <div class="ds"><div class="ds-n">${u.totalClasses}</div><div class="ds-l">Classes</div></div>
+    <div class="ds"><div class="ds-n">${u.currentStreak||0}</div><div class="ds-l">Wk streak</div></div>
+    <div class="ds"><div class="ds-n">${u.longestStreak||0}</div><div class="ds-l">Best streak</div></div>`
+  document.getElementById('d-acts').innerHTML=acts.length?acts.slice(0,15).map(a=>{
     const earn=a.points>0
     const pip=a.type==='redeem'?'r':a.type==='referral'?'ref':''
     const d=new Date(a.createdAt).toLocaleDateString('en-CA',{month:'short',day:'numeric'})
@@ -357,20 +417,20 @@ function renderDetail(u,acts){
 async function awardClass(pts){
   if(!curMember)return
   const classType=document.getElementById('cls-type').value
-  const instructor=document.getElementById('cls-instructor').value
+  const instructor=document.getElementById('cls-inst').value
   const actualPts=classType.includes('Instructorless')?30:pts
   const d=await api('POST','/api/admin/award',{userId:curMember.id,classType,instructor,points:actualPts})
   if(d.error){showToast('Error: '+d.error);return}
   curMember=d.user
   await refreshDetail()
   loadStats()
-  if(d.birthdayBonus) celebrate('🎂',curMember.name.split(' ')[0]+`'s birthday month!`,'Double points awarded — '+actualPts*2+' pts total this class.')
-  else if(d.newMilestones&&d.newMilestones.length){
-    const ms={1:{em:'🌱',ti:'First class!'},5:{em:'🔥',ti:'On a roll!'},10:{em:'⭐',ti:'10 classes!'},25:{em:'💪',ti:'25 classes!'},50:{em:'🏆',ti:'Legend status!'},100:{em:'✨',ti:'100 classes!'}}
-    const m=d.newMilestones[0]
-    const info=ms[m]||{em:'🎉',ti:'Milestone!'}
-    celebrate(info.em,curMember.name.split(' ')[0]+' hit '+m+' classes!',`${info.em} A new milestone unlocked. Let them know!`)
-  } else showToast(curMember.name.split(' ')[0]+' — '+classType+' +'+actualPts+' pts ✦')
+  if(d.birthdayBonus) celebrate('🎂',curMember.name.split(' ')[0]+`'s birthday!`,'Double points awarded — '+(actualPts*2)+' pts total.')
+  else if(d.newMilestones?.length){
+    const ms={1:{em:'🌱',ti:'First class!'},5:{em:'🔥',ti:'5 classes!'},10:{em:'⭐',ti:'10 classes!'},25:{em:'💪',ti:'25 classes!'},50:{em:'🏆',ti:'50 classes — Legend!'},100:{em:'✨',ti:'100 classes — Icon!'}}
+    const m=d.newMilestones[0],info=ms[m]||{em:'🎉',ti:'Milestone!'}
+    celebrate(info.em,curMember.name.split(' ')[0]+' hit '+m+' classes!','New milestone unlocked. They\'ve been notified in the app.')
+  }
+  else showToast(curMember.name.split(' ')[0]+' — '+classType+' +'+actualPts+' pts ✦')
 }
 
 async function doRedeem(){
@@ -380,8 +440,7 @@ async function doRedeem(){
   if(curMember.points<pts){showToast('Not enough points — '+curMember.name.split(' ')[0]+' has '+curMember.points+' pts');return}
   const d=await api('POST','/api/admin/redeem',{userId:curMember.id,rewardName:name,pointsCost:pts})
   if(d.error){showToast('Error: '+d.error);return}
-  curMember=d.user
-  await refreshDetail()
+  curMember=d.user;await refreshDetail()
   showToast(name+' redeemed ✦')
 }
 
@@ -391,10 +450,18 @@ async function doReferral(){
   if(!fn){showToast("Enter the friend's name");return}
   const d=await api('POST','/api/admin/referral',{userId:curMember.id,friendName:fn})
   if(d.error){showToast('Error: '+d.error);return}
-  curMember=d.user
-  document.getElementById('ref-friend').value=''
-  await refreshDetail()
-  showToast('Referral bonus for '+fn+' — +100 pts ✦')
+  curMember=d.user;document.getElementById('ref-friend').value=''
+  await refreshDetail();showToast('Referral bonus for '+fn+' — +100 pts ✦')
+}
+
+async function sendMsg(){
+  if(!curMember)return
+  const msg=document.getElementById('msg-text').value.trim()
+  if(!msg){showToast('Write a message first');return}
+  const d=await api('POST','/api/admin/message',{userId:curMember.id,message:msg})
+  if(d.error){showToast('Error: '+d.error);return}
+  document.getElementById('msg-text').value=''
+  showToast('Message sent to '+curMember.name.split(' ')[0]+' ✦')
 }
 
 async function refreshDetail(){
@@ -402,7 +469,7 @@ async function refreshDetail(){
   if(!d.error)renderDetail(d.user,d.activity)
 }
 
-function goBack(){show('s-members');loadMembers(document.getElementById('search').value);loadStats()}
+function goBack(){showSub('sc-members');loadMembers(document.getElementById('search').value);loadStats()}
 
 function celebrate(em,ti,su){
   document.getElementById('cel-em').textContent=em
@@ -412,8 +479,7 @@ function celebrate(em,ti,su){
 }
 
 function showToast(msg){
-  const t=document.getElementById('toast')
-  t.textContent=msg;t.classList.add('on')
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on')
   setTimeout(()=>t.classList.remove('on'),3500)
 }
 
