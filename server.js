@@ -14,12 +14,15 @@ const ADMIN_SECRET = 'motiv-admin-2024'
 const ADMIN_PASSWORD = 'motiv2024'
 
 const adapter = new JSONFile(path.join(__dirname, 'db.json'))
-const db = new Low(adapter, { users: [], activity: [] })
+const db = new Low(adapter, { users: [], activity: [], posts: [], friendRequests: [] })
 await db.read()
+if (!db.data.posts) db.data.posts = []
+if (!db.data.friendRequests) db.data.friendRequests = []
+await db.write()
 
 const app = express()
 app.use(cors())
-app.use(express.json())
+app.use(express.json({ limit: '10mb' }))
 app.use(express.static(path.join(__dirname)))
 
 function auth(req, res, next) {
@@ -46,6 +49,7 @@ function sanitize(u) {
 function checkMilestones(user) {
   const milestones = [1,5,10,25,50,100]
   const newlyEarned = []
+  user.earnedMilestones = user.earnedMilestones || []
   for (const m of milestones) {
     if (user.totalClasses >= m && !user.earnedMilestones.includes(m)) {
       user.earnedMilestones.push(m)
@@ -68,10 +72,10 @@ app.post('/api/signup', async (req, res) => {
     phone: phone || '', password: hashed,
     birthday: birthday || '',
     points: 0, totalClasses: 0, totalReferrals: 0,
-    currentStreak: 0, longestStreak: 0,
-    lastClassWeek: null,
+    currentStreak: 0, longestStreak: 0, lastClassWeek: null,
     earnedMilestones: [],
     referralCode: name.toUpperCase().replace(/\s+/g,'').slice(0,6) + Math.floor(Math.random()*100),
+    friends: [],
     joinedAt: new Date().toISOString(),
     moodHistory: []
   }
@@ -102,37 +106,150 @@ app.get('/api/me', auth, async (req, res) => {
     .filter(a => a.userId === user.id)
     .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 30)
-  res.json({ user: sanitize(user), activity })
+  // get friend requests pending for me
+  const pendingRequests = (db.data.friendRequests || [])
+    .filter(r => r.toId === user.id && r.status === 'pending')
+    .map(r => {
+      const from = db.data.users.find(u => u.id === r.fromId)
+      return { id: r.id, from: from ? { id: from.id, name: from.name } : null }
+    })
+  res.json({ user: sanitize(user), activity, pendingRequests })
 })
 
-// ── LOG MOOD ──
+// ── MOOD ──
 app.post('/api/mood', auth, async (req, res) => {
   await db.read()
   const user = db.data.users.find(u => u.id === req.user.id)
   if (!user) return res.status(404).json({ error: 'Not found' })
-  const { score, note } = req.body
   user.moodHistory = user.moodHistory || []
-  user.moodHistory.push({ score, note: note||'', date: new Date().toISOString() })
+  user.moodHistory.push({ score: req.body.score, note: req.body.note||'', date: new Date().toISOString() })
   await db.write()
   res.json({ success: true })
 })
 
-// ── ADMIN LOGIN ──
+// ── POSTS ──
+app.post('/api/posts', auth, async (req, res) => {
+  await db.read()
+  const user = db.data.users.find(u => u.id === req.user.id)
+  if (!user) return res.status(404).json({ error: 'Not found' })
+  const { caption, imageData, visibility, milestoneN, classType } = req.body
+  const post = {
+    id: uuidv4(),
+    userId: req.user.id,
+    userName: user.name,
+    caption: caption || '',
+    imageData: imageData || null,
+    visibility: visibility || 'friends', // 'friends' or 'private'
+    milestoneN: milestoneN || null,
+    classType: classType || null,
+    userStats: { totalClasses: user.totalClasses, currentStreak: user.currentStreak, points: user.points },
+    likes: [],
+    createdAt: new Date().toISOString()
+  }
+  db.data.posts.unshift(post)
+  // keep only last 500 posts
+  if (db.data.posts.length > 500) db.data.posts = db.data.posts.slice(0, 500)
+  await db.write()
+  res.json({ post })
+})
+
+app.get('/api/posts/feed', auth, async (req, res) => {
+  await db.read()
+  const user = db.data.users.find(u => u.id === req.user.id)
+  if (!user) return res.status(404).json({ error: 'Not found' })
+  const friendIds = new Set(user.friends || [])
+  const feed = db.data.posts
+    .filter(p => {
+      if (p.userId === req.user.id) return p.visibility !== 'private' || true // own posts always visible
+      if (friendIds.has(p.userId) && p.visibility === 'friends') return true
+      return false
+    })
+    .slice(0, 30)
+    .map(p => {
+      const poster = db.data.users.find(u => u.id === p.userId)
+      return { ...p, userName: poster?.name || p.userName, imageData: p.imageData }
+    })
+  res.json(feed)
+})
+
+app.get('/api/posts/mine', auth, async (req, res) => {
+  await db.read()
+  const posts = db.data.posts.filter(p => p.userId === req.user.id).slice(0, 20)
+  res.json(posts)
+})
+
+app.post('/api/posts/:id/like', auth, async (req, res) => {
+  await db.read()
+  const post = db.data.posts.find(p => p.id === req.params.id)
+  if (!post) return res.status(404).json({ error: 'Not found' })
+  post.likes = post.likes || []
+  const idx = post.likes.indexOf(req.user.id)
+  if (idx > -1) post.likes.splice(idx, 1)
+  else post.likes.push(req.user.id)
+  await db.write()
+  res.json({ likes: post.likes.length, liked: post.likes.includes(req.user.id) })
+})
+
+// ── FRIENDS ──
+app.post('/api/friends/request', auth, async (req, res) => {
+  await db.read()
+  const { toEmail } = req.body
+  const toUser = db.data.users.find(u => u.email === toEmail.toLowerCase())
+  if (!toUser) return res.status(404).json({ error: 'No user with that email' })
+  if (toUser.id === req.user.id) return res.status(400).json({ error: "Can't add yourself" })
+  const me = db.data.users.find(u => u.id === req.user.id)
+  if (me.friends?.includes(toUser.id)) return res.status(400).json({ error: 'Already friends' })
+  const existing = db.data.friendRequests.find(r => r.fromId === req.user.id && r.toId === toUser.id && r.status === 'pending')
+  if (existing) return res.status(400).json({ error: 'Request already sent' })
+  db.data.friendRequests.push({ id: uuidv4(), fromId: req.user.id, toId: toUser.id, status: 'pending', createdAt: new Date().toISOString() })
+  await db.write()
+  res.json({ success: true, toName: toUser.name })
+})
+
+app.post('/api/friends/respond', auth, async (req, res) => {
+  await db.read()
+  const { requestId, accept } = req.body
+  const req2 = db.data.friendRequests.find(r => r.id === requestId && r.toId === req.user.id)
+  if (!req2) return res.status(404).json({ error: 'Request not found' })
+  req2.status = accept ? 'accepted' : 'declined'
+  if (accept) {
+    const me = db.data.users.find(u => u.id === req.user.id)
+    const them = db.data.users.find(u => u.id === req2.fromId)
+    if (me && them) {
+      me.friends = me.friends || []; them.friends = them.friends || []
+      if (!me.friends.includes(them.id)) me.friends.push(them.id)
+      if (!them.friends.includes(me.id)) them.friends.push(me.id)
+    }
+  }
+  await db.write()
+  res.json({ success: true })
+})
+
+app.get('/api/friends', auth, async (req, res) => {
+  await db.read()
+  const me = db.data.users.find(u => u.id === req.user.id)
+  if (!me) return res.status(404).json({ error: 'Not found' })
+  const friends = (me.friends || []).map(fid => {
+    const f = db.data.users.find(u => u.id === fid)
+    if (!f) return null
+    return { id: f.id, name: f.name, points: f.points, totalClasses: f.totalClasses, currentStreak: f.currentStreak||0, longestStreak: f.longestStreak||0, earnedMilestones: f.earnedMilestones||[] }
+  }).filter(Boolean)
+  res.json(friends)
+})
+
+// ── ADMIN ──
 app.post('/api/admin/login', (req, res) => {
-  if (req.body.password !== ADMIN_PASSWORD)
-    return res.status(401).json({ error: 'Wrong password' })
+  if (req.body.password !== ADMIN_PASSWORD) return res.status(401).json({ error: 'Wrong password' })
   const token = jwt.sign({ isAdmin: true }, ADMIN_SECRET, { expiresIn: '8h' })
   res.json({ token })
 })
 
-// ── ADMIN MEMBERS ──
 app.get('/api/admin/members', adminAuth, async (req, res) => {
   await db.read()
   const q = (req.query.q||'').toLowerCase()
   const members = db.data.users
     .filter(u => !q || u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q) || u.phone.includes(q))
-    .map(sanitize)
-    .sort((a,b) => b.points - a.points)
+    .map(sanitize).sort((a,b) => b.points - a.points)
   res.json(members)
 })
 
@@ -140,63 +257,33 @@ app.get('/api/admin/members/:id', adminAuth, async (req, res) => {
   await db.read()
   const user = db.data.users.find(u => u.id === req.params.id)
   if (!user) return res.status(404).json({ error: 'Not found' })
-  const activity = db.data.activity
-    .filter(a => a.userId === user.id)
-    .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+  const activity = db.data.activity.filter(a => a.userId === user.id).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
   res.json({ user: sanitize(user), activity })
 })
 
-// ── ADMIN AWARD CLASS ──
 app.post('/api/admin/award', adminAuth, async (req, res) => {
   await db.read()
   const { userId, classType, points, instructor } = req.body
   const user = db.data.users.find(u => u.id === userId)
   if (!user) return res.status(404).json({ error: 'Not found' })
-
-  user.points += points
-  user.totalClasses += 1
-  user.moodHistory = user.moodHistory || []
-  user.earnedMilestones = user.earnedMilestones || []
-
-  // streak logic
+  user.points += points; user.totalClasses += 1
+  user.moodHistory = user.moodHistory || []; user.earnedMilestones = user.earnedMilestones || []
   const now = new Date()
   const weekNum = Math.floor(now.getTime() / (7*24*60*60*1000))
-  if (user.lastClassWeek === weekNum - 1) {
-    user.currentStreak = (user.currentStreak || 0) + 1
-  } else if (user.lastClassWeek === weekNum) {
-    // already attended this week, no change
-  } else {
-    user.currentStreak = 1
-  }
+  if (user.lastClassWeek === weekNum - 1) user.currentStreak = (user.currentStreak||0) + 1
+  else if (user.lastClassWeek !== weekNum) user.currentStreak = 1
   user.lastClassWeek = weekNum
-  user.longestStreak = Math.max(user.longestStreak || 0, user.currentStreak)
-
+  user.longestStreak = Math.max(user.longestStreak||0, user.currentStreak)
   const newMilestones = checkMilestones(user)
-
-  // birthday bonus check
   let birthdayBonus = false
-  if (user.birthday) {
-    const bMonth = new Date(user.birthday).getMonth()
-    if (now.getMonth() === bMonth) {
-      user.points += points // double points
-      birthdayBonus = true
-    }
+  if (user.birthday && new Date(user.birthday).getMonth() === now.getMonth()) {
+    user.points += points; birthdayBonus = true
   }
-
-  db.data.activity.push({
-    id: uuidv4(), userId, type: 'class',
-    label: classType + (instructor ? ' · ' + instructor : ''),
-    points: birthdayBonus ? points * 2 : points,
-    instructor: instructor || '',
-    awardedBy: 'staff',
-    createdAt: new Date().toISOString()
-  })
-
+  db.data.activity.push({ id: uuidv4(), userId, type: 'class', label: classType+(instructor?' · '+instructor:''), points: birthdayBonus?points*2:points, instructor:instructor||'', awardedBy:'staff', createdAt:now.toISOString() })
   await db.write()
   res.json({ user: sanitize(user), newMilestones, birthdayBonus })
 })
 
-// ── ADMIN REDEEM ──
 app.post('/api/admin/redeem', adminAuth, async (req, res) => {
   await db.read()
   const { userId, rewardName, pointsCost } = req.body
@@ -204,47 +291,31 @@ app.post('/api/admin/redeem', adminAuth, async (req, res) => {
   if (!user) return res.status(404).json({ error: 'Not found' })
   if (user.points < pointsCost) return res.status(400).json({ error: 'Not enough points' })
   user.points -= pointsCost
-  db.data.activity.push({
-    id: uuidv4(), userId, type: 'redeem',
-    label: 'Redeemed: ' + rewardName,
-    points: -pointsCost, awardedBy: 'staff',
-    createdAt: new Date().toISOString()
-  })
+  db.data.activity.push({ id: uuidv4(), userId, type: 'redeem', label: 'Redeemed: '+rewardName, points: -pointsCost, awardedBy:'staff', createdAt:new Date().toISOString() })
   await db.write()
   res.json({ user: sanitize(user) })
 })
 
-// ── ADMIN REFERRAL ──
 app.post('/api/admin/referral', adminAuth, async (req, res) => {
   await db.read()
   const { userId, friendName } = req.body
   const user = db.data.users.find(u => u.id === userId)
   if (!user) return res.status(404).json({ error: 'Not found' })
-  user.points += 100
-  user.totalReferrals += 1
-  db.data.activity.push({
-    id: uuidv4(), userId, type: 'referral',
-    label: 'Referral bonus — ' + friendName,
-    points: 100, awardedBy: 'staff',
-    createdAt: new Date().toISOString()
-  })
+  user.points += 100; user.totalReferrals += 1
+  db.data.activity.push({ id: uuidv4(), userId, type: 'referral', label: 'Referral bonus — '+friendName, points: 100, awardedBy:'staff', createdAt:new Date().toISOString() })
   await db.write()
   res.json({ user: sanitize(user) })
 })
 
-// ── ADMIN STATS ──
 app.get('/api/admin/stats', adminAuth, async (req, res) => {
   await db.read()
-  const users = db.data.users
-  const activity = db.data.activity
-  const totalMembers = users.length
-  const totalClasses = activity.filter(a => a.type === 'class').length
-  const totalReferrals = activity.filter(a => a.type === 'referral').length
-  const activeThisWeek = users.filter(u => {
-    const weekNum = Math.floor(Date.now() / (7*24*60*60*1000))
-    return u.lastClassWeek === weekNum
-  }).length
-  res.json({ totalMembers, totalClasses, totalReferrals, activeThisWeek })
+  const weekNum = Math.floor(Date.now() / (7*24*60*60*1000))
+  res.json({
+    totalMembers: db.data.users.length,
+    totalClasses: db.data.activity.filter(a=>a.type==='class').length,
+    totalReferrals: db.data.activity.filter(a=>a.type==='referral').length,
+    activeThisWeek: db.data.users.filter(u=>u.lastClassWeek===weekNum).length
+  })
 })
 
-app.listen(3000, () => console.log('✦ Motiv Rewards running → http://localhost:3000'))
+app.listen(3000, () => console.log('✦ Motiv running → http://localhost:3000'))
