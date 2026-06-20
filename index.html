@@ -1271,8 +1271,13 @@ function takePhoto() {
   canvas.width = W; canvas.height = H
   const ctx = canvas.getContext('2d')
 
-  // Draw video frame — Snapchat style, no mirror
+  // Snapchat style — front camera: mirror the canvas so photo looks natural
+  if (camFacing === 'user') {
+    ctx.translate(W, 0)
+    ctx.scale(-1, 1)
+  }
   ctx.drawImage(video, 0, 0, W, H)
+  ctx.setTransform(1, 0, 0, 1, 0, 0)
 
   // Add achievement overlay
   drawAchievementOverlay(ctx, W, H, currentAchievement)
@@ -1284,7 +1289,7 @@ function takePhoto() {
 
 function drawAchievementOverlay(ctx, W, H, ms) {
   if (!ms) return
-  const scale = W / 390
+  const scale = Math.max(W / 390, 1.5)
 
   // Bottom overlay gradient
   const grad = ctx.createLinearGradient(0, H*0.55, 0, H)
@@ -1304,13 +1309,18 @@ function drawAchievementOverlay(ctx, W, H, ms) {
     const statW = W / 3
     stats.forEach((s, i) => {
       const x = statW * i + statW / 2
-      ctx.fillStyle = 'rgba(255,255,255,0.9)'
-      ctx.font = `bold ${28 * scale}px Inter, sans-serif`
+      // Number
+      ctx.fillStyle = '#ffffff'
+      ctx.font = `700 ${32 * scale}px -apple-system, SF Pro Display, Inter, sans-serif`
       ctx.textAlign = 'center'
+      ctx.shadowColor = 'rgba(0,0,0,0.5)'
+      ctx.shadowBlur = 8 * scale
       ctx.fillText(String(s.n), x, statY)
-      ctx.fillStyle = 'rgba(255,255,255,0.4)'
-      ctx.font = `${10 * scale}px Inter, sans-serif`
-      ctx.fillText(s.l, x, statY + 18 * scale)
+      // Label
+      ctx.fillStyle = 'rgba(255,255,255,0.55)'
+      ctx.font = `600 ${11 * scale}px -apple-system, SF Pro Text, Inter, sans-serif`
+      ctx.shadowBlur = 0
+      ctx.fillText(s.l, x, statY + 20 * scale)
     })
     // Separator lines
     ctx.strokeStyle = 'rgba(255,255,255,0.15)'
@@ -1328,30 +1338,35 @@ function drawAchievementOverlay(ctx, W, H, ms) {
   const bx = (W - badgeW) / 2
   roundRect(ctx, bx, badgeY, badgeW, badgeH, 17 * scale)
   ctx.fill()
-  ctx.fillStyle = '#1a1712'
-  ctx.font = `bold ${13 * scale}px Inter, sans-serif`
+  ctx.fillStyle = '#ffffff'
+  ctx.font = `700 ${13 * scale}px -apple-system, SF Pro Text, Inter, sans-serif`
+  ctx.shadowColor = 'rgba(0,0,0,0.2)'
+  ctx.shadowBlur = 4
   ctx.textAlign = 'center'
   const label = ms.ti.replace(/\d+\s+classes?\s+[—-]\s*/i,'').toUpperCase()
   ctx.fillText(ms.ic + '  ' + label, W/2, badgeY + badgeH*0.68)
+  ctx.shadowBlur = 0
 
   // Name
   if (me?.name) {
-    ctx.fillStyle = 'rgba(255,255,255,0.7)'
-    ctx.font = `${11 * scale}px Inter, sans-serif`
+    ctx.fillStyle = 'rgba(255,255,255,0.75)'
+    ctx.font = `500 ${12 * scale}px -apple-system, SF Pro Text, Inter, sans-serif`
     ctx.textAlign = 'center'
     ctx.fillText(me.name.toUpperCase(), W/2, H * 0.865)
   }
 
-  // @motivpilates watermark
-  ctx.fillStyle = 'rgba(255,255,255,0.85)'
-  ctx.font = `bold ${13 * scale}px Inter, sans-serif`
+  // @motivpilates watermark — bold and clear
+  ctx.fillStyle = '#ffffff'
+  ctx.font = `800 ${16 * scale}px -apple-system, SF Pro Display, Inter, sans-serif`
   ctx.textAlign = 'center'
+  ctx.shadowColor = 'rgba(0,0,0,0.6)'
+  ctx.shadowBlur = 10 * scale
   ctx.fillText('@motivpilates', W/2, H * 0.9)
+  ctx.shadowBlur = 0
 
   // MoTIV top watermark
-  ctx.fillStyle = 'rgba(255,255,255,0.5)'
-  ctx.font = `${11 * scale}px Inter, sans-serif`
-  ctx.letterSpacing = '0.2em'
+  ctx.fillStyle = 'rgba(255,255,255,0.6)'
+  ctx.font = `600 ${12 * scale}px -apple-system, SF Pro Text, Inter, sans-serif`
   ctx.textAlign = 'center'
   ctx.fillText('MōTIV REWARDS', W/2, 52 * scale)
 }
