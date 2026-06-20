@@ -6,7 +6,7 @@
 <title>MōTIV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -14,176 +14,192 @@
   --cream:#faf7f2;--s1:#f4f0e8;--s2:#ebe5d8;--s3:#dfd8c8;
   --gold:#c4a265;--gold2:#e0c08a;--goldp:#f7edda;--goldd:#8a6d3f;
   --green:#4a9e6e;--greenl:#e8f5ee;
+  --rose:#e05555;
   --bd:rgba(15,14,12,0.08);--bds:rgba(15,14,12,0.04);
   --r:20px;--rs:12px;
-  --shadow:0 2px 16px rgba(15,14,12,0.06);
-  --shadow-lg:0 8px 40px rgba(15,14,12,0.12);
+  --sh:0 2px 16px rgba(15,14,12,0.06);
+  --sh-lg:0 8px 40px rgba(15,14,12,0.12);
 }
 html{-webkit-tap-highlight-color:transparent}
 body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;max-width:430px;margin:0 auto;min-height:100vh;overflow-x:hidden}
 button{cursor:pointer;font-family:'Inter',sans-serif;border:none;outline:none}
 input,select,textarea{font-family:'Inter',sans-serif;outline:none}
 .screen{display:none}.screen.on{display:block}
-.serif{font-family:'Playfair Display',serif}
 img{max-width:100%;display:block}
 
-/* ── ONBOARDING ── */
-.onboard{min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;background:#1a1712}
-.ob-glow{position:absolute;top:-100px;left:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(196,162,101,0.15) 0%,transparent 70%);pointer-events:none}
-.ob-glow2{position:absolute;bottom:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(196,162,101,0.08) 0%,transparent 70%);pointer-events:none}
-.ob-content{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;padding:64px 32px 48px}
-.ob-logo{font-family:'Playfair Display',serif;font-size:13px;font-weight:400;letter-spacing:0.35em;text-transform:uppercase;color:rgba(196,162,101,0.7);margin-bottom:auto}
+/* ONBOARDING */
+.onboard{min-height:100vh;display:flex;flex-direction:column;background:#1a1712;position:relative;overflow:hidden}
+.ob-glow{position:absolute;top:-80px;left:-80px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(196,162,101,0.15) 0%,transparent 70%);pointer-events:none}
+.ob-glow2{position:absolute;bottom:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(196,162,101,0.08) 0%,transparent 70%);pointer-events:none}
+.ob-c{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;padding:64px 32px 48px}
+.ob-logo{font-family:'Playfair Display',serif;font-size:13px;letter-spacing:.35em;text-transform:uppercase;color:rgba(196,162,101,0.7);margin-bottom:auto}
 .ob-hero{margin:auto 0 52px}
-.ob-tag{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(196,162,101,0.5);margin-bottom:18px;font-weight:600}
+.ob-tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(196,162,101,0.5);margin-bottom:18px;font-weight:600}
 .ob-h{font-family:'Playfair Display',serif;font-size:50px;font-weight:400;color:#fff;line-height:1.08;margin-bottom:20px}
 .ob-h em{color:var(--gold);font-style:italic}
-.ob-sub{font-size:15px;color:rgba(255,255,255,0.4);line-height:1.75;font-weight:300}
-.ob-actions{display:flex;flex-direction:column;gap:12px}
-.ob-primary{background:var(--gold);color:#1a1712;padding:17px;border-radius:14px;font-size:15px;font-weight:700;letter-spacing:0.02em;transition:all .2s}
-.ob-primary:active{transform:scale(0.98)}
-.ob-secondary{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.75);padding:17px;border-radius:14px;font-size:15px;font-weight:400;border:0.5px solid rgba(255,255,255,0.1);transition:all .2s}
-.ob-secondary:active{transform:scale(0.98)}
-.ob-foot{text-align:center;margin-top:18px;font-size:12px;color:rgba(255,255,255,0.25)}
-.ob-foot a{color:rgba(196,162,101,0.6);cursor:pointer}
+.ob-sub{font-size:15px;color:rgba(255,255,255,0.38);line-height:1.75;font-weight:300}
+.ob-acts{display:flex;flex-direction:column;gap:12px}
+.ob-p{background:var(--gold);color:#1a1712;padding:17px;border-radius:14px;font-size:15px;font-weight:700;letter-spacing:.02em;transition:transform .2s}
+.ob-p:active{transform:scale(.98)}
+.ob-s{background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);padding:17px;border-radius:14px;font-size:15px;border:.5px solid rgba(255,255,255,.1)}
+.ob-s:active{transform:scale(.98)}
+.ob-foot{text-align:center;margin-top:18px;font-size:12px;color:rgba(255,255,255,.25)}
+.ob-foot a{color:rgba(196,162,101,.6);cursor:pointer}
 
-/* ── AUTH SHEET ── */
+/* AUTH SHEET */
 .sheet-bg{position:fixed;inset:0;z-index:200;display:none;align-items:flex-end}
 .sheet-bg.on{display:flex}
-.sheet-ov{position:absolute;inset:0;background:rgba(15,14,12,0.65);backdrop-filter:blur(6px)}
-.sheet{background:var(--cream);border-radius:28px 28px 0 0;padding:28px 28px max(36px,env(safe-area-inset-bottom));width:100%;position:relative;z-index:1;transform:translateY(100%);transition:transform .4s cubic-bezier(0.4,0,0.2,1);max-height:92vh;overflow-y:auto}
+.sh-ov{position:absolute;inset:0;background:rgba(15,14,12,.65);backdrop-filter:blur(6px)}
+.sheet{background:var(--cream);border-radius:28px 28px 0 0;padding:28px 28px max(36px,env(safe-area-inset-bottom));width:100%;position:relative;z-index:1;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);max-height:92vh;overflow-y:auto}
 .sheet-bg.on .sheet{transform:translateY(0)}
-.s-handle{width:40px;height:4px;background:var(--s3);border-radius:2px;margin:0 auto 24px}
-.s-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;margin-bottom:5px}
+.s-hdl{width:40px;height:4px;background:var(--s3);border-radius:2px;margin:0 auto 24px}
+.s-ti{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;margin-bottom:5px}
 .s-sub{font-size:13px;color:var(--ink3);margin-bottom:22px}
 .field{margin-bottom:13px}
-.field label{display:block;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px;font-weight:600}
-.field input{width:100%;padding:13px 15px;border:.5px solid var(--bd);border-radius:var(--rs);font-size:15px;background:var(--s1);color:var(--ink);transition:border-color .2s,background .2s}
+.field label{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px;font-weight:600}
+.field input{width:100%;padding:13px 15px;border:.5px solid var(--bd);border-radius:var(--rs);font-size:15px;background:var(--s1);color:var(--ink);transition:border-color .2s}
 .field input:focus{border-color:var(--gold);background:#fff}
-.btn-ink{width:100%;background:var(--ink);color:var(--gold2);padding:15px;border-radius:var(--rs);font-size:15px;font-weight:600;letter-spacing:0.02em;transition:all .2s;margin-top:6px}
-.btn-ink:active{transform:scale(0.98)}
-.auth-err{color:#c0392b;font-size:12px;text-align:center;margin-top:9px;min-height:16px}
+.btn-ink{width:100%;background:var(--ink);color:var(--gold2);padding:15px;border-radius:var(--rs);font-size:15px;font-weight:600;letter-spacing:.02em;transition:transform .2s;margin-top:6px}
+.btn-ink:active{transform:scale(.98)}
+.auth-err{color:var(--rose);font-size:12px;text-align:center;margin-top:9px;min-height:16px}
 .auth-sw{text-align:center;margin-top:14px;font-size:13px;color:var(--ink3)}
 .auth-sw a{color:var(--gold);cursor:pointer;font-weight:600}
 
-/* ── APP SHELL ── */
-.app-hdr{position:sticky;top:0;z-index:100;background:rgba(250,247,242,0.93);backdrop-filter:blur(20px);border-bottom:.5px solid var(--bd);height:58px;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
-.hdr-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:400;letter-spacing:0.06em}
+/* APP SHELL */
+.app-hdr{position:sticky;top:0;z-index:100;background:rgba(250,247,242,.93);backdrop-filter:blur(20px);border-bottom:.5px solid var(--bd);height:58px;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.hdr-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:400;letter-spacing:.06em}
 .hdr-logo em{color:var(--gold);font-style:normal;font-size:14px}
-.hdr-pts{background:var(--ink);color:var(--gold2);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:0.02em}
-.btm-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(250,247,242,0.96);backdrop-filter:blur(20px);border-top:.5px solid var(--bd);display:flex;padding:10px 0 max(14px,env(safe-area-inset-bottom));z-index:100}
-.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0;background:none;color:var(--ink3);transition:color .2s}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.hdr-pts{background:var(--ink);color:var(--gold2);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600}
+.hdr-notif{position:relative;background:none;padding:4px;font-size:20px;line-height:1}
+.hdr-notif-badge{position:absolute;top:0;right:0;background:var(--rose);color:#fff;border-radius:50%;width:14px;height:14px;font-size:8px;font-weight:700;display:none;align-items:center;justify-content:center}
+.hdr-notif-badge.on{display:flex}
+.btm-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(250,247,242,.96);backdrop-filter:blur(20px);border-top:.5px solid var(--bd);display:flex;padding:10px 0 max(14px,env(safe-area-inset-bottom));z-index:100}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0;background:none;color:var(--ink3);transition:color .2s;position:relative}
 .nb.on{color:var(--ink)}
 .nb-ic{font-size:20px;line-height:1}
-.nb-lb{font-size:8px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase}
+.nb-lb{font-size:8px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
 .nb-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0;margin-top:1px;transition:opacity .2s}
 .nb.on .nb-dot{opacity:1}
-.nb-badge{position:relative;display:inline-block}
-.nb-badge-count{position:absolute;top:-4px;right:-6px;background:#e53;color:#fff;border-radius:50%;width:14px;height:14px;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;display:none}
-.nb-badge-count.show{display:flex}
+.nb-badge{position:absolute;top:0;right:18%;background:var(--rose);color:#fff;border-radius:50%;width:14px;height:14px;font-size:8px;font-weight:700;display:none;align-items:center;justify-content:center}
+.nb-badge.on{display:flex}
 .tp{display:none;padding-bottom:100px}.tp.on{display:block}
 .sec{padding:0 20px 24px}
-.ey{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;display:flex;align-items:center;gap:9px;font-weight:600}
+.ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;display:flex;align-items:center;gap:9px;font-weight:600}
 .ey::after{content:'';flex:1;height:.5px;background:var(--bd)}
 
-/* ── HOME ── */
+/* HOME */
 .home-hero{padding:28px 24px 20px}
-.home-greet{font-size:11px;color:var(--ink3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;font-weight:600}
-.home-name{font-family:'Playfair Display',serif;font-size:36px;font-weight:400;line-height:1.1;margin-bottom:0}
+.home-greet{font-size:11px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;font-weight:600}
+.home-name{font-family:'Playfair Display',serif;font-size:36px;font-weight:400;line-height:1.1}
 .home-name em{font-style:italic;color:var(--gold)}
 
-/* RING CARD */
-.ring-card{background:#fff;border-radius:24px;margin:0 16px 14px;padding:24px 20px;box-shadow:var(--shadow);border:.5px solid var(--bd)}
+/* RING */
+.ring-card{background:#fff;border-radius:24px;margin:0 16px 14px;padding:24px 20px;box-shadow:var(--sh);border:.5px solid var(--bd)}
 .ring-wrap{position:relative;width:150px;height:150px;margin:0 auto 18px}
 .ring-svg{width:150px;height:150px;transform:rotate(-90deg)}
 .ring-track{fill:none;stroke:var(--s2);stroke-width:10}
-.ring-fill{fill:none;stroke:url(#goldGrad);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)}
+.ring-fill{fill:none;stroke:url(#goldGrad);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1)}
 .ring-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.ring-n{font-family:'Playfair Display',serif;font-size:40px;font-weight:400;color:var(--ink);line-height:1}
-.ring-l{font-size:10px;color:var(--ink3);letter-spacing:0.1em;text-transform:uppercase;margin-top:1px;font-weight:600}
+.ring-n{font-family:'Playfair Display',serif;font-size:40px;font-weight:400;line-height:1}
+.ring-l{font-size:10px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-top:1px;font-weight:600}
 .ring-nx{font-size:11px;color:var(--gold);font-weight:600;margin-top:2px}
 .ring-stats{display:flex;justify-content:space-around;border-top:.5px solid var(--s2);padding-top:14px}
 .rs{text-align:center}
 .rs-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:400}
-.rs-l{font-size:10px;color:var(--ink3);letter-spacing:0.04em;font-weight:500;margin-top:1px}
+.rs-l{font-size:10px;color:var(--ink3);letter-spacing:.04em;font-weight:500;margin-top:1px}
 
 /* CALENDAR */
-.cal-card{background:#1a1712;border-radius:22px;margin:0 16px 14px;padding:20px;box-shadow:var(--shadow-lg)}
-.cal-title{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(196,162,101,0.6);margin-bottom:4px;font-weight:600}
-.cal-streak{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:#fff;margin-bottom:16px}
+.cal-card{background:#1a1712;border-radius:22px;margin:0 16px 14px;padding:20px;box-shadow:var(--sh-lg)}
+.cal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.cal-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(196,162,101,.6);font-weight:600}
+.cal-month{font-size:11px;color:rgba(255,255,255,.3);font-weight:500}
+.cal-streak{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:#fff;margin-bottom:16px}
 .cal-streak em{color:var(--gold);font-style:normal}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:8px}
-.cal-day-label{font-size:8px;color:rgba(255,255,255,0.25);text-align:center;font-weight:600;letter-spacing:0.05em;padding-bottom:4px}
-.cal-day{aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;background:rgba(255,255,255,0.05)}
-.cal-day.went{background:rgba(74,158,110,0.25)}
-.cal-day.went .cal-day-inner{color:#4a9e6e;font-weight:600;font-size:9px}
-.cal-day.streak-fire{background:rgba(196,162,101,0.15)}
-.cal-day.streak-fire .cal-day-num{display:none}
-.cal-day.today{border:1px solid rgba(196,162,101,0.4)}
-.cal-day-num{font-size:9px;color:rgba(255,255,255,0.3);font-weight:500}
-.cal-legend{display:flex;gap:12px;margin-top:4px}
-.cal-leg{display:flex;align-items:center;gap:5px;font-size:10px;color:rgba(255,255,255,0.4)}
-.cal-leg-dot{width:8px;height:8px;border-radius:3px}
+.cal-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:5px}
+.cal-lbl{font-size:8px;color:rgba(255,255,255,.2);text-align:center;font-weight:600;letter-spacing:.05em}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cd{aspect-ratio:1;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(255,255,255,.2);background:rgba(255,255,255,.04);font-weight:500;transition:all .3s}
+.cd.went{background:rgba(74,158,110,.2);color:#4a9e6e;font-weight:700}
+.cd.fire{background:rgba(196,162,101,.18);font-size:13px;color:#fff}
+.cd.today{outline:1px solid rgba(196,162,101,.4);outline-offset:-1px}
+.cd.future{opacity:.3}
+.cal-legend{display:flex;gap:14px;margin-top:10px}
+.cal-leg{display:flex;align-items:center;gap:5px;font-size:10px;color:rgba(255,255,255,.35)}
+.cal-leg-ic{width:10px;height:10px;border-radius:3px}
 
 /* MOOD */
-.mood-card{background:#fff;border-radius:20px;margin:0 16px 14px;padding:18px;box-shadow:var(--shadow);border:.5px solid var(--bd)}
+.mood-card{background:#fff;border-radius:20px;margin:0 16px 14px;padding:18px;box-shadow:var(--sh);border:.5px solid var(--bd)}
 .mood-q{font-size:14px;font-weight:600;margin-bottom:3px}
 .mood-qs{font-size:12px;color:var(--ink3);margin-bottom:12px}
 .mood-row{display:flex;gap:6px}
-.mood-opt{flex:1;background:var(--s1);border:1.5px solid transparent;border-radius:10px;padding:9px 3px;text-align:center;transition:all .2s}
-.mood-opt:active,.mood-opt.sel{background:var(--ink);border-color:var(--ink)}
-.mood-em{font-size:18px;display:block;margin-bottom:2px}
-.mood-lb{font-size:8px;color:var(--ink3);font-weight:600;letter-spacing:0.04em}
-.mood-opt.sel .mood-lb{color:var(--gold2)}
+.mopt{flex:1;background:var(--s1);border:1.5px solid transparent;border-radius:10px;padding:9px 3px;text-align:center;transition:all .2s}
+.mopt:active,.mopt.sel{background:var(--ink);border-color:var(--ink)}
+.mopt-em{font-size:18px;display:block;margin-bottom:2px}
+.mopt-lb{font-size:8px;color:var(--ink3);font-weight:600;letter-spacing:.04em}
+.mopt.sel .mopt-lb{color:var(--gold2)}
 
-/* FRIENDS FEED */
-.feed-post{background:#fff;border-radius:20px;margin:0 0 12px;overflow:hidden;box-shadow:var(--shadow);border:.5px solid var(--bd)}
-.feed-post-hdr{display:flex;align-items:center;gap:10px;padding:14px 16px 10px}
-.post-av{width:36px;height:36px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--ink2);flex-shrink:0}
-.post-name{font-size:14px;font-weight:600}
-.post-meta{font-size:11px;color:var(--ink3);margin-top:1px}
-.post-vis{font-size:9px;color:var(--ink3);margin-left:auto;background:var(--s1);padding:3px 8px;border-radius:100px;font-weight:600;letter-spacing:0.04em;flex-shrink:0}
-.post-img{width:100%;max-height:320px;object-fit:cover}
-.post-img-placeholder{background:var(--s1);height:120px;display:flex;align-items:center;justify-content:center;font-size:32px}
-.post-body{padding:12px 16px 14px}
-.post-stats{display:flex;gap:12px;margin-bottom:8px}
-.post-stat{background:var(--s1);border-radius:8px;padding:6px 10px;text-align:center}
-.post-stat-n{font-family:'Playfair Display',serif;font-size:16px;font-weight:400;color:var(--ink)}
-.post-stat-l{font-size:9px;color:var(--ink3);font-weight:600;letter-spacing:0.04em;margin-top:1px}
-.post-caption{font-size:13px;color:var(--ink2);line-height:1.55;margin-bottom:10px}
-.post-actions{display:flex;align-items:center;gap:12px}
-.like-btn{background:none;color:var(--ink3);font-size:13px;font-weight:500;display:flex;align-items:center;gap:5px;transition:color .2s;padding:0}
-.like-btn.liked{color:#e53}
-.post-time{font-size:11px;color:var(--ink3);margin-left:auto}
-.feed-empty{text-align:center;padding:40px 20px;color:var(--ink3);font-size:14px;line-height:1.7}
+/* ACTIVITY */
+.act-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:.5px solid var(--bds)}
+.act-row:last-child{border-bottom:none}
+.act-ico{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 
-/* CREATE POST */
-.create-post-bar{background:#fff;border-radius:20px;margin:0 0 14px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);border:.5px solid var(--bd);cursor:pointer;transition:border-color .2s}
-.create-post-bar:active{border-color:var(--gold)}
-.cp-av{width:38px;height:38px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--ink2);flex-shrink:0}
-.cp-placeholder{font-size:14px;color:var(--ink3);flex:1}
-.cp-cam{font-size:20px}
+/* FEED */
+.feed-post{background:#fff;border-radius:20px;margin-bottom:12px;overflow:hidden;box-shadow:var(--sh);border:.5px solid var(--bd)}
+.fp-hdr{display:flex;align-items:center;gap:10px;padding:14px 16px 10px}
+.fp-av{width:36px;height:36px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--ink2);flex-shrink:0;cursor:pointer}
+.fp-name{font-size:14px;font-weight:600;cursor:pointer}
+.fp-meta{font-size:11px;color:var(--ink3);margin-top:1px}
+.fp-vis{font-size:9px;color:var(--ink3);margin-left:auto;background:var(--s1);padding:3px 8px;border-radius:100px;font-weight:600;flex-shrink:0}
+.fp-img{width:100%;max-height:340px;object-fit:cover}
+.fp-body{padding:12px 16px 14px}
+.fp-stats{display:flex;gap:10px;margin-bottom:8px}
+.fp-stat{background:var(--s1);border-radius:8px;padding:6px 10px;text-align:center}
+.fp-stat-n{font-family:'Playfair Display',serif;font-size:15px;font-weight:400}
+.fp-stat-l{font-size:9px;color:var(--ink3);font-weight:600;letter-spacing:.04em;margin-top:1px}
+.fp-cap{font-size:13px;color:var(--ink2);line-height:1.55;margin-bottom:10px}
+.fp-acts{display:flex;align-items:center;gap:12px}
+.like-btn{background:none;color:var(--ink3);font-size:13px;font-weight:500;display:flex;align-items:center;gap:5px;padding:0;transition:color .2s}
+.like-btn.liked{color:var(--rose)}
+.comment-btn{background:none;color:var(--ink3);font-size:13px;font-weight:500;display:flex;align-items:center;gap:5px;padding:0}
+.fp-time{font-size:11px;color:var(--ink3);margin-left:auto}
+.fp-comments{border-top:.5px solid var(--bds);padding:10px 16px}
+.fc-item{display:flex;gap:8px;margin-bottom:7px}
+.fc-item:last-child{margin-bottom:0}
+.fc-av{width:24px;height:24px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;flex-shrink:0}
+.fc-name{font-size:11px;font-weight:600;color:var(--ink)}
+.fc-text{font-size:12px;color:var(--ink2);margin-top:1px;line-height:1.4}
+.fc-input-row{display:flex;gap:8px;margin-top:8px;border-top:.5px solid var(--bds);padding-top:10px}
+.fc-input{flex:1;padding:8px 12px;border:.5px solid var(--bd);border-radius:100px;font-size:13px;background:var(--s1);color:var(--ink)}
+.fc-input:focus{border-color:var(--gold);background:#fff}
+.fc-send{background:var(--ink);color:var(--gold2);border-radius:100px;padding:8px 16px;font-size:12px;font-weight:600}
+.create-bar{background:#fff;border-radius:20px;margin-bottom:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh);border:.5px solid var(--bd);cursor:pointer;transition:border-color .2s}
+.create-bar:active{border-color:var(--gold)}
+.cb-av{width:38px;height:38px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--ink2);flex-shrink:0}
+.cb-ph{font-size:14px;color:var(--ink3);flex:1}
+.feed-empty{text-align:center;padding:40px 20px;color:var(--ink3);font-size:14px;line-height:1.75}
 
-/* ── MILESTONES ── */
+/* MILESTONES */
 .ms-dark{background:linear-gradient(160deg,#1a1712,#2d2820);padding:36px 24px 44px}
-.ms-eye{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(196,162,101,0.55);margin-bottom:10px;font-weight:600}
-.ms-title{font-family:'Playfair Display',serif;font-size:34px;font-weight:400;color:#fff;line-height:1.15;margin-bottom:6px}
-.ms-title em{color:var(--gold);font-style:italic}
-.ms-sub{font-size:13px;color:rgba(255,255,255,0.38);line-height:1.65;font-weight:300}
-.ms-prog-bar{background:rgba(255,255,255,0.08);border-radius:100px;height:3px;margin-top:18px;overflow:hidden}
-.ms-prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:100px;transition:width 1s ease}
-.ms-track-wrap{padding:20px 20px 6px;background:var(--cream);border-radius:24px 24px 0 0;position:relative;z-index:1;margin-top:-18px}
+.ms-eye{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(196,162,101,.55);margin-bottom:10px;font-weight:600}
+.ms-dh{font-family:'Playfair Display',serif;font-size:34px;font-weight:400;color:#fff;line-height:1.15;margin-bottom:6px}
+.ms-dh em{color:var(--gold);font-style:italic}
+.ms-ds{font-size:13px;color:rgba(255,255,255,.38);line-height:1.65;font-weight:300}
+.ms-pb{background:rgba(255,255,255,.08);border-radius:100px;height:3px;margin-top:18px;overflow:hidden}
+.ms-pf{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:100px;transition:width 1s ease}
+.ms-tw{padding:20px 20px 6px;background:var(--cream);border-radius:24px 24px 0 0;position:relative;z-index:1;margin-top:-18px}
 .ms-line{position:absolute;top:38px;left:32px;right:32px;height:2px;background:var(--s3)}
-.ms-linefill{position:absolute;top:38px;left:32px;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width 1s ease}
+.ms-lf{position:absolute;top:38px;left:32px;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width 1s ease}
 .ms-nodes{display:flex;justify-content:space-between;position:relative;z-index:1}
 .msn{display:flex;flex-direction:column;align-items:center;gap:5px}
 .msn-c{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--s2);border:2px solid var(--s3);transition:all .3s}
 .msn.earned .msn-c{background:var(--ink);border-color:var(--ink)}
 .msn.next .msn-c{background:var(--goldp);border-color:var(--gold);animation:pls 2.5s ease-in-out infinite}
-@keyframes pls{0%,100%{box-shadow:0 0 0 0 rgba(196,162,101,0.4)}60%{box-shadow:0 0 0 8px rgba(196,162,101,0)}}
-.msn-n{font-size:9px;font-weight:700;color:var(--ink3);letter-spacing:0.04em}
+@keyframes pls{0%,100%{box-shadow:0 0 0 0 rgba(196,162,101,.4)}60%{box-shadow:0 0 0 8px rgba(196,162,101,0)}}
+.msn-n{font-size:9px;font-weight:700;color:var(--ink3);letter-spacing:.04em}
 .msn.earned .msn-n,.msn.next .msn-n{color:var(--gold)}
 .ms-cards{display:flex;flex-direction:column;gap:10px}
-.ms-card{background:#fff;border:1.5px solid var(--bd);border-radius:20px;padding:16px;display:flex;align-items:center;gap:13px;box-shadow:var(--shadow)}
+.ms-card{background:#fff;border:1.5px solid var(--bd);border-radius:20px;padding:16px;display:flex;align-items:center;gap:13px;box-shadow:var(--sh)}
 .ms-card.earned{background:var(--s1);border-color:var(--s2)}
 .ms-card.next{border-color:var(--gold)}
 .ms-card.locked{opacity:.33}
@@ -192,20 +208,20 @@ img{max-width:100%;display:block}
 .ms-ti{font-size:14px;font-weight:600;margin-bottom:2px}
 .ms-de{font-size:12px;color:var(--ink3);line-height:1.45;margin-bottom:7px}
 .ms-bg{height:3px;background:var(--s2);border-radius:100px;overflow:hidden}
-.ms-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:100px;transition:width .8s ease}
+.ms-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:100px;transition:width .8s}
 .ms-me{font-size:11px;color:var(--ink3);margin-top:4px;font-weight:500}
-.ms-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0}
-.done-tag{background:var(--ink);color:var(--gold2);font-size:9px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.05em;text-align:center}
-.share-ms-btn{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;border-radius:10px;padding:6px 10px;font-size:10px;font-weight:700;text-align:center;letter-spacing:0.02em;transition:transform .15s}
-.share-ms-btn:active{transform:scale(0.96)}
+.ms-btns{display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+.done-tag{background:var(--ink);color:var(--gold2);font-size:9px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.05em;text-align:center}
+.share-ms-btn{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;border-radius:10px;padding:6px 10px;font-size:10px;font-weight:700;text-align:center}
+.share-ms-btn:active{transform:scale(.96);transition:transform .15s}
 
-/* ── REWARDS ── */
+/* REWARDS */
 .rw-hdr{padding:28px 20px 20px;background:#fff;border-bottom:.5px solid var(--bd)}
-.rw-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:400;line-height:1.15;margin-bottom:4px}
-.rw-title em{color:var(--gold);font-style:italic}
+.rw-ti{font-family:'Playfair Display',serif;font-size:32px;font-weight:400;line-height:1.15;margin-bottom:4px}
+.rw-ti em{color:var(--gold);font-style:italic}
 .rw-sub{font-size:13px;color:var(--ink3)}
 .rw-list{display:flex;flex-direction:column;gap:10px}
-.rw-card{background:#fff;border:1.5px solid var(--bd);border-radius:20px;padding:15px;display:flex;align-items:center;gap:13px;box-shadow:var(--shadow)}
+.rw-card{background:#fff;border:1.5px solid var(--bd);border-radius:20px;padding:15px;display:flex;align-items:center;gap:13px;box-shadow:var(--sh)}
 .rw-card.can{border-color:var(--gold)}
 .rw-card.no{opacity:.36}
 .rw-ico{width:50px;height:50px;border-radius:14px;background:var(--s1);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
@@ -215,99 +231,126 @@ img{max-width:100%;display:block}
 .pts-pill{display:inline-block;font-size:11px;font-weight:700;color:var(--goldd);background:var(--goldp);padding:3px 10px;border-radius:100px}
 .pts-need{font-size:11px;color:var(--ink3);margin-left:5px}
 .rdm-btn{background:var(--ink);color:var(--gold2);border-radius:12px;padding:9px 13px;font-size:12px;font-weight:600;flex-shrink:0;transition:transform .15s}
-.rdm-btn:active{transform:scale(0.96)}
+.rdm-btn:active{transform:scale(.96)}
 .rdm-btn.dim{background:var(--s2);color:var(--ink3)}
 
-/* ── FRIENDS ── */
-.friends-hdr{background:linear-gradient(160deg,#1a1712,#2d2820);padding:36px 24px 44px}
-.friends-title{font-family:'Playfair Display',serif;font-size:34px;font-weight:400;color:#fff;line-height:1.15;margin-bottom:5px}
-.friends-title em{color:var(--gold);font-style:italic}
-.friends-sub{font-size:13px;color:rgba(255,255,255,0.38);line-height:1.65;font-weight:300}
-.friends-body{background:var(--cream);border-radius:24px 24px 0 0;padding:20px;margin-top:-18px;position:relative;z-index:1}
-.add-friend-row{display:flex;gap:10px;margin-bottom:6px}
-.add-friend-input{flex:1;padding:12px 14px;border:.5px solid var(--bd);border-radius:var(--rs);font-size:14px;background:#fff;color:var(--ink);transition:border-color .2s}
-.add-friend-input:focus{border-color:var(--gold)}
-.add-friend-btn{background:var(--ink);color:var(--gold2);border-radius:var(--rs);padding:12px 18px;font-size:13px;font-weight:600;white-space:nowrap;transition:transform .15s}
-.add-friend-btn:active{transform:scale(0.96)}
-.add-friend-hint{font-size:11px;color:var(--ink3);margin-bottom:16px}
-.friend-req{background:#fff;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;box-shadow:var(--shadow);border:.5px solid var(--gold)}
+/* FRIENDS */
+.fr-dark{background:linear-gradient(160deg,#1a1712,#2d2820);padding:36px 24px 44px}
+.fr-dh{font-family:'Playfair Display',serif;font-size:34px;font-weight:400;color:#fff;line-height:1.15;margin-bottom:5px}
+.fr-dh em{color:var(--gold);font-style:italic}
+.fr-ds{font-size:13px;color:rgba(255,255,255,.38);line-height:1.65;font-weight:300}
+.fr-body{background:var(--cream);border-radius:24px 24px 0 0;padding:20px;margin-top:-18px;position:relative;z-index:1}
+.af-row{display:flex;gap:10px;margin-bottom:6px}
+.af-inp{flex:1;padding:12px 14px;border:.5px solid var(--bd);border-radius:var(--rs);font-size:14px;background:#fff;color:var(--ink)}
+.af-inp:focus{border-color:var(--gold)}
+.af-btn{background:var(--ink);color:var(--gold2);border-radius:var(--rs);padding:12px 18px;font-size:13px;font-weight:600}
+.af-btn:active{transform:scale(.96);transition:transform .15s}
+.af-hint{font-size:11px;color:var(--ink3);margin-bottom:16px}
+.freq{background:#fff;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;box-shadow:var(--sh);border:.5px solid var(--gold)}
 .freq-name{flex:1;font-size:14px;font-weight:500}
 .freq-btns{display:flex;gap:8px}
-.freq-accept{background:var(--green);color:#fff;border-radius:10px;padding:7px 14px;font-size:12px;font-weight:600;transition:transform .15s}
-.freq-accept:active{transform:scale(0.96)}
-.freq-decline{background:var(--s2);color:var(--ink3);border-radius:10px;padding:7px 12px;font-size:12px;font-weight:500}
-.friend-card{background:#fff;border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:13px;margin-bottom:8px;box-shadow:var(--shadow);border:.5px solid var(--bd)}
-.f-av{width:42px;height:42px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--ink2);flex-shrink:0}
+.freq-y{background:var(--green);color:#fff;border-radius:10px;padding:7px 14px;font-size:12px;font-weight:600}
+.freq-n{background:var(--s2);color:var(--ink3);border-radius:10px;padding:7px 12px;font-size:12px}
+.fc{background:#fff;border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:13px;margin-bottom:8px;box-shadow:var(--sh);border:.5px solid var(--bd);cursor:pointer;transition:border-color .2s}
+.fc:active{border-color:var(--gold)}
+.f-av{width:44px;height:44px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;color:var(--ink2);flex-shrink:0}
 .f-info{flex:1}
 .f-name{font-size:14px;font-weight:600}
 .f-meta{font-size:12px;color:var(--ink3);margin-top:2px}
-.f-stats{display:flex;gap:10px;margin-top:6px}
-.f-stat{text-align:center}
-.f-stat-n{font-family:'Playfair Display',serif;font-size:18px;font-weight:400}
-.f-stat-l{font-size:9px;color:var(--ink3);font-weight:600;letter-spacing:0.04em}
-.f-streak{font-size:13px}
+.f-mini-stats{display:flex;gap:12px;margin-top:6px}
+.f-ms{text-align:center}
+.f-ms-n{font-family:'Playfair Display',serif;font-size:18px;font-weight:400}
+.f-ms-l{font-size:9px;color:var(--ink3);font-weight:600;letter-spacing:.04em}
 .no-friends{text-align:center;padding:32px 20px;color:var(--ink3);font-size:13px;line-height:1.7}
 
-/* ── POST MODAL ── */
+/* NOTIFICATIONS */
+.notif-list{display:flex;flex-direction:column;gap:0}
+.notif-item{display:flex;align-items:flex-start;gap:12px;padding:14px 20px;border-bottom:.5px solid var(--bds);transition:background .2s}
+.notif-item.unread{background:var(--goldp)}
+.notif-ico{font-size:20px;flex-shrink:0;margin-top:1px}
+.notif-body{flex:1}
+.notif-msg{font-size:13px;color:var(--ink);line-height:1.5}
+.notif-time{font-size:11px;color:var(--ink3);margin-top:3px}
+.notif-empty{text-align:center;padding:40px 20px;font-size:14px;color:var(--ink3)}
+
+/* PROFILE */
+.prof-hero{background:linear-gradient(160deg,#1a1712,#2d2820);padding:36px 24px 28px;text-align:center}
+.prof-av{width:72px;height:72px;border-radius:50%;background:rgba(196,162,101,.2);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:600;color:var(--gold2);margin:0 auto 12px;border:2px solid rgba(196,162,101,.3)}
+.prof-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:#fff;margin-bottom:4px}
+.prof-joined{font-size:12px;color:rgba(255,255,255,.35)}
+.prof-stats-row{display:flex;justify-content:center;gap:28px;margin-top:16px}
+.prof-stat{text-align:center}
+.prof-stat-n{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:#fff}
+.prof-stat-l{font-size:10px;color:rgba(255,255,255,.35);font-weight:600;letter-spacing:.06em;margin-top:2px}
+.prof-body{background:var(--cream);border-radius:24px 24px 0 0;padding:20px;margin-top:-16px;position:relative;z-index:1}
+.prof-ms-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.prof-ms-pill{background:var(--ink);color:var(--gold2);border-radius:100px;padding:5px 12px;font-size:12px;font-weight:600}
+.prof-posts{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.prof-post-thumb{aspect-ratio:1;border-radius:6px;overflow:hidden;background:var(--s2);cursor:pointer;position:relative}
+.prof-post-thumb img{width:100%;height:100%;object-fit:cover}
+.prof-post-no-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:24px}
+
+/* MODALS */
 .modal-bg{position:fixed;inset:0;z-index:300;display:none;align-items:flex-end;justify-content:center}
 .modal-bg.on{display:flex}
-.modal-ov{position:absolute;inset:0;background:rgba(15,14,12,0.7);backdrop-filter:blur(8px)}
-.modal{background:var(--cream);border-radius:28px 28px 0 0;padding:24px 24px max(36px,env(safe-area-inset-bottom));width:100%;max-width:430px;position:relative;z-index:1;transform:translateY(100%);transition:transform .4s cubic-bezier(0.4,0,0.2,1);max-height:88vh;overflow-y:auto}
+.modal-ov{position:absolute;inset:0;background:rgba(15,14,12,.7);backdrop-filter:blur(8px)}
+.modal{background:var(--cream);border-radius:28px 28px 0 0;padding:24px 24px max(36px,env(safe-area-inset-bottom));width:100%;max-width:430px;position:relative;z-index:1;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);max-height:88vh;overflow-y:auto}
 .modal-bg.on .modal{transform:translateY(0)}
-.m-handle{width:40px;height:4px;background:var(--s3);border-radius:2px;margin:0 auto 20px}
-.m-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;margin-bottom:4px}
+.m-hdl{width:40px;height:4px;background:var(--s3);border-radius:2px;margin:0 auto 20px}
+.m-ti{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;margin-bottom:4px}
 .m-sub{font-size:13px;color:var(--ink3);margin-bottom:18px}
 .photo-zone{background:var(--s1);border:1.5px dashed var(--s3);border-radius:16px;padding:24px;text-align:center;margin-bottom:14px;cursor:pointer;transition:border-color .2s}
 .photo-zone:active{border-color:var(--gold)}
-.photo-zone-em{font-size:36px;margin-bottom:6px}
-.photo-zone-txt{font-size:13px;color:var(--ink3)}
+.pz-em{font-size:36px;margin-bottom:6px}
+.pz-txt{font-size:13px;color:var(--ink3)}
 .photo-preview{width:100%;border-radius:14px;margin-bottom:14px;object-fit:cover;max-height:200px}
-.post-caption-input{width:100%;padding:12px 14px;border:.5px solid var(--bd);border-radius:14px;font-size:14px;resize:none;background:var(--s1);color:var(--ink);min-height:72px;margin-bottom:12px;transition:border-color .2s}
-.post-caption-input:focus{border-color:var(--gold);background:#fff}
+.post-cap{width:100%;padding:12px 14px;border:.5px solid var(--bd);border-radius:14px;font-size:14px;resize:none;background:var(--s1);color:var(--ink);min-height:72px;margin-bottom:12px}
+.post-cap:focus{border-color:var(--gold);background:#fff}
 .vis-row{display:flex;gap:8px;margin-bottom:14px}
 .vis-opt{flex:1;background:var(--s1);border:1.5px solid transparent;border-radius:var(--rs);padding:10px;text-align:center;transition:all .2s}
 .vis-opt.sel{background:var(--ink);border-color:var(--ink)}
-.vis-opt-em{font-size:18px;display:block;margin-bottom:3px}
-.vis-opt-lb{font-size:11px;color:var(--ink3);font-weight:600}
-.vis-opt.sel .vis-opt-lb{color:var(--gold2)}
-.mood-note{width:100%;padding:11px 14px;border:.5px solid var(--bd);border-radius:14px;font-size:14px;resize:none;background:var(--s1);color:var(--ink);min-height:72px;margin-bottom:14px;transition:border-color .2s}
-.mood-note:focus{border-color:var(--gold);background:#fff}
+.vis-em{font-size:18px;display:block;margin-bottom:3px}
+.vis-lb{font-size:11px;color:var(--ink3);font-weight:600}
+.vis-opt.sel .vis-lb{color:var(--gold2)}
 .mood-scale{display:flex;gap:8px;margin-bottom:14px}
-.ms-opt{flex:1;background:var(--s1);border:1.5px solid transparent;border-radius:12px;padding:11px 3px;text-align:center;transition:all .2s}
-.ms-opt.sel{background:var(--ink);border-color:var(--ink)}
-.ms-opt-em{font-size:20px;display:block;margin-bottom:3px}
-.ms-opt-lb{font-size:9px;color:var(--ink3);font-weight:700;letter-spacing:0.04em;text-transform:uppercase}
-.ms-opt.sel .ms-opt-lb{color:var(--gold2)}
+.ms-o{flex:1;background:var(--s1);border:1.5px solid transparent;border-radius:12px;padding:11px 3px;text-align:center;transition:all .2s}
+.ms-o.sel{background:var(--ink);border-color:var(--ink)}
+.ms-o-em{font-size:20px;display:block;margin-bottom:3px}
+.ms-o-lb{font-size:9px;color:var(--ink3);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.ms-o.sel .ms-o-lb{color:var(--gold2)}
+.mood-note{width:100%;padding:11px 14px;border:.5px solid var(--bd);border-radius:14px;font-size:14px;resize:none;background:var(--s1);color:var(--ink);min-height:72px;margin-bottom:14px}
+.mood-note:focus{border-color:var(--gold);background:#fff}
 
 /* CELEBRATION */
 .cel-bg{position:fixed;inset:0;z-index:500;display:none;align-items:center;justify-content:center;padding:28px}
 .cel-bg.on{display:flex}
-.cel-ov{position:absolute;inset:0;background:rgba(15,14,12,0.85);backdrop-filter:blur(10px)}
-.cel-box{background:#fff;border-radius:28px;padding:40px 28px;text-align:center;max-width:340px;width:100%;position:relative;z-index:1;box-shadow:0 24px 64px rgba(15,14,12,0.3)}
+.cel-ov{position:absolute;inset:0;background:rgba(15,14,12,.85);backdrop-filter:blur(10px)}
+.cel-box{background:#fff;border-radius:28px;padding:40px 28px;text-align:center;max-width:340px;width:100%;position:relative;z-index:1;box-shadow:0 24px 64px rgba(15,14,12,.3)}
 .cel-em{font-size:64px;margin-bottom:14px;display:block}
 .cel-ti{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;margin-bottom:8px;line-height:1.25}
 .cel-ti em{color:var(--gold);font-style:italic}
 .cel-su{font-size:14px;color:var(--ink3);line-height:1.7;margin-bottom:22px}
-.cel-actions{display:flex;flex-direction:column;gap:10px}
-.cel-share{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;border-radius:14px;padding:14px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s}
-.cel-share:active{transform:scale(0.98)}
+.cel-acts{display:flex;flex-direction:column;gap:10px}
+.cel-share{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;border-radius:14px;padding:14px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}
+.cel-share:active{transform:scale(.98);transition:transform .15s}
 .cel-post{background:var(--ink);color:var(--gold2);border-radius:14px;padding:14px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px}
 .cel-close{background:var(--s1);color:var(--ink);border-radius:14px;padding:14px;font-size:14px;font-weight:500}
 
 /* SHARE CARD */
-.ig-overlay{position:fixed;inset:0;z-index:600;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,0.92)}
-.ig-overlay.on{display:flex}
-.ig-wrap{width:100%;max-width:340px}
-.ig-preview{width:100%;aspect-ratio:9/16;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.ig-ov{position:fixed;inset:0;z-index:600;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.92)}
+.ig-ov.on{display:flex}
+.ig-ov-bg{position:absolute;inset:0}
+.ig-wrap{width:100%;max-width:340px;position:relative;z-index:1}
+.ig-prev{width:100%;aspect-ratio:9/16;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 canvas#shareCanvas{width:100%;height:100%;display:block}
 .ig-btns{margin-top:14px;display:flex;flex-direction:column;gap:10px}
 .ig-save{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;border-radius:14px;padding:14px;font-size:14px;font-weight:700;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px}
-.ig-save:active{transform:scale(0.98);transition:transform .15s}
-.ig-cancel{background:rgba(255,255,255,0.1);color:#fff;border-radius:14px;padding:14px;font-size:14px;text-align:center}
-.ig-tip{text-align:center;font-size:11px;color:rgba(255,255,255,0.4);margin-top:8px}
+.ig-save:active{transform:scale(.98);transition:transform .15s}
+.ig-cancel{background:rgba(255,255,255,.1);color:#fff;border-radius:14px;padding:14px;font-size:14px;text-align:center}
+.ig-tip{text-align:center;font-size:11px;color:rgba(255,255,255,.4);margin-top:8px}
 
 /* TOAST */
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--ink);color:#fff;font-size:13px;font-weight:500;padding:12px 22px;border-radius:100px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:999;max-width:88vw;text-align:center;box-shadow:0 4px 20px rgba(15,14,12,0.2)}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--ink);color:#fff;font-size:13px;font-weight:500;padding:12px 22px;border-radius:100px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:999;max-width:88vw;text-align:center;box-shadow:0 4px 20px rgba(15,14,12,.2)}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .empty{text-align:center;padding:32px 0;font-size:13px;color:var(--ink3);line-height:1.8}
 </style>
@@ -318,16 +361,16 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
 <div class="screen on" id="s-onboard">
   <div class="onboard">
     <div class="ob-glow"></div><div class="ob-glow2"></div>
-    <div class="ob-content">
+    <div class="ob-c">
       <div class="ob-logo">MōTIV · Rewards</div>
       <div class="ob-hero">
         <div class="ob-tag">842 Danforth Ave · Toronto</div>
         <div class="ob-h">Your practice,<br><em>celebrated.</em></div>
-        <div class="ob-sub">Earn points every class. Hit milestones. Share your achievements with friends. This is your Pilates journey, made visible.</div>
+        <div class="ob-sub">Earn points every class. Hit milestones. Share achievements with friends. Your Pilates journey, made visible.</div>
       </div>
-      <div class="ob-actions">
-        <button class="ob-primary" onclick="openSheet('signup')">Join free</button>
-        <button class="ob-secondary" onclick="openSheet('login')">I already have an account</button>
+      <div class="ob-acts">
+        <button class="ob-p" onclick="openSheet('signup')">Join free</button>
+        <button class="ob-s" onclick="openSheet('login')">I already have an account</button>
       </div>
       <div class="ob-foot">Staff? <a onclick="window.location='/admin.html'">Admin panel →</a></div>
     </div>
@@ -335,12 +378,12 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
 </div>
 
 <!-- AUTH SHEET -->
-<div class="sheet-bg" id="auth-sheet" onclick="closeSheetBg(event)">
-  <div class="sheet-ov"></div>
+<div class="sheet-bg" id="auth-sheet" onclick="closeSB(event)">
+  <div class="sh-ov"></div>
   <div class="sheet">
-    <div class="s-handle"></div>
+    <div class="s-hdl"></div>
     <div id="sl">
-      <div class="s-title">Welcome back</div>
+      <div class="s-ti">Welcome back</div>
       <div class="s-sub">Sign in to your account</div>
       <div class="field"><label>Email</label><input type="email" id="li-e" placeholder="you@email.com" autocomplete="email"></div>
       <div class="field"><label>Password</label><input type="password" id="li-p" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
@@ -349,12 +392,12 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
       <div class="auth-sw">New here? <a onclick="switchSheet('signup')">Create account</a></div>
     </div>
     <div id="ss" style="display:none">
-      <div class="s-title">Join MōTIV</div>
+      <div class="s-ti">Join MōTIV</div>
       <div class="s-sub">Create your free rewards account</div>
       <div class="field"><label>Full name</label><input type="text" id="su-n" placeholder="Sarah Johnson" autocomplete="name"></div>
       <div class="field"><label>Email</label><input type="email" id="su-e" placeholder="you@email.com" autocomplete="email"></div>
       <div class="field"><label>Phone (optional)</label><input type="tel" id="su-ph" placeholder="416 555 0100"></div>
-      <div class="field"><label>Birthday — get double points your birthday month 🎂</label><input type="date" id="su-bd"></div>
+      <div class="field"><label>Birthday — double points your birthday month 🎂</label><input type="date" id="su-bd"></div>
       <div class="field"><label>Password</label><input type="password" id="su-p" placeholder="At least 6 characters" autocomplete="new-password"></div>
       <button class="btn-ink" onclick="doSignup()">Create my account</button>
       <div class="auth-err" id="su-err"></div>
@@ -367,16 +410,20 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
 <div class="screen" id="s-app">
   <div class="app-hdr">
     <div class="hdr-logo">MōTIV <em>·</em></div>
-    <div class="hdr-pts" id="h-pts">0 pts</div>
+    <div class="hdr-right">
+      <button class="hdr-notif" onclick="switchTab('notifs',document.querySelector('[data-t=notifs]'));loadNotifs()">
+        🔔<div class="hdr-notif-badge" id="notif-badge">0</div>
+      </button>
+      <div class="hdr-pts" id="h-pts">0 pts</div>
+    </div>
   </div>
 
-  <!-- HOME TAB -->
+  <!-- HOME -->
   <div class="tp on pb" id="tp-home">
     <div class="home-hero">
       <div class="home-greet">Welcome back</div>
       <div class="home-name" id="home-name">Loading…</div>
     </div>
-
     <div class="ring-card">
       <svg style="width:0;height:0;position:absolute"><defs>
         <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -400,66 +447,64 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
         <div class="rs"><div class="rs-n" id="qs-str">0</div><div class="rs-l">Wk streak</div></div>
       </div>
     </div>
-
-    <!-- CALENDAR -->
-    <div class="cal-card" id="cal-card">
-      <div class="cal-title">Your practice calendar</div>
-      <div class="cal-streak" id="cal-streak-txt">0 week streak</div>
-      <div style="margin-bottom:6px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px">
-        <div class="cal-day-label">S</div><div class="cal-day-label">M</div><div class="cal-day-label">T</div>
-        <div class="cal-day-label">W</div><div class="cal-day-label">T</div><div class="cal-day-label">F</div><div class="cal-day-label">S</div>
+    <div class="cal-card">
+      <div class="cal-top">
+        <div class="cal-title">Practice calendar</div>
+        <div class="cal-month" id="cal-month"></div>
+      </div>
+      <div class="cal-streak" id="cal-streak">Start your streak</div>
+      <div class="cal-labels">
+        <div class="cal-lbl">S</div><div class="cal-lbl">M</div><div class="cal-lbl">T</div>
+        <div class="cal-lbl">W</div><div class="cal-lbl">T</div><div class="cal-lbl">F</div><div class="cal-lbl">S</div>
       </div>
       <div class="cal-grid" id="cal-grid"></div>
       <div class="cal-legend">
-        <div class="cal-leg"><div class="cal-leg-dot" style="background:rgba(74,158,110,0.5)"></div>Attended</div>
-        <div class="cal-leg"><div class="cal-leg-dot" style="background:rgba(196,162,101,0.4)"></div>🔥 Streak</div>
-        <div class="cal-leg"><div class="cal-leg-dot" style="background:rgba(255,255,255,0.08)"></div>Rest day</div>
+        <div class="cal-leg"><div class="cal-leg-ic" style="background:rgba(74,158,110,.5)"></div>Attended</div>
+        <div class="cal-leg"><div class="cal-leg-ic" style="background:rgba(196,162,101,.4)"></div>🔥 Streak</div>
       </div>
     </div>
-
     <div class="mood-card">
       <div class="mood-q">How did today's class feel?</div>
       <div class="mood-qs">Tap to log your mood</div>
       <div class="mood-row">
-        <button class="mood-opt" onclick="openMoodModal(1)"><span class="mood-em">😴</span><span class="mood-lb">Tired</span></button>
-        <button class="mood-opt" onclick="openMoodModal(2)"><span class="mood-em">😐</span><span class="mood-lb">Okay</span></button>
-        <button class="mood-opt" onclick="openMoodModal(3)"><span class="mood-em">🙂</span><span class="mood-lb">Good</span></button>
-        <button class="mood-opt" onclick="openMoodModal(4)"><span class="mood-em">😄</span><span class="mood-lb">Great</span></button>
-        <button class="mood-opt" onclick="openMoodModal(5)"><span class="mood-em">🤩</span><span class="mood-lb">Amazing</span></button>
+        <button class="mopt" onclick="openMoodM(1)"><span class="mopt-em">😴</span><span class="mopt-lb">Tired</span></button>
+        <button class="mopt" onclick="openMoodM(2)"><span class="mopt-em">😐</span><span class="mopt-lb">Okay</span></button>
+        <button class="mopt" onclick="openMoodM(3)"><span class="mopt-em">🙂</span><span class="mopt-lb">Good</span></button>
+        <button class="mopt" onclick="openMoodM(4)"><span class="mopt-em">😄</span><span class="mopt-lb">Great</span></button>
+        <button class="mopt" onclick="openMoodM(5)"><span class="mopt-em">🤩</span><span class="mopt-lb">Amazing</span></button>
       </div>
     </div>
-
     <div class="sec">
       <div class="ey">Recent activity</div>
       <div id="act-list"><div class="empty">Your journey starts with your first class.<br>Ask staff to add your points at the desk.</div></div>
     </div>
   </div>
 
-  <!-- FEED TAB -->
+  <!-- FEED -->
   <div class="tp pb" id="tp-feed">
     <div class="sec" style="padding-top:20px">
-      <div class="create-post-bar" onclick="openPostModal()">
-        <div class="cp-av" id="feed-av">J</div>
-        <div class="cp-placeholder">Share your practice…</div>
-        <div class="cp-cam">📸</div>
+      <div class="create-bar" onclick="openPostM()">
+        <div class="cb-av" id="feed-av">?</div>
+        <div class="cb-ph">Share your practice…</div>
+        <span style="font-size:20px">📸</span>
       </div>
       <div class="ey">Friends' activity</div>
-      <div id="feed-list"><div class="feed-empty">Add friends to see their posts here.<br>Your community starts in the Friends tab.</div></div>
+      <div id="feed-list"><div class="feed-empty">Add friends to see their posts here.<br>Tab over to Friends to get started.</div></div>
     </div>
   </div>
 
-  <!-- MILESTONES TAB -->
+  <!-- MILESTONES -->
   <div class="tp pb" id="tp-milestones">
     <div class="ms-dark">
       <div class="ms-eye">Your milestones</div>
-      <div class="ms-title">Every class<br><em>counts.</em></div>
-      <div class="ms-sub" id="ms-sub">Here's what you're building toward.</div>
-      <div class="ms-prog-bar"><div class="ms-prog-fill" id="ms-prog-fill" style="width:0%"></div></div>
+      <div class="ms-dh">Every class<br><em>counts.</em></div>
+      <div class="ms-ds" id="ms-sub">Here's what you're building toward.</div>
+      <div class="ms-pb"><div class="ms-pf" id="ms-pf" style="width:0%"></div></div>
     </div>
-    <div class="ms-track-wrap">
+    <div class="ms-tw">
       <div style="position:relative;margin-bottom:20px;padding:0 8px">
         <div class="ms-line"></div>
-        <div class="ms-linefill" id="ms-line-fill" style="width:0%"></div>
+        <div class="ms-lf" id="ms-lf" style="width:0%"></div>
         <div class="ms-nodes">
           <div class="msn" id="mn-1"><div class="msn-c">🌱</div><div class="msn-n">1</div></div>
           <div class="msn" id="mn-5"><div class="msn-c">🔥</div><div class="msn-n">5</div></div>
@@ -473,35 +518,44 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
     </div>
   </div>
 
-  <!-- REWARDS TAB -->
+  <!-- REWARDS -->
   <div class="tp pb" id="tp-rewards">
     <div class="rw-hdr">
-      <div class="rw-title">Your<br><em>rewards.</em></div>
+      <div class="rw-ti">Your<br><em>rewards.</em></div>
       <div class="rw-sub">You have <strong id="rw-pts">0 points</strong> to spend.</div>
     </div>
     <div class="sec" style="padding-top:20px"><div class="rw-list" id="rw-list"></div></div>
   </div>
 
-  <!-- FRIENDS TAB -->
+  <!-- FRIENDS -->
   <div class="tp pb" id="tp-friends">
-    <div class="friends-hdr">
-      <div class="friends-title">Your<br><em>crew.</em></div>
-      <div class="friends-sub">Add friends to see their stats, streaks, and posts.</div>
+    <div class="fr-dark">
+      <div class="fr-dh">Your<br><em>crew.</em></div>
+      <div class="fr-ds">Add friends to see their stats, streaks, and posts.</div>
     </div>
-    <div class="friends-body">
+    <div class="fr-body">
       <div class="ey">Add a friend</div>
-      <div class="add-friend-row">
-        <input class="add-friend-input" id="friend-email" type="email" placeholder="friend@email.com">
-        <button class="add-friend-btn" onclick="sendFriendRequest()">Add</button>
+      <div class="af-row">
+        <input class="af-inp" id="friend-email" type="email" placeholder="friend@email.com">
+        <button class="af-btn" onclick="sendFR()">Add</button>
       </div>
-      <div class="add-friend-hint">Enter their email address — they need a MōTIV account first.</div>
-      <div id="friend-requests-section" style="display:none">
+      <div class="af-hint">Enter their MōTIV email address.</div>
+      <div id="freq-section" style="display:none">
         <div class="ey">Friend requests</div>
-        <div id="friend-requests"></div>
+        <div id="freq-list"></div>
       </div>
       <div class="ey">Friends</div>
       <div id="friends-list"><div class="no-friends">No friends yet.<br>Add someone by their email above.</div></div>
     </div>
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="tp pb" id="tp-notifs">
+    <div style="padding:28px 20px 16px">
+      <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:400;margin-bottom:4px">Notifications</div>
+      <div style="font-size:13px;color:var(--ink3)">Your latest updates from MōTIV.</div>
+    </div>
+    <div class="notif-list" id="notif-list"><div class="notif-empty">No notifications yet.</div></div>
   </div>
 
   <nav class="btm-nav">
@@ -510,51 +564,60 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
     <button class="nb" data-t="milestones" onclick="switchTab('milestones',this)"><div class="nb-ic">🏆</div><div class="nb-lb">Miles</div><div class="nb-dot"></div></button>
     <button class="nb" data-t="rewards" onclick="switchTab('rewards',this)"><div class="nb-ic">🎁</div><div class="nb-lb">Rewards</div><div class="nb-dot"></div></button>
     <button class="nb" data-t="friends" onclick="switchTab('friends',this);loadFriends()">
-      <div class="nb-badge"><div class="nb-ic">👥</div><div class="nb-badge-count" id="req-badge">0</div></div>
-      <div class="nb-lb">Friends</div><div class="nb-dot"></div>
+      <div class="nb-ic">👥</div><div class="nb-lb">Friends</div>
+      <div class="nb-badge" id="fr-badge">0</div>
+      <div class="nb-dot"></div>
     </button>
+    <button class="nb" data-t="notifs" style="display:none" id="nb-notifs" onclick="switchTab('notifs',this);loadNotifs()"><div class="nb-ic">🔔</div><div class="nb-lb">Notifs</div><div class="nb-dot"></div></button>
   </nav>
 </div>
 
 <!-- POST MODAL -->
-<div class="modal-bg" id="post-modal" onclick="closeModalBg(event,'post-modal')">
+<div class="modal-bg" id="post-modal" onclick="closeMB(event,'post-modal')">
   <div class="modal-ov"></div>
   <div class="modal">
-    <div class="m-handle"></div>
-    <div class="m-title">Share your practice</div>
+    <div class="m-hdl"></div>
+    <div class="m-ti">Share your practice</div>
     <div class="m-sub">Post a photo and your stats to your friends.</div>
-    <div class="photo-zone" id="photo-zone" onclick="document.getElementById('photo-input').click()">
-      <div class="photo-zone-em">📷</div>
-      <div class="photo-zone-txt">Tap to add a photo</div>
+    <div class="photo-zone" id="photo-zone" onclick="document.getElementById('photo-inp').click()">
+      <div class="pz-em">📷</div><div class="pz-txt">Tap to add a photo</div>
     </div>
-    <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="handlePhoto(event)">
-    <img id="photo-preview" class="photo-preview" style="display:none">
-    <textarea class="post-caption-input" id="post-caption" placeholder="How was your class today? ✦"></textarea>
+    <input type="file" id="photo-inp" accept="image/*" style="display:none" onchange="handlePhoto(event)">
+    <img id="photo-prev" class="photo-preview" style="display:none">
+    <textarea class="post-cap" id="post-cap" placeholder="How was your class today? ✦"></textarea>
     <div class="m-sub" style="margin-bottom:8px">Who can see this?</div>
     <div class="vis-row">
-      <div class="vis-opt sel" data-v="friends" onclick="pickVis('friends',this)"><span class="vis-opt-em">👥</span><span class="vis-opt-lb">Friends</span></div>
-      <div class="vis-opt" data-v="private" onclick="pickVis('private',this)"><span class="vis-opt-em">🔒</span><span class="vis-opt-lb">Just me</span></div>
+      <div class="vis-opt sel" data-v="friends" onclick="pickVis('friends',this)"><span class="vis-em">👥</span><span class="vis-lb">Friends</span></div>
+      <div class="vis-opt" data-v="private" onclick="pickVis('private',this)"><span class="vis-em">🔒</span><span class="vis-lb">Just me</span></div>
     </div>
     <button class="btn-ink" onclick="submitPost()">Post ✦</button>
   </div>
 </div>
 
 <!-- MOOD MODAL -->
-<div class="modal-bg" id="mood-modal" onclick="closeModalBg(event,'mood-modal')">
+<div class="modal-bg" id="mood-modal" onclick="closeMB(event,'mood-modal')">
   <div class="modal-ov"></div>
   <div class="modal">
-    <div class="m-handle"></div>
-    <div class="m-title">How did that feel?</div>
+    <div class="m-hdl"></div>
+    <div class="m-ti">How did that feel?</div>
     <div class="m-sub">One tap. Your journey, tracked over time.</div>
     <div class="mood-scale" id="mood-scale">
-      <div class="ms-opt" data-v="1" onclick="pickMood(1)"><span class="ms-opt-em">😴</span><span class="ms-opt-lb">Tired</span></div>
-      <div class="ms-opt" data-v="2" onclick="pickMood(2)"><span class="ms-opt-em">😐</span><span class="ms-opt-lb">Okay</span></div>
-      <div class="ms-opt" data-v="3" onclick="pickMood(3)"><span class="ms-opt-em">🙂</span><span class="ms-opt-lb">Good</span></div>
-      <div class="ms-opt" data-v="4" onclick="pickMood(4)"><span class="ms-opt-em">😄</span><span class="ms-opt-lb">Great</span></div>
-      <div class="ms-opt" data-v="5" onclick="pickMood(5)"><span class="ms-opt-em">🤩</span><span class="ms-opt-lb">Amazing</span></div>
+      <div class="ms-o" data-v="1" onclick="pickMood(1)"><span class="ms-o-em">😴</span><span class="ms-o-lb">Tired</span></div>
+      <div class="ms-o" data-v="2" onclick="pickMood(2)"><span class="ms-o-em">😐</span><span class="ms-o-lb">Okay</span></div>
+      <div class="ms-o" data-v="3" onclick="pickMood(3)"><span class="ms-o-em">🙂</span><span class="ms-o-lb">Good</span></div>
+      <div class="ms-o" data-v="4" onclick="pickMood(4)"><span class="ms-o-em">😄</span><span class="ms-o-lb">Great</span></div>
+      <div class="ms-o" data-v="5" onclick="pickMood(5)"><span class="ms-o-em">🤩</span><span class="ms-o-lb">Amazing</span></div>
     </div>
     <textarea class="mood-note" id="mood-note" placeholder="Any notes? e.g. 'Back felt incredible today' (optional)"></textarea>
     <button class="btn-ink" onclick="submitMood()">Save to journal</button>
+  </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="modal-bg" id="prof-modal" onclick="closeMB(event,'prof-modal')">
+  <div class="modal-ov"></div>
+  <div class="modal" style="border-radius:28px 28px 0 0;padding:0;overflow:hidden;max-height:90vh">
+    <div id="prof-content"></div>
   </div>
 </div>
 
@@ -565,24 +628,24 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
     <span class="cel-em" id="cel-em">🎉</span>
     <div class="cel-ti" id="cel-ti">Milestone!</div>
     <div class="cel-su" id="cel-su"></div>
-    <div class="cel-actions">
+    <div class="cel-acts">
       <button class="cel-share" id="cel-share-btn" onclick="openShareCard()" style="display:none">📸 Share to Instagram Story</button>
-      <button class="cel-post" id="cel-post-btn" onclick="closeCel();openPostModal()" style="display:none">✦ Post to friends</button>
+      <button class="cel-post" id="cel-post-btn" onclick="closeCel();openPostM()" style="display:none">✦ Post to friends</button>
       <button class="cel-close" onclick="closeCel()">Keep going ✦</button>
     </div>
   </div>
 </div>
 
 <!-- INSTAGRAM SHARE -->
-<div class="ig-overlay" id="ig-overlay">
+<div class="ig-ov" id="ig-ov">
   <div class="ig-ov-bg" onclick="closeShare()"></div>
   <div class="ig-wrap">
-    <div class="ig-preview"><canvas id="shareCanvas" width="405" height="720"></canvas></div>
+    <div class="ig-prev"><canvas id="shareCanvas" width="405" height="720"></canvas></div>
     <div class="ig-btns">
       <button class="ig-save" onclick="downloadShare()">⬇️ Save photo — then open Instagram Story</button>
       <button class="ig-cancel" onclick="closeShare()">Cancel</button>
     </div>
-    <div class="ig-tip">Save → open Instagram → tap + Story → select from camera roll</div>
+    <div class="ig-tip">Save → Instagram → tap + → Story → select from camera roll</div>
   </div>
 </div>
 
@@ -591,7 +654,7 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
 <script>
 const API = location.origin
 let tok = localStorage.getItem('motiv_tok')
-let me = null, acts = [], selMood = 0, selVis = 'friends', curMilestone = null, photoDataUrl = null, pendingRequests = []
+let me = null, acts = [], selMood = 0, selVis = 'friends', curMs = null, photoUrl = null, pendingReqs = [], unreadNotifs = 0
 
 const REWARDS = [
   {n:'Free smoothie',d:'At the Danforth studio juice bar.',pts:150,ic:'🥤'},
@@ -611,6 +674,7 @@ const MILESTONES = [
 ]
 const MOODS = ['','😴','😐','🙂','😄','🤩']
 const MOOD_LABELS = ['','Tired','Okay','Good','Great','Amazing']
+const NOTIF_ICONS = {points:'✦',milestone:'🎉',referral:'🤝',friend_request:'👋',friend_accept:'🎉',friend_milestone:'🏆',post:'📸',like:'❤️',comment:'💬',message:'📩'}
 
 async function api(m,p,b){
   const o={method:m,headers:{'Content-Type':'application/json'}}
@@ -623,7 +687,7 @@ async function init(){
   if(!tok)return
   const d=await api('GET','/api/me')
   if(d.error){localStorage.removeItem('motiv_tok');tok=null;return}
-  me=d.user;acts=d.activity||[];pendingRequests=d.pendingRequests||[]
+  me=d.user;acts=d.activity||[];pendingReqs=d.pendingRequests||[];unreadNotifs=d.unreadNotifs||0
   document.getElementById('s-onboard').classList.remove('on')
   document.getElementById('s-app').classList.add('on')
   renderAll()
@@ -635,63 +699,60 @@ function renderAll(){
   document.getElementById('h-pts').textContent=pts+' pts'
   const fn=me.name.split(' ')[0]
   document.getElementById('home-name').innerHTML=fn+',<br><em>keep moving.</em>'
-  const init=fn[0].toUpperCase()
-  document.getElementById('feed-av').textContent=init
-
+  document.getElementById('feed-av').textContent=fn[0]||'?'
+  // notif badge
+  const nb=document.getElementById('notif-badge')
+  if(unreadNotifs>0){nb.textContent=unreadNotifs;nb.classList.add('on')}else nb.classList.remove('on')
+  // friend request badge
+  const fb=document.getElementById('fr-badge')
+  if(pendingReqs.length>0){fb.textContent=pendingReqs.length;fb.classList.add('on')}else fb.classList.remove('on')
   // ring
   const circ=2*Math.PI*60
   const arc=document.getElementById('ring-arc')
-  arc.style.strokeDasharray=circ
-  arc.style.strokeDashoffset=circ*(1-Math.min(pts/500,1))
+  arc.style.strokeDasharray=circ;arc.style.strokeDashoffset=circ*(1-Math.min(pts/500,1))
   document.getElementById('ring-n').textContent=pts
   document.getElementById('ring-nx').textContent=Math.max(0,500-pts)>0?(500-pts)+' to free class':'🎉 Free class ready!'
   document.getElementById('qs-cls').textContent=cls
   document.getElementById('qs-ref').textContent=me.totalReferrals
   document.getElementById('qs-str').textContent=str
-
-  // badge
-  const badge=document.getElementById('req-badge')
-  if(pendingRequests.length>0){badge.textContent=pendingRequests.length;badge.classList.add('show')}
-  else badge.classList.remove('show')
-
-  renderCalendar(cls,str)
+  renderCalendar(str)
   renderActivity()
   renderMilestones(cls)
   renderRewards(pts)
 }
 
-function renderCalendar(totalClasses, streak){
-  document.getElementById('cal-streak-txt').innerHTML = streak>0 ? `<em>${streak}</em> week streak ${streak>=4?'🔥🔥':streak>=2?'🔥':''}` : 'Start your streak'
-  const grid=document.getElementById('cal-grid')
+function renderCalendar(streak){
   const today=new Date()
-  const year=today.getFullYear(), month=today.getMonth()
-  const firstDay=new Date(year,month,1).getDay()
-  const daysInMonth=new Date(year,month+1,0).getDate()
-  const classDates=new Set()
-
-  // Simulate which days had classes based on activity
+  const yr=today.getFullYear(),mo=today.getMonth()
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December']
+  document.getElementById('cal-month').textContent=months[mo]
+  const streakTxt=streak>0?`<em>${streak}</em> week streak ${streak>=4?'🔥🔥':streak>=2?'🔥':''}`:'Start your streak'
+  document.getElementById('cal-streak').innerHTML=streakTxt
+  const firstDay=new Date(yr,mo,1).getDay()
+  const daysInMo=new Date(yr,mo+1,0).getDate()
+  // get class dates from activity
+  const classDays=new Set()
   acts.filter(a=>a.type==='class').forEach(a=>{
     const d=new Date(a.createdAt)
-    if(d.getMonth()===month&&d.getFullYear()===year)
-      classDates.add(d.getDate())
+    if(d.getFullYear()===yr&&d.getMonth()===mo)classDays.add(d.getDate())
   })
-
   let html=''
-  for(let i=0;i<firstDay;i++) html+='<div class="cal-day"></div>'
-  for(let d=1;d<=daysInMonth;d++){
+  for(let i=0;i<firstDay;i++)html+='<div class="cd future"></div>'
+  for(let d=1;d<=daysInMo;d++){
     const isToday=d===today.getDate()
-    const went=classDates.has(d)
-    // streak fire: last N days going back from today
-    const daysAgo=(today.getDate()-d)
+    const isFuture=d>today.getDate()
+    const went=classDays.has(d)
+    const daysAgo=today.getDate()-d
     const inStreak=went&&daysAgo>=0&&daysAgo<streak*7
-    let cls2='cal-day'
-    let inner=`<span class="cal-day-num">${d}</span>`
-    if(went&&inStreak){cls2+=' streak-fire';inner='🔥'}
-    else if(went){cls2+=' went';inner=`<span style="font-size:9px;color:#4a9e6e;font-weight:700">${d}</span>`}
+    let cls2='cd'
+    let inner=`<span>${d}</span>`
+    if(isFuture){cls2+=' future';inner=`<span>${d}</span>`}
+    else if(went&&inStreak){cls2+=' fire';inner='🔥'}
+    else if(went){cls2+=' went';inner=`<span>${d}</span>`}
     if(isToday)cls2+=' today'
     html+=`<div class="${cls2}">${inner}</div>`
   }
-  grid.innerHTML=html
+  document.getElementById('cal-grid').innerHTML=html
 }
 
 function renderActivity(){
@@ -700,43 +761,37 @@ function renderActivity(){
   el.innerHTML=acts.slice(0,8).map(a=>{
     const earn=a.points>0
     const ico=a.type==='referral'?'🤝':a.type==='redeem'?'🎁':'✦'
-    const bg=a.type==='referral'?'#e8f5ee':a.type==='redeem'?'var(--s2)':'var(--goldp)'
+    const bg=a.type==='referral'?'var(--greenl)':a.type==='redeem'?'var(--s2)':'var(--goldp)'
     const d=new Date(a.createdAt).toLocaleDateString('en-CA',{month:'short',day:'numeric'})
-    return`<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:.5px solid var(--bds)">
-      <div style="width:34px;height:34px;border-radius:10px;background:${bg};display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">${ico}</div>
+    return`<div class="act-row">
+      <div class="act-ico" style="background:${bg}">${ico}</div>
       <div style="flex:1"><div style="font-size:13px;font-weight:500">${a.label}</div><div style="font-size:11px;color:var(--ink3);margin-top:1px">${d}</div></div>
-      <div style="font-size:13px;font-weight:600;color:${earn?'#4a9e6e':'var(--ink3)'}">${earn?'+':''}${a.points}</div>
+      <div style="font-size:13px;font-weight:600;color:${earn?'var(--green)':'var(--ink3)'}">${earn?'+':''}${a.points}</div>
     </div>`
   }).join('')
 }
 
 function renderMilestones(cls){
   const pct=Math.min(cls/100*100,100)
-  document.getElementById('ms-prog-fill').style.width=pct+'%'
-  document.getElementById('ms-line-fill').style.width=pct+'%'
+  document.getElementById('ms-pf').style.width=pct+'%'
+  document.getElementById('ms-lf').style.width=pct+'%'
   document.getElementById('ms-sub').textContent=cls>0?`You've taken ${cls} class${cls!==1?'es':''}. Here's what you're building toward.`:"Here's what you're building toward."
   const thresh=[1,5,10,25,50,100]
   thresh.forEach((n,i)=>{
-    const el=document.getElementById('mn-'+n)
-    if(!el)return
+    const el=document.getElementById('mn-'+n);if(!el)return
     el.className='msn'+(cls>=n?' earned':cls>=(thresh[i-1]||0)&&cls<n?' next':'')
   })
   document.getElementById('ms-cards').innerHTML=MILESTONES.map((m,i)=>{
-    const done=cls>=m.n, isNext=!done&&cls>=(MILESTONES[i-1]?.n||0)
-    const pct2=Math.min(cls/m.n*100,100)
-    const c=done?'earned':isNext?'next':'locked'
+    const done=cls>=m.n,isNext=!done&&cls>=(MILESTONES[i-1]?.n||0)
+    const pct2=Math.min(cls/m.n*100,100),c=done?'earned':isNext?'next':'locked'
     return`<div class="ms-card ${c}">
       <div class="ms-ic">${m.ic}</div>
       <div class="ms-body">
-        <div class="ms-ti">${m.ti}</div>
-        <div class="ms-de">${m.de}</div>
+        <div class="ms-ti">${m.ti}</div><div class="ms-de">${m.de}</div>
         <div class="ms-bg"><div class="ms-bar" style="width:${pct2}%"></div></div>
         <div class="ms-me">${Math.min(cls,m.n)} of ${m.n}${done?' ✦ complete':' — '+(m.n-cls)+' to go'}</div>
       </div>
-      ${done?`<div class="ms-actions">
-        <div class="done-tag">Done ✦</div>
-        <button class="share-ms-btn" onclick="triggerShare(${m.n},'${m.ic}','${m.ti}')">📸 Share</button>
-      </div>`:''}
+      ${done?`<div class="ms-btns"><div class="done-tag">Done ✦</div><button class="share-ms-btn" onclick="triggerShare(${m.n},'${m.ic}','${m.ti}')">📸 Share</button></div>`:''}
     </div>`
   }).join('')
 }
@@ -747,9 +802,7 @@ function renderRewards(pts){
     const can=pts>=r.pts
     return`<div class="rw-card ${can?'can':'no'}">
       <div class="rw-ico">${r.ic}</div>
-      <div class="rw-body">
-        <div class="rw-name">${r.n}</div>
-        <div class="rw-desc">${r.d}</div>
+      <div class="rw-body"><div class="rw-name">${r.n}</div><div class="rw-desc">${r.d}</div>
         <div><span class="pts-pill">${r.pts} pts</span>${!can?`<span class="pts-need">${r.pts-pts} more</span>`:''}</div>
       </div>
       ${can?`<button class="rdm-btn" onclick="showToast('Show this to Motiv staff: ${r.n} ✦')">Redeem</button>`:`<button class="rdm-btn dim">Soon</button>`}
@@ -759,7 +812,7 @@ function renderRewards(pts){
 
 async function loadFeed(){
   const d=await api('GET','/api/posts/feed')
-  if(d.error||!d.length){
+  if(!Array.isArray(d)||!d.length){
     document.getElementById('feed-list').innerHTML='<div class="feed-empty">No posts yet from your friends.<br>Add friends in the Friends tab, or be the first to post!</div>'
     return
   }
@@ -767,36 +820,45 @@ async function loadFeed(){
 }
 
 function renderPost(p){
-  const init=p.userName?p.userName[0].toUpperCase():'?'
+  const init=(p.userName||'?')[0].toUpperCase()
   const d=new Date(p.createdAt).toLocaleDateString('en-CA',{month:'short',day:'numeric'})
-  const isOwn=p.userId===me?.id
-  const likeCount=p.likes?.length||0
-  const liked=p.likes?.includes(me?.id)
+  const likeCount=p.likes?.length||0,liked=p.likes?.includes(me?.id)
+  const comments=(p.comments||[]).slice(-3)
   return`<div class="feed-post" id="post-${p.id}">
-    <div class="feed-post-hdr">
-      <div class="post-av">${init}</div>
-      <div>
-        <div class="post-name">${p.userName}</div>
-        <div class="post-meta">${p.classType||'Pilates'} · ${d}</div>
-      </div>
-      <div class="post-vis">${p.visibility==='private'?'🔒 Private':'👥 Friends'}</div>
+    <div class="fp-hdr">
+      <div class="fp-av" onclick="openProfile('${p.userId}')">${init}</div>
+      <div><div class="fp-name" onclick="openProfile('${p.userId}')">${p.userName}</div><div class="fp-meta">${p.classType||'Pilates'} · ${d}</div></div>
+      <div class="fp-vis">${p.visibility==='private'?'🔒':'👥'}</div>
     </div>
-    ${p.imageData?`<img class="post-img" src="${p.imageData}" alt="Class photo">`:''}
-    <div class="post-body">
-      <div class="post-stats">
-        <div class="post-stat"><div class="post-stat-n">${p.userStats?.totalClasses||0}</div><div class="post-stat-l">Classes</div></div>
-        <div class="post-stat"><div class="post-stat-n">${p.userStats?.currentStreak||0}</div><div class="post-stat-l">Wk streak</div></div>
-        <div class="post-stat"><div class="post-stat-n">${p.userStats?.points||0}</div><div class="post-stat-l">Points</div></div>
+    ${p.imageData?`<img class="fp-img" src="${p.imageData}" alt="Class photo">`:''}
+    <div class="fp-body">
+      <div class="fp-stats">
+        <div class="fp-stat"><div class="fp-stat-n">${p.userStats?.totalClasses||0}</div><div class="fp-stat-l">Classes</div></div>
+        <div class="fp-stat"><div class="fp-stat-n">${p.userStats?.currentStreak||0}</div><div class="fp-stat-l">Streak</div></div>
+        <div class="fp-stat"><div class="fp-stat-n">${p.userStats?.points||0}</div><div class="fp-stat-l">Points</div></div>
       </div>
-      ${p.caption?`<div class="post-caption">${p.caption}</div>`:''}
-      <div class="post-actions">
-        <button class="like-btn ${liked?'liked':''}" onclick="likePost('${p.id}',this)">
-          ${liked?'❤️':'🤍'} ${likeCount}
-        </button>
-        <div class="post-time">${d}</div>
+      ${p.caption?`<div class="fp-cap">${p.caption}</div>`:''}
+      <div class="fp-acts">
+        <button class="like-btn ${liked?'liked':''}" onclick="likePost('${p.id}',this)">${liked?'❤️':'🤍'} ${likeCount}</button>
+        <button class="comment-btn" onclick="toggleComments('${p.id}')">💬 ${(p.comments||[]).length}</button>
+        <div class="fp-time">${d}</div>
+      </div>
+    </div>
+    <div class="fp-comments" id="cmt-${p.id}" style="display:none">
+      <div id="cmt-list-${p.id}">
+        ${comments.map(c=>`<div class="fc-item"><div class="fc-av">${(c.userName||'?')[0].toUpperCase()}</div><div><div class="fc-name">${c.userName}</div><div class="fc-text">${c.text}</div></div></div>`).join('')}
+      </div>
+      <div class="fc-input-row">
+        <input class="fc-input" id="ci-${p.id}" placeholder="Add a comment…" onkeydown="if(event.key==='Enter')submitComment('${p.id}')">
+        <button class="fc-send" onclick="submitComment('${p.id}')">Send</button>
       </div>
     </div>
   </div>`
+}
+
+function toggleComments(id){
+  const el=document.getElementById('cmt-'+id)
+  el.style.display=el.style.display==='none'?'block':'none'
 }
 
 async function likePost(id,btn){
@@ -806,48 +868,90 @@ async function likePost(id,btn){
   btn.classList.toggle('liked',d.liked)
 }
 
+async function submitComment(postId){
+  const inp=document.getElementById('ci-'+postId)
+  const text=inp.value.trim();if(!text)return
+  const d=await api('POST',`/api/posts/${postId}/comment`,{text})
+  if(d.error){showToast('Error posting comment');return}
+  inp.value=''
+  const list=document.getElementById('cmt-list-'+postId)
+  const c=d.comment
+  list.innerHTML+=`<div class="fc-item"><div class="fc-av">${(c.userName||'?')[0].toUpperCase()}</div><div><div class="fc-name">${c.userName}</div><div class="fc-text">${c.text}</div></div></div>`
+  // update comment count
+  const btn=document.querySelector(`#post-${postId} .comment-btn`)
+  if(btn){const cur=parseInt(btn.textContent.replace('💬','').trim())||0;btn.textContent='💬 '+(cur+1)}
+}
+
+async function openProfile(userId){
+  const d=await api('GET',`/api/profile/${userId}`)
+  if(d.error)return
+  const u=d.user,posts=d.posts||[]
+  const init=u.name[0].toUpperCase()
+  const joined=new Date(u.joinedAt).toLocaleDateString('en-CA',{month:'short',year:'numeric'})
+  const milestoneHtml=(u.earnedMilestones||[]).map(n=>{const m=MILESTONES.find(x=>x.n===n);return m?`<div class="prof-ms-pill">${m.ic} ${n}</div>`:''}).join('')
+  const postsHtml=posts.map(p=>`<div class="prof-post-thumb" onclick="closeMB2('prof-modal')">
+    ${p.imageData?`<img src="${p.imageData}" alt="post">`:`<div class="prof-post-no-img">📸</div>`}
+  </div>`).join('')
+  document.getElementById('prof-content').innerHTML=`
+    <div class="prof-hero">
+      <div style="width:40px;height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin:16px auto 20px"></div>
+      <div class="prof-av">${init}</div>
+      <div class="prof-name">${u.name}</div>
+      <div class="prof-joined">Member since ${joined}</div>
+      <div class="prof-stats-row">
+        <div class="prof-stat"><div class="prof-stat-n">${u.totalClasses}</div><div class="prof-stat-l">Classes</div></div>
+        <div class="prof-stat"><div class="prof-stat-n">${u.currentStreak||0}</div><div class="prof-stat-l">Wk streak</div></div>
+        <div class="prof-stat"><div class="prof-stat-n">${u.longestStreak||0}</div><div class="prof-stat-l">Best</div></div>
+        <div class="prof-stat"><div class="prof-stat-n">${u.points}</div><div class="prof-stat-l">Points</div></div>
+      </div>
+    </div>
+    <div class="prof-body">
+      ${milestoneHtml?`<div class="ey" style="margin-bottom:10px">Milestones</div><div class="prof-ms-pills">${milestoneHtml}</div>`:''}
+      <div class="ey" style="margin-bottom:10px">Posts</div>
+      ${postsHtml?`<div class="prof-posts">${postsHtml}</div>`:'<div class="empty" style="padding:20px 0">No posts yet.</div>'}
+    </div>`
+  document.getElementById('prof-modal').classList.add('on')
+}
+
 async function loadFriends(){
   const d=await api('GET','/api/friends')
   const el=document.getElementById('friends-list')
-  if(!d||d.error||!d.length){
-    el.innerHTML='<div class="no-friends">No friends yet.<br>Add someone by their email above.</div>'
-  } else {
+  if(!Array.isArray(d)||!d.length){el.innerHTML='<div class="no-friends">No friends yet.<br>Add someone by their email above.</div>'}
+  else{
     el.innerHTML=d.map(f=>{
       const init=f.name[0].toUpperCase()
-      const streakEmoji=f.currentStreak>=7?'🔥🔥':f.currentStreak>=3?'🔥':f.currentStreak>0?'✦':''
-      return`<div class="friend-card">
+      const streakEm=f.currentStreak>=7?'🔥🔥':f.currentStreak>=3?'🔥':f.currentStreak>0?'✦':''
+      const dormant=f.daysSinceClass!==null&&f.daysSinceClass>14?`<span style="font-size:10px;color:var(--rose);margin-left:6px">● ${f.daysSinceClass}d ago</span>`:''
+      return`<div class="fc" onclick="openProfile('${f.id}')">
         <div class="f-av">${init}</div>
         <div class="f-info">
-          <div class="f-name">${f.name}</div>
-          <div class="f-meta">${f.currentStreak} wk streak ${streakEmoji}</div>
-          <div class="f-stats">
-            <div class="f-stat"><div class="f-stat-n">${f.totalClasses}</div><div class="f-stat-l">Classes</div></div>
-            <div class="f-stat"><div class="f-stat-n">${f.points}</div><div class="f-stat-l">Points</div></div>
-            <div class="f-stat"><div class="f-stat-n">${f.longestStreak||0}</div><div class="f-stat-l">Best streak</div></div>
+          <div class="f-name">${f.name}${dormant}</div>
+          <div class="f-meta">${f.currentStreak} wk streak ${streakEm}</div>
+          <div class="f-mini-stats">
+            <div class="f-ms"><div class="f-ms-n">${f.totalClasses}</div><div class="f-ms-l">Classes</div></div>
+            <div class="f-ms"><div class="f-ms-n">${f.points}</div><div class="f-ms-l">Points</div></div>
+            <div class="f-ms"><div class="f-ms-n">${f.longestStreak||0}</div><div class="f-ms-l">Best</div></div>
           </div>
         </div>
       </div>`
     }).join('')
   }
-
-  // render pending requests
-  const reqSection=document.getElementById('friend-requests-section')
-  const reqEl=document.getElementById('friend-requests')
-  if(pendingRequests.length>0){
-    reqSection.style.display='block'
-    reqEl.innerHTML=pendingRequests.map(r=>`
-      <div class="friend-req">
-        <div style="font-size:20px">👋</div>
-        <div class="freq-name">${r.from?.name||'Someone'} wants to be friends</div>
-        <div class="freq-btns">
-          <button class="freq-accept" onclick="respondRequest('${r.id}',true)">Accept</button>
-          <button class="freq-decline" onclick="respondRequest('${r.id}',false)">No</button>
-        </div>
-      </div>`).join('')
-  } else reqSection.style.display='none'
+  const reqSec=document.getElementById('freq-section')
+  const reqEl=document.getElementById('freq-list')
+  if(pendingReqs.length>0){
+    reqSec.style.display='block'
+    reqEl.innerHTML=pendingReqs.map(r=>`<div class="freq">
+      <div style="font-size:20px">👋</div>
+      <div class="freq-name">${r.from?.name||'Someone'} wants to be friends</div>
+      <div class="freq-btns">
+        <button class="freq-y" onclick="respondFR('${r.id}',true)">Accept</button>
+        <button class="freq-n" onclick="respondFR('${r.id}',false)">No</button>
+      </div>
+    </div>`).join('')
+  } else reqSec.style.display='none'
 }
 
-async function sendFriendRequest(){
+async function sendFR(){
   const email=document.getElementById('friend-email').value.trim()
   if(!email){showToast('Enter their email address');return}
   const d=await api('POST','/api/friends/request',{toEmail:email})
@@ -856,47 +960,63 @@ async function sendFriendRequest(){
   showToast('Friend request sent to '+d.toName+' ✦')
 }
 
-async function respondRequest(id,accept){
+async function respondFR(id,accept){
   const d=await api('POST','/api/friends/respond',{requestId:id,accept})
   if(d.error){showToast(d.error);return}
-  pendingRequests=pendingRequests.filter(r=>r.id!==id)
-  const badge=document.getElementById('req-badge')
-  if(pendingRequests.length>0){badge.textContent=pendingRequests.length}
-  else badge.classList.remove('show')
+  pendingReqs=pendingReqs.filter(r=>r.id!==id)
+  const fb=document.getElementById('fr-badge')
+  if(pendingReqs.length>0)fb.textContent=pendingReqs.length
+  else fb.classList.remove('on')
   showToast(accept?'Friend added! ✦':'Request declined')
   loadFriends()
 }
 
-// ── POST MODAL ──
-function openPostModal(){document.getElementById('post-modal').classList.add('on')}
-function closeModalBg(e,id){if(e.target.classList.contains('modal-bg')||e.target.classList.contains('modal-ov'))document.getElementById(id).classList.remove('on')}
+async function loadNotifs(){
+  const d=await api('GET','/api/notifications')
+  // mark read
+  await api('POST','/api/notifications/read')
+  unreadNotifs=0
+  document.getElementById('notif-badge').classList.remove('on')
+  if(!Array.isArray(d)||!d.length){
+    document.getElementById('notif-list').innerHTML='<div class="notif-empty">No notifications yet.</div>'
+    return
+  }
+  document.getElementById('notif-list').innerHTML=d.map(n=>{
+    const ic=NOTIF_ICONS[n.type]||'✦'
+    const d2=new Date(n.createdAt).toLocaleDateString('en-CA',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})
+    return`<div class="notif-item ${n.read?'':'unread'}">
+      <div class="notif-ico">${ic}</div>
+      <div class="notif-body"><div class="notif-msg">${n.message}</div><div class="notif-time">${d2}</div></div>
+    </div>`
+  }).join('')
+}
+
+// POST MODAL
+function openPostM(){document.getElementById('post-modal').classList.add('on')}
+function closeMB(e,id){if(e.target.classList.contains('modal-bg')||e.target.classList.contains('modal-ov'))document.getElementById(id).classList.remove('on')}
+function closeMB2(id){document.getElementById(id).classList.remove('on')}
 
 function handlePhoto(e){
   const file=e.target.files[0];if(!file)return
   const reader=new FileReader()
   reader.onload=ev=>{
-    photoDataUrl=ev.target.result
-    const preview=document.getElementById('photo-preview')
-    preview.src=photoDataUrl;preview.style.display='block'
+    photoUrl=ev.target.result
+    const prev=document.getElementById('photo-prev')
+    prev.src=photoUrl;prev.style.display='block'
     document.getElementById('photo-zone').style.display='none'
   }
   reader.readAsDataURL(file)
 }
 
-function pickVis(v,el){
-  selVis=v
-  document.querySelectorAll('.vis-opt').forEach(o=>o.classList.toggle('sel',o.dataset.v===v))
-}
+function pickVis(v,el){selVis=v;document.querySelectorAll('.vis-opt').forEach(o=>o.classList.toggle('sel',o.dataset.v===v))}
 
 async function submitPost(){
-  const caption=document.getElementById('post-caption').value.trim()
-  // Compress image if present
+  const caption=document.getElementById('post-cap').value.trim()
   let imgData=null
-  if(photoDataUrl){
-    const canvas=document.createElement('canvas')
-    const img=new Image();img.src=photoDataUrl
+  if(photoUrl){
+    const canvas=document.createElement('canvas'),img=new Image();img.src=photoUrl
     await new Promise(r=>img.onload=r)
-    const maxW=600;const scale=Math.min(1,maxW/img.width)
+    const maxW=600,scale=Math.min(1,maxW/img.width)
     canvas.width=img.width*scale;canvas.height=img.height*scale
     canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height)
     imgData=canvas.toDataURL('image/jpeg',0.75)
@@ -904,20 +1024,21 @@ async function submitPost(){
   const d=await api('POST','/api/posts',{caption,imageData:imgData,visibility:selVis})
   if(d.error){showToast('Error posting');return}
   document.getElementById('post-modal').classList.remove('on')
-  document.getElementById('post-caption').value=''
-  document.getElementById('photo-preview').style.display='none'
+  document.getElementById('post-cap').value=''
+  document.getElementById('photo-prev').style.display='none'
   document.getElementById('photo-zone').style.display='block'
-  photoDataUrl=null
+  photoUrl=null
   showToast('Posted ✦')
+  loadFeed()
 }
 
-// ── MOOD ──
-function openMoodModal(v){
+// MOOD
+function openMoodM(v){
   selMood=v
-  document.querySelectorAll('#mood-scale .ms-opt').forEach(o=>o.classList.toggle('sel',parseInt(o.dataset.v)===v))
+  document.querySelectorAll('#mood-scale .ms-o').forEach(o=>o.classList.toggle('sel',parseInt(o.dataset.v)===v))
   document.getElementById('mood-modal').classList.add('on')
 }
-function pickMood(v){selMood=v;document.querySelectorAll('#mood-scale .ms-opt').forEach(o=>o.classList.toggle('sel',parseInt(o.dataset.v)===v))}
+function pickMood(v){selMood=v;document.querySelectorAll('#mood-scale .ms-o').forEach(o=>o.classList.toggle('sel',parseInt(o.dataset.v)===v))}
 async function submitMood(){
   if(!selMood)return
   const note=document.getElementById('mood-note').value.trim()
@@ -927,59 +1048,56 @@ async function submitMood(){
   showToast('Mood logged '+MOODS[selMood])
 }
 
-// ── CELEBRATION ──
-function celebrate(em,ti,su,showShare=false,milestone=null){
+// CELEBRATION
+function celebrate(em,ti,su,showShare=false,ms=null){
   document.getElementById('cel-em').innerHTML=em
   document.getElementById('cel-ti').innerHTML=ti
   document.getElementById('cel-su').textContent=su
   document.getElementById('cel-share-btn').style.display=showShare?'flex':'none'
   document.getElementById('cel-post-btn').style.display=showShare?'flex':'none'
-  if(milestone)curMilestone=milestone
+  if(ms)curMs=ms
   document.getElementById('cel-bg').classList.add('on')
 }
 function closeCel(){document.getElementById('cel-bg').classList.remove('on')}
 
-// ── SHARE CARD ──
-function triggerShare(n,ic,ti){curMilestone={n,ic,ti};buildShareCard(n,ic,ti);document.getElementById('ig-overlay').classList.add('on')}
-function openShareCard(){closeCel();if(curMilestone)buildShareCard(curMilestone.n,curMilestone.ic,curMilestone.ti);document.getElementById('ig-overlay').classList.add('on')}
-function closeShare(){document.getElementById('ig-overlay').classList.remove('on')}
+// SHARE
+function triggerShare(n,ic,ti){curMs={n,ic,ti};buildCard(n,ic,ti);document.getElementById('ig-ov').classList.add('on')}
+function openShareCard(){closeCel();if(curMs)buildCard(curMs.n,curMs.ic,curMs.ti);document.getElementById('ig-ov').classList.add('on')}
+function closeShare(){document.getElementById('ig-ov').classList.remove('on')}
 
-function buildShareCard(n,ic,ti){
-  const canvas=document.getElementById('shareCanvas')
-  const ctx=canvas.getContext('2d')
-  const W=405,H=720
-  canvas.width=W;canvas.height=H
+function buildCard(n,ic,ti){
+  const cv=document.getElementById('shareCanvas'),ctx=cv.getContext('2d')
+  const W=405,H=720;cv.width=W;cv.height=H
   const bg=ctx.createLinearGradient(0,0,W,H)
-  bg.addColorStop(0,'#1a1712');bg.addColorStop(0.5,'#2d2820');bg.addColorStop(1,'#1a1510')
+  bg.addColorStop(0,'#1a1712');bg.addColorStop(.5,'#2d2820');bg.addColorStop(1,'#1a1510')
   ctx.fillStyle=bg;ctx.fillRect(0,0,W,H)
-  const glow=ctx.createRadialGradient(W/2,H*0.42,0,W/2,H*0.42,W*0.55)
-  glow.addColorStop(0,'rgba(196,162,101,0.14)');glow.addColorStop(1,'rgba(196,162,101,0)')
+  const glow=ctx.createRadialGradient(W/2,H*.42,0,W/2,H*.42,W*.55)
+  glow.addColorStop(0,'rgba(196,162,101,.14)');glow.addColorStop(1,'rgba(196,162,101,0)')
   ctx.fillStyle=glow;ctx.fillRect(0,0,W,H)
-  ctx.fillStyle='rgba(196,162,101,0.5)';ctx.font='600 12px Inter,sans-serif';ctx.textAlign='center';ctx.fillText('M\u014DTIV REWARDS',W/2,50)
-  ctx.strokeStyle='rgba(196,162,101,0.18)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(W*0.22,66);ctx.lineTo(W*0.78,66);ctx.stroke()
-  ctx.font='88px serif';ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(ic,W/2,H*0.33)
-  ctx.strokeStyle='rgba(196,162,101,0.25)';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(W/2,H*0.33-14,68,0,Math.PI*2);ctx.stroke()
-  const goldGrad=ctx.createLinearGradient(W/2-80,0,W/2+80,0)
-  goldGrad.addColorStop(0,'#c4a265');goldGrad.addColorStop(1,'#e0c08a')
-  ctx.fillStyle=goldGrad;ctx.font='bold 88px Inter,sans-serif';ctx.textAlign='center';ctx.fillText(String(n),W/2,H*0.56)
-  ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font='300 17px Inter,sans-serif';ctx.letterSpacing='0.2em';ctx.fillText('CLASSES',W/2,H*0.625)
-  const label=ti.replace(/\d+\s+classes?\s+[—-]\s*/i,'').toUpperCase()
-  ctx.fillStyle='rgba(255,255,255,0.82)';ctx.font='500 15px Inter,sans-serif';ctx.letterSpacing='0.1em';ctx.fillText(label,W/2,H*0.7)
-  if(me?.name){ctx.fillStyle='rgba(255,255,255,0.35)';ctx.font='300 12px Inter,sans-serif';ctx.letterSpacing='0.05em';ctx.fillText(me.name.toUpperCase(),W/2,H*0.755)}
-  ctx.strokeStyle='rgba(196,162,101,0.18)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(W*0.22,H*0.81);ctx.lineTo(W*0.78,H*0.81);ctx.stroke()
-  ctx.fillStyle='rgba(196,162,101,0.42)';ctx.font='400 10px Inter,sans-serif';ctx.letterSpacing='0.22em';ctx.fillText('MOTIV PILATES \u00B7 TORONTO',W/2,H*0.86)
+  ctx.fillStyle='rgba(196,162,101,.5)';ctx.font='600 12px Inter,sans-serif';ctx.textAlign='center';ctx.fillText('M\u014DTIV REWARDS',W/2,50)
+  ctx.strokeStyle='rgba(196,162,101,.18)';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(W*.22,66);ctx.lineTo(W*.78,66);ctx.stroke()
+  ctx.font='88px serif';ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(ic,W/2,H*.33)
+  ctx.strokeStyle='rgba(196,162,101,.25)';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(W/2,H*.33-14,68,0,Math.PI*2);ctx.stroke()
+  const gg=ctx.createLinearGradient(W/2-80,0,W/2+80,0)
+  gg.addColorStop(0,'#c4a265');gg.addColorStop(1,'#e0c08a')
+  ctx.fillStyle=gg;ctx.font='bold 88px Inter,sans-serif';ctx.textAlign='center';ctx.fillText(String(n),W/2,H*.56)
+  ctx.fillStyle='rgba(255,255,255,.3)';ctx.font='300 17px Inter,sans-serif';ctx.fillText('CLASSES',W/2,H*.625)
+  const lbl=ti.replace(/\d+\s+classes?\s+[—-]\s*/i,'').toUpperCase()
+  ctx.fillStyle='rgba(255,255,255,.82)';ctx.font='500 15px Inter,sans-serif';ctx.fillText(lbl,W/2,H*.7)
+  if(me?.name){ctx.fillStyle='rgba(255,255,255,.35)';ctx.font='300 12px Inter,sans-serif';ctx.fillText(me.name.toUpperCase(),W/2,H*.755)}
+  ctx.strokeStyle='rgba(196,162,101,.18)';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(W*.22,H*.81);ctx.lineTo(W*.78,H*.81);ctx.stroke()
+  ctx.fillStyle='rgba(196,162,101,.42)';ctx.font='400 10px Inter,sans-serif';ctx.fillText('MOTIV PILATES \u00B7 TORONTO',W/2,H*.86)
 }
 
 function downloadShare(){
-  const canvas=document.getElementById('shareCanvas')
-  const a=document.createElement('a');a.download='motiv-milestone.png';a.href=canvas.toDataURL('image/png');a.click()
+  const a=document.createElement('a');a.download='motiv-milestone.png';a.href=document.getElementById('shareCanvas').toDataURL('image/png');a.click()
   showToast('Saved! Open Instagram → Story → select from photos 📸')
   setTimeout(closeShare,2000)
 }
 
-// ── AUTH ──
+// AUTH
 function openSheet(t){switchSheet(t);document.getElementById('auth-sheet').classList.add('on')}
-function closeSheetBg(e){if(e.target===document.getElementById('auth-sheet')||e.target.classList.contains('sheet-ov'))document.getElementById('auth-sheet').classList.remove('on')}
+function closeSB(e){if(e.target===document.getElementById('auth-sheet')||e.target.classList.contains('sh-ov'))document.getElementById('auth-sheet').classList.remove('on')}
 function switchSheet(t){document.getElementById('sl').style.display=t==='login'?'block':'none';document.getElementById('ss').style.display=t==='signup'?'block':'none'}
 
 async function doLogin(){
@@ -990,7 +1108,7 @@ async function doLogin(){
   if(d.error){err.textContent=d.error;return}
   tok=d.token;localStorage.setItem('motiv_tok',tok)
   const full=await api('GET','/api/me')
-  me=full.user;acts=full.activity||[];pendingRequests=full.pendingRequests||[]
+  me=full.user;acts=full.activity||[];pendingReqs=full.pendingRequests||[];unreadNotifs=full.unreadNotifs||0
   document.getElementById('s-onboard').classList.remove('on')
   document.getElementById('s-app').classList.add('on')
   document.getElementById('auth-sheet').classList.remove('on')
@@ -1006,7 +1124,7 @@ async function doSignup(){
   const d=await api('POST','/api/signup',{name:n,email:e,phone:ph,birthday:bd,password:p})
   if(d.error){err.textContent=d.error;return}
   tok=d.token;localStorage.setItem('motiv_tok',tok)
-  me=d.user;acts=[];pendingRequests=[]
+  me=d.user;acts=[];pendingReqs=[];unreadNotifs=0
   document.getElementById('s-onboard').classList.remove('on')
   document.getElementById('s-app').classList.add('on')
   document.getElementById('auth-sheet').classList.remove('on')
@@ -1018,7 +1136,7 @@ function switchTab(name,btn){
   document.querySelectorAll('.tp').forEach(t=>t.classList.remove('on'))
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'))
   document.getElementById('tp-'+name).classList.add('on')
-  btn.classList.add('on')
+  if(btn)btn.classList.add('on')
   window.scrollTo(0,0)
 }
 
