@@ -4,16 +4,21 @@ import jwt from 'jsonwebtoken'
 import cors from 'cors'
 import { Low } from 'lowdb'
 import { JSONFile } from 'lowdb/node'
-import { v4 as uuidv4 } from 'uuid'
 import path from 'path'
 import { fileURLToPath } from 'url'
-
+import { existsSync, writeFileSync } from 'fs'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const SECRET = 'motiv-rewards-secret-2024'
 const ADMIN_SECRET = 'motiv-admin-2024'
 const ADMIN_PASSWORD = 'motiv2024'
 
-const adapter = new JSONFile(path.join(__dirname, 'db.json'))
+const dbPath = path.join(__dirname, 'db.json')
+
+if (!existsSync(dbPath)) {
+
+  writeFileSync(dbPath, JSON.stringify({ users: [], activity: [], posts: [], friendRequests: [], notifications: [] }))
+}
+const adapter = new JSONFile(dbPath)
 const db = new Low(adapter, { users: [], activity: [], posts: [], friendRequests: [], notifications: [] })
 await db.read()
 if (!db.data.posts) db.data.posts = []
