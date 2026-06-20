@@ -23,7 +23,7 @@ await db.write()
 const app = express()
 app.use(cors())
 app.use(express.json({ limit: '10mb' }))
-app.use(express.static(path.join(__dirname)))
+app.use(express.static(path.join(__dirname, 'public')))
 
 function auth(req, res, next) {
   const token = req.headers.authorization?.split(' ')[1]
