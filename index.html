@@ -582,7 +582,7 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
     <div class="photo-zone" id="photo-zone" onclick="document.getElementById('photo-inp').click()">
       <div class="pz-em">📷</div><div class="pz-txt">Tap to add a photo</div>
     </div>
-    <input type="file" id="photo-inp" accept="image/*" style="display:none" onchange="handlePhoto(event)">
+   <input type="file" id="photo-inp" accept="image/*" capture="user" style="display:none" onchange="handlePhoto(event)">
     <img id="photo-prev" class="photo-preview" style="display:none">
     <textarea class="post-cap" id="post-cap" placeholder="How was your class today? ✦"></textarea>
     <div class="m-sub" style="margin-bottom:8px">Who can see this?</div>
