@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>MōTIV</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MōTIV">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta name="theme-color" content="#1a1712">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -353,6 +359,49 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--ink);color:#fff;font-size:13px;font-weight:500;padding:12px 22px;border-radius:100px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:999;max-width:88vw;text-align:center;box-shadow:0 4px 20px rgba(15,14,12,.2)}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .empty{text-align:center;padding:32px 0;font-size:13px;color:var(--ink3);line-height:1.8}
+
+/* CAMERA */
+.cam-ov{position:fixed;inset:0;z-index:700;background:#000;display:none;flex-direction:column}
+.cam-ov.on{display:flex}
+.cam-inner{display:flex;flex-direction:column;height:100%}
+.cam-hdr{display:flex;align-items:center;justify-content:space-between;padding:max(48px,env(safe-area-inset-top)) 20px 16px;background:#000}
+.cam-close{background:rgba(255,255,255,.15);color:#fff;border-radius:50%;width:36px;height:36px;font-size:16px;display:flex;align-items:center;justify-content:center}
+.cam-title{color:#fff;font-size:15px;font-weight:600}
+.cam-spacer{width:36px}
+.cam-preview-wrap{flex:1;position:relative;overflow:hidden;background:#111}
+#cam-video{width:100%;height:100%;object-fit:cover}
+.cam-overlay-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cam-ms-badge{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(20,18,16,.75);backdrop-filter:blur(10px);border:1px solid rgba(196,162,101,.4);border-radius:16px;padding:10px 20px;text-align:center;white-space:nowrap}
+.cam-ms-badge .badge-ic{font-size:20px;display:block;margin-bottom:3px}
+.cam-ms-badge .badge-ti{font-size:13px;font-weight:700;color:#fff}
+.cam-ms-badge .badge-st{font-size:11px;color:rgba(196,162,101,.8);margin-top:2px}
+.cam-ms-badge .badge-mo{font-size:10px;color:rgba(255,255,255,.4);margin-top:3px;letter-spacing:.08em}
+.cam-btm{background:#000;padding:20px 32px max(32px,env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:20px}
+.cam-hint{font-size:11px;color:rgba(255,255,255,.4);text-align:center;flex:1}
+.cam-shutter{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.2);border:3px solid #fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s}
+.cam-shutter:active{transform:scale(.92)}
+.cam-shutter-inner{width:52px;height:52px;border-radius:50%;background:#fff}
+.cam-flip{background:rgba(255,255,255,.15);color:#fff;border-radius:50%;width:44px;height:44px;font-size:18px;display:flex;align-items:center;justify-content:center}
+
+/* RESULT */
+.result-ov{position:fixed;inset:0;z-index:800;background:#000;display:none;flex-direction:column}
+.result-ov.on{display:flex}
+.result-inner{display:flex;flex-direction:column;height:100%}
+.result-img-wrap{flex:1;display:flex;align-items:center;justify-content:center;background:#111;overflow:hidden}
+.result-canvas{max-width:100%;max-height:100%;object-fit:contain}
+.result-actions{background:#000;padding:16px 20px max(28px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px}
+.result-save{background:rgba(255,255,255,.1);color:#fff;border-radius:14px;padding:13px;font-size:14px;font-weight:500;text-align:center}
+.result-insta{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;border-radius:14px;padding:14px;font-size:14px;font-weight:700;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px}
+.result-insta:active{transform:scale(.98);transition:transform .15s}
+.result-post{background:rgba(196,162,101,.15);color:#c4a265;border-radius:14px;padding:13px;font-size:14px;font-weight:600;text-align:center;border:1px solid rgba(196,162,101,.3)}
+
+/* INSTALL BANNER */
+.install-banner{position:fixed;bottom:90px;left:16px;right:16px;background:#1a1712;border:1px solid rgba(196,162,101,.3);border-radius:16px;padding:14px 16px;z-index:400;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.install-content{display:flex;align-items:flex-start;gap:12px}
+.install-icon{font-size:28px;flex-shrink:0}
+.install-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px}
+.install-sub{font-size:12px;color:rgba(255,255,255,.45);line-height:1.5}
+.install-close{background:none;color:rgba(255,255,255,.4);font-size:16px;flex-shrink:0;padding:2px}
 </style>
 </head>
 <body>
@@ -582,7 +631,7 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
     <div class="photo-zone" id="photo-zone" onclick="document.getElementById('photo-inp').click()">
       <div class="pz-em">📷</div><div class="pz-txt">Tap to add a photo</div>
     </div>
-   <input type="file" id="photo-inp" accept="image/*" capture="user" style="display:none" onchange="handlePhoto(event)">
+    <input type="file" id="photo-inp" accept="image/*" style="display:none" onchange="handlePhoto(event)">
     <img id="photo-prev" class="photo-preview" style="display:none">
     <textarea class="post-cap" id="post-cap" placeholder="How was your class today? ✦"></textarea>
     <div class="m-sub" style="margin-bottom:8px">Who can see this?</div>
@@ -791,7 +840,7 @@ function renderMilestones(cls){
         <div class="ms-bg"><div class="ms-bar" style="width:${pct2}%"></div></div>
         <div class="ms-me">${Math.min(cls,m.n)} of ${m.n}${done?' ✦ complete':' — '+(m.n-cls)+' to go'}</div>
       </div>
-      ${done?`<div class="ms-btns"><div class="done-tag">Done ✦</div><button class="share-ms-btn" onclick="triggerShare(${m.n},'${m.ic}','${m.ti}')">📸 Share</button></div>`:''}
+      ${done?`<div class="ms-btns"><div class="done-tag">Done ✦</div><button class="share-ms-btn" onclick="openAchievementCamera({n:${m.n},ic:'${m.ic}',ti:'${m.ti}'})">📸 Share</button></div>`:''}
     </div>`
   }).join('')
 }
@@ -1146,6 +1195,305 @@ function showToast(msg){
 }
 
 init()
+
+// ── PWA & INSTALL ──
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(()=>{})
+}
+
+function showInstallPrompt() {
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent)
+  const isStandalone = window.navigator.standalone === true
+  const dismissed = localStorage.getItem('motiv_install_dismissed')
+  if (isIOS && !isStandalone && !dismissed) {
+    setTimeout(() => {
+      document.getElementById('install-banner').style.display = 'block'
+    }, 3000)
+  }
+}
+
+function dismissInstall() {
+  document.getElementById('install-banner').style.display = 'none'
+  localStorage.setItem('motiv_install_dismissed', '1')
+}
+
+// ── ACHIEVEMENT CAMERA ──
+let camStream = null
+let camFacing = 'user'
+let currentAchievement = null
+let resultPhotoUrl = null
+
+async function openAchievementCamera(milestone) {
+  currentAchievement = milestone
+  const badge = document.getElementById('cam-ms-badge')
+  badge.innerHTML = `
+    <span class="badge-ic">${milestone.ic}</span>
+    <div class="badge-ti">${milestone.n} CLASSES</div>
+    <div class="badge-st">${milestone.ti.replace(/\d+\s+classes?\s+[—-]\s*/i,'').toUpperCase()}</div>
+    <div class="badge-mo">@motivpilates</div>
+  `
+  document.getElementById('cam-ov').classList.add('on')
+  await startCamera()
+}
+
+async function startCamera() {
+  if (camStream) camStream.getTracks().forEach(t => t.stop())
+  try {
+    camStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: camFacing, width: { ideal: 1080 }, height: { ideal: 1920 } },
+      audio: false
+    })
+    document.getElementById('cam-video').srcObject = camStream
+  } catch(e) {
+    // Fallback to file picker if camera denied
+    closeCamera()
+    showToast('Camera access denied — using photo picker instead')
+    document.getElementById('photo-inp').click()
+  }
+}
+
+function flipCamera() {
+  camFacing = camFacing === 'user' ? 'environment' : 'user'
+  startCamera()
+}
+
+function closeCamera() {
+  if (camStream) camStream.getTracks().forEach(t => t.stop())
+  camStream = null
+  document.getElementById('cam-ov').classList.remove('on')
+}
+
+function takePhoto() {
+  const video = document.getElementById('cam-video')
+  const W = video.videoWidth || 1080
+  const H = video.videoHeight || 1920
+  const canvas = document.getElementById('result-canvas')
+  canvas.width = W; canvas.height = H
+  const ctx = canvas.getContext('2d')
+
+  // Draw video frame
+  if (camFacing === 'user') {
+    ctx.translate(W, 0); ctx.scale(-1, 1)
+  }
+  ctx.drawImage(video, 0, 0, W, H)
+  if (camFacing === 'user') { ctx.setTransform(1,0,0,1,0,0) }
+
+  // Add achievement overlay
+  drawAchievementOverlay(ctx, W, H, currentAchievement)
+
+  resultPhotoUrl = canvas.toDataURL('image/jpeg', 0.92)
+  closeCamera()
+  document.getElementById('result-ov').classList.add('on')
+}
+
+function drawAchievementOverlay(ctx, W, H, ms) {
+  if (!ms) return
+  const scale = W / 390
+
+  // Bottom overlay gradient
+  const grad = ctx.createLinearGradient(0, H*0.55, 0, H)
+  grad.addColorStop(0, 'rgba(0,0,0,0)')
+  grad.addColorStop(1, 'rgba(15,14,12,0.88)')
+  ctx.fillStyle = grad
+  ctx.fillRect(0, H*0.55, W, H*0.45)
+
+  // Stats row (classes, streak, points)
+  if (me) {
+    const stats = [
+      { n: me.totalClasses, l: 'CLASSES' },
+      { n: me.currentStreak || 0, l: 'WK STREAK' },
+      { n: me.points, l: 'POINTS' }
+    ]
+    const statY = H * 0.68
+    const statW = W / 3
+    stats.forEach((s, i) => {
+      const x = statW * i + statW / 2
+      ctx.fillStyle = 'rgba(255,255,255,0.9)'
+      ctx.font = `bold ${28 * scale}px Inter, sans-serif`
+      ctx.textAlign = 'center'
+      ctx.fillText(String(s.n), x, statY)
+      ctx.fillStyle = 'rgba(255,255,255,0.4)'
+      ctx.font = `${10 * scale}px Inter, sans-serif`
+      ctx.fillText(s.l, x, statY + 18 * scale)
+    })
+    // Separator lines
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)'
+    ctx.lineWidth = 0.5 * scale
+    ;[1,2].forEach(i => {
+      const x = statW * i
+      ctx.beginPath(); ctx.moveTo(x, statY - 24*scale); ctx.lineTo(x, statY + 24*scale); ctx.stroke()
+    })
+  }
+
+  // Achievement badge
+  const badgeY = H * 0.77
+  ctx.fillStyle = 'rgba(196,162,101,0.95)'
+  const badgeW = 180 * scale, badgeH = 34 * scale
+  const bx = (W - badgeW) / 2
+  roundRect(ctx, bx, badgeY, badgeW, badgeH, 17 * scale)
+  ctx.fill()
+  ctx.fillStyle = '#1a1712'
+  ctx.font = `bold ${13 * scale}px Inter, sans-serif`
+  ctx.textAlign = 'center'
+  const label = ms.ti.replace(/\d+\s+classes?\s+[—-]\s*/i,'').toUpperCase()
+  ctx.fillText(ms.ic + '  ' + label, W/2, badgeY + badgeH*0.68)
+
+  // Name
+  if (me?.name) {
+    ctx.fillStyle = 'rgba(255,255,255,0.7)'
+    ctx.font = `${11 * scale}px Inter, sans-serif`
+    ctx.textAlign = 'center'
+    ctx.fillText(me.name.toUpperCase(), W/2, H * 0.865)
+  }
+
+  // @motivpilates watermark
+  ctx.fillStyle = 'rgba(255,255,255,0.85)'
+  ctx.font = `bold ${13 * scale}px Inter, sans-serif`
+  ctx.textAlign = 'center'
+  ctx.fillText('@motivpilates', W/2, H * 0.9)
+
+  // MoTIV top watermark
+  ctx.fillStyle = 'rgba(255,255,255,0.5)'
+  ctx.font = `${11 * scale}px Inter, sans-serif`
+  ctx.letterSpacing = '0.2em'
+  ctx.textAlign = 'center'
+  ctx.fillText('MōTIV REWARDS', W/2, 52 * scale)
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath()
+  ctx.moveTo(x+r, y)
+  ctx.lineTo(x+w-r, y)
+  ctx.quadraticCurveTo(x+w, y, x+w, y+r)
+  ctx.lineTo(x+w, y+h-r)
+  ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h)
+  ctx.lineTo(x+r, y+h)
+  ctx.quadraticCurveTo(x, y+h, x, y+h-r)
+  ctx.lineTo(x, y+r)
+  ctx.quadraticCurveTo(x, y, x+r, y)
+  ctx.closePath()
+}
+
+function closeResult() {
+  document.getElementById('result-ov').classList.remove('on')
+  resultPhotoUrl = null
+}
+
+function saveResultPhoto() {
+  if (!resultPhotoUrl) return
+  const a = document.createElement('a')
+  a.download = 'motiv-achievement.jpg'
+  a.href = resultPhotoUrl
+  a.click()
+  showToast('Saved! Now open Instagram → + → Story 📸')
+}
+
+function shareToInsta() {
+  saveResultPhoto()
+  setTimeout(() => {
+    // Try to open Instagram
+    window.location.href = 'instagram://story-camera'
+    setTimeout(() => {
+      // Fallback to instagram.com if app not installed
+      window.open('https://instagram.com', '_blank')
+    }, 1500)
+  }, 800)
+}
+
+async function postToFeed() {
+  if (!resultPhotoUrl) return
+  // Compress
+  const canvas = document.createElement('canvas')
+  const img = new Image(); img.src = resultPhotoUrl
+  await new Promise(r => img.onload = r)
+  const maxW = 800, scale = Math.min(1, maxW/img.width)
+  canvas.width = img.width*scale; canvas.height = img.height*scale
+  canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height)
+  const compressed = canvas.toDataURL('image/jpeg', 0.8)
+  
+  // Pre-fill post modal
+  document.getElementById('photo-prev').src = compressed
+  document.getElementById('photo-prev').style.display = 'block'
+  document.getElementById('photo-zone').style.display = 'none'
+  photoUrl = compressed
+  closeResult()
+  openPostM()
+}
+
+// Override celebrate to show camera option
+const _origCelebrate = celebrate
+// Patch milestone trigger to use camera
+function celebrateWithCamera(ms) {
+  currentAchievement = ms
+  celebrate(ms.ic, ms.n + ' classes!<br><em>' + ms.ti.replace(/\d+\s+classes?\s+[—-]\s*/i,'') + '</em>', 
+    'You earned this. Capture the moment.', true, ms)
+  document.getElementById('cel-share-btn').textContent = '📸 Take achievement photo'
+  document.getElementById('cel-share-btn').onclick = () => { closeCel(); openAchievementCamera(ms) }
+  document.getElementById('cel-post-btn').style.display = 'none'
+}
+
+// Show install prompt after login
+const _origRenderAll = renderAll
+// Call install prompt on load
+setTimeout(showInstallPrompt, 2000)
+
 </script>
+
+<!-- ACHIEVEMENT CAMERA -->
+<div class="cam-ov" id="cam-ov">
+  <div class="cam-inner">
+    <div class="cam-hdr">
+      <button class="cam-close" onclick="closeCamera()">✕</button>
+      <div class="cam-title">Take your moment</div>
+      <div class="cam-spacer"></div>
+    </div>
+    <div class="cam-preview-wrap">
+      <video id="cam-video" autoplay playsinline muted></video>
+      <canvas id="cam-overlay" class="cam-overlay-canvas"></canvas>
+      <div class="cam-ms-badge" id="cam-ms-badge"></div>
+    </div>
+    <div class="cam-btm">
+      <div class="cam-hint">Your achievement will be added to the photo</div>
+      <button class="cam-shutter" onclick="takePhoto()" id="cam-shutter">
+        <div class="cam-shutter-inner"></div>
+      </button>
+      <button class="cam-flip" onclick="flipCamera()">🔄</button>
+    </div>
+  </div>
+</div>
+
+<!-- PHOTO RESULT -->
+<div class="result-ov" id="result-ov">
+  <div class="result-inner">
+    <div class="result-hdr">
+      <button class="cam-close" onclick="closeResult()">✕</button>
+      <div class="cam-title">Share your moment</div>
+      <div class="cam-spacer"></div>
+    </div>
+    <div class="result-img-wrap">
+      <canvas id="result-canvas" class="result-canvas"></canvas>
+    </div>
+    <div class="result-actions">
+      <button class="result-save" onclick="saveResultPhoto()">⬇️ Save photo</button>
+      <button class="result-insta" onclick="shareToInsta()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Share to Instagram Story
+      </button>
+      <button class="result-post" onclick="postToFeed()">✦ Post to friends feed</button>
+    </div>
+  </div>
+</div>
+
+<!-- INSTALL PROMPT -->
+<div class="install-banner" id="install-banner" style="display:none">
+  <div class="install-content">
+    <div class="install-icon">🏠</div>
+    <div class="install-text">
+      <div class="install-title">Add MōTIV to your home screen</div>
+      <div class="install-sub">Tap <strong>Share</strong> then <strong>"Add to Home Screen"</strong> for the full app experience</div>
+    </div>
+    <button class="install-close" onclick="dismissInstall()">✕</button>
+  </div>
+</div>
 </body>
 </html>
