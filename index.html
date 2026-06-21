@@ -366,6 +366,8 @@ canvas#shareCanvas{width:100%;height:100%;display:block}
 .cam-inner{display:flex;flex-direction:column;height:100%}
 .cam-hdr{display:flex;align-items:center;justify-content:space-between;padding:max(52px,calc(env(safe-area-inset-top) + 16px)) 20px 16px;background:#000}
 .cam-close{background:rgba(255,255,255,.15);color:#fff;border-radius:50%;width:36px;height:36px;font-size:16px;display:flex;align-items:center;justify-content:center}
+.retake-btn{background:rgba(255,255,255,.12);color:#fff;border-radius:20px;padding:8px 14px;font-size:13px;font-weight:600;font-family:Inter,sans-serif;letter-spacing:.02em;border:.5px solid rgba(255,255,255,.2)}
+.retake-btn:active{transform:scale(.96);transition:transform .15s}
 .cam-title{color:#fff;font-size:15px;font-weight:600}
 .cam-spacer{width:36px}
 .cam-preview-wrap{flex:1;position:relative;overflow:hidden;background:#111}
@@ -1390,6 +1392,13 @@ function closeResult() {
   resultPhotoUrl = null
 }
 
+function retakePhoto() {
+  document.getElementById('result-ov').classList.remove('on')
+  resultPhotoUrl = null
+  // Reopen camera with same achievement
+  openAchievementCamera(currentAchievement)
+}
+
 function saveResultPhoto() {
   if (!resultPhotoUrl) return
   const a = document.createElement('a')
@@ -1477,9 +1486,9 @@ setTimeout(showInstallPrompt, 2000)
 <div class="result-ov" id="result-ov">
   <div class="result-inner">
     <div class="result-hdr">
-      <button class="cam-close" onclick="closeResult()">✕</button>
+      <button class="retake-btn" onclick="retakePhoto()">↩ Retake</button>
       <div class="cam-title">Share your moment</div>
-      <div class="cam-spacer"></div>
+      <div class="cam-spacer" style="width:70px"></div>
     </div>
     <div class="result-img-wrap">
       <canvas id="result-canvas" class="result-canvas"></canvas>
